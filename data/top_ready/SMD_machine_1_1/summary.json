@@ -1,0 +1,41 @@
+{
+  "dataset": "SMD_machine_1_1",
+  "train_shape": [
+    28479,
+    38
+  ],
+  "test_shape": [
+    28479,
+    38
+  ],
+  "num_features": 38,
+  "test_anomaly_points": 2694,
+  "test_anomaly_ratio": 0.09459601811861372,
+  "columns_file": "columns.json",
+  "first_10_features": [
+    "D1",
+    "D2",
+    "D3",
+    "D4",
+    "D5",
+    "D6",
+    "D7",
+    "D8",
+    "D9",
+    "D10"
+  ],
+  "last_10_features": [
+    "D29",
+    "D30",
+    "D31",
+    "D32",
+    "D33",
+    "D34",
+    "D35",
+    "D36",
+    "D37",
+    "D38"
+  ],
+  "source": "G:\\Develop\\python_projects\\2026.05_DaChuang\\data\\ServerMachineDataset",
+  "has_interpretation_label": true
+}

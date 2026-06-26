@@ -1,0 +1,42 @@
+{
+  "dataset": "WaDI_A2_ds10",
+  "train_shape": [
+    78457,
+    123
+  ],
+  "test_shape": [
+    17280,
+    123
+  ],
+  "num_features": 123,
+  "test_anomaly_points": 1010,
+  "test_anomaly_ratio": 0.05844907407407408,
+  "columns_file": "columns.json",
+  "first_10_features": [
+    "1_AIT_001_PV",
+    "1_AIT_002_PV",
+    "1_AIT_003_PV",
+    "1_AIT_004_PV",
+    "1_AIT_005_PV",
+    "1_FIT_001_PV",
+    "1_LS_001_AL",
+    "1_LS_002_AL",
+    "1_LT_001_PV",
+    "1_MV_001_STATUS"
+  ],
+  "last_10_features": [
+    "3_MV_001_STATUS",
+    "3_MV_002_STATUS",
+    "3_MV_003_STATUS",
+    "3_P_001_STATUS",
+    "3_P_002_STATUS",
+    "3_P_003_STATUS",
+    "3_P_004_STATUS",
+    "LEAK_DIFF_PRESSURE",
+    "PLANT_START_STOP_LOG",
+    "TOTAL_CONS_REQUIRED_FLOW"
+  ],
+  "source": "G:\\Develop\\python_projects\\2026.05_DaChuang\\data\\WaDI_A2",
+  "downsample_factor": 10,
+  "label_rule": "A downsampled point is anomalous if any original point in the bucket is anomalous."
+}

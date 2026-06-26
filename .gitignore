@@ -1,0 +1,12 @@
+node_modules/
+frontend/dist/
+__pycache__/
+*.pyc
+.venv/
+outputs/jobs/
+backend/.deps/
+backend/vendor/
+tmp/
+frontend/_tmp_*/
+/????????
+/_tmp_*

@@ -1,0 +1,11 @@
+{
+  "dataset": "WaDI_A2_ds10",
+  "candidate_csv": "G:\\Develop\\python_projects\\2026.05_DaChuang\\outputs\\root_cause\\WaDI_A2_ds10\\event_root_cause_candidates.csv",
+  "label_csv": "G:\\Develop\\python_projects\\2026.05_DaChuang\\data\\root_cause_labels\\WaDI_A2_ds10\\event_root_cause_wadi_pdf_labels.csv",
+  "evaluated_events": 12,
+  "hit_at_1": 0.3333333333333333,
+  "hit_at_3": 0.4166666666666667,
+  "hit_at_5": 0.5,
+  "hit_at_10": 0.5,
+  "mrr": 0.3819444444444444
+}

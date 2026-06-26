@@ -1,0 +1,27 @@
+{
+  "dataset": "WaDI_A2_ds10",
+  "run_dir": "G:\\Develop\\python_projects\\2026.05_DaChuang\\outputs\\top_ready_relation_gat\\WaDI_A2_ds10\\full_joint",
+  "num_events": 14,
+  "edge_weight": 0.05,
+  "relation_window": 40,
+  "important_edge_quantile": 0.9,
+  "top_global_joint": [
+    "2_MCV_007_CO",
+    "2_FIC_601_PV",
+    "2_P_003_STATUS",
+    "1_MV_001_STATUS",
+    "1_MV_004_STATUS",
+    "2_P_004_SPEED",
+    "2_FIT_003_PV",
+    "1_P_003_STATUS",
+    "1_P_001_STATUS",
+    "2_PIC_003_PV"
+  ],
+  "csv": "G:\\Develop\\python_projects\\2026.05_DaChuang\\outputs\\root_cause\\WaDI_A2_ds10\\event_root_cause_candidates.csv",
+  "json": "G:\\Develop\\python_projects\\2026.05_DaChuang\\outputs\\root_cause\\WaDI_A2_ds10\\event_root_cause_candidates.json",
+  "figures": {
+    "global_topk": "G:\\Develop\\python_projects\\2026.05_DaChuang\\outputs\\root_cause\\WaDI_A2_ds10\\global_root_cause_topk.png",
+    "event_heatmap": "G:\\Develop\\python_projects\\2026.05_DaChuang\\outputs\\root_cause\\WaDI_A2_ds10\\event_root_cause_heatmap.png",
+    "event_heatmap_row_normalized": "G:\\Develop\\python_projects\\2026.05_DaChuang\\outputs\\root_cause\\WaDI_A2_ds10\\event_root_cause_heatmap_row_normalized.png"
+  }
+}

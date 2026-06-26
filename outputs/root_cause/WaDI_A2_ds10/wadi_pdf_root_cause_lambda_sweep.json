@@ -1,0 +1,225 @@
+{
+  "label_csv": "G:\\Develop\\python_projects\\2026.05_DaChuang\\data\\root_cause_labels\\WaDI_A2_ds10\\event_root_cause_wadi_pdf_labels.csv",
+  "best": {
+    "dataset": "WaDI_A2_ds10",
+    "lambda": 0.05,
+    "evaluated_events": 12,
+    "hit_at_1": 0.3333333333333333,
+    "hit_at_3": 0.4166666666666667,
+    "hit_at_5": 0.5,
+    "hit_at_10": 0.5,
+    "mrr": 0.3819444444444444
+  },
+  "summary": [
+    {
+      "dataset": "WaDI_A2_ds10",
+      "lambda": 0.0,
+      "evaluated_events": 12,
+      "hit_at_1": 0.3333333333333333,
+      "hit_at_3": 0.3333333333333333,
+      "hit_at_5": 0.3333333333333333,
+      "hit_at_10": 0.75,
+      "mrr": 0.38912037037037034
+    },
+    {
+      "dataset": "WaDI_A2_ds10",
+      "lambda": 0.05,
+      "evaluated_events": 12,
+      "hit_at_1": 0.3333333333333333,
+      "hit_at_3": 0.4166666666666667,
+      "hit_at_5": 0.5,
+      "hit_at_10": 0.5,
+      "mrr": 0.3819444444444444
+    },
+    {
+      "dataset": "WaDI_A2_ds10",
+      "lambda": 0.1,
+      "evaluated_events": 12,
+      "hit_at_1": 0.25,
+      "hit_at_3": 0.3333333333333333,
+      "hit_at_5": 0.4166666666666667,
+      "hit_at_10": 0.4166666666666667,
+      "mrr": 0.2986111111111111
+    },
+    {
+      "dataset": "WaDI_A2_ds10",
+      "lambda": 0.15,
+      "evaluated_events": 12,
+      "hit_at_1": 0.25,
+      "hit_at_3": 0.3333333333333333,
+      "hit_at_5": 0.4166666666666667,
+      "hit_at_10": 0.4166666666666667,
+      "mrr": 0.2986111111111111
+    },
+    {
+      "dataset": "WaDI_A2_ds10",
+      "lambda": 0.2,
+      "evaluated_events": 12,
+      "hit_at_1": 0.16666666666666666,
+      "hit_at_3": 0.3333333333333333,
+      "hit_at_5": 0.4166666666666667,
+      "hit_at_10": 0.4166666666666667,
+      "mrr": 0.2569444444444445
+    },
+    {
+      "dataset": "WaDI_A2_ds10",
+      "lambda": 0.25,
+      "evaluated_events": 12,
+      "hit_at_1": 0.16666666666666666,
+      "hit_at_3": 0.25,
+      "hit_at_5": 0.3333333333333333,
+      "hit_at_10": 0.3333333333333333,
+      "mrr": 0.2152777777777778
+    },
+    {
+      "dataset": "WaDI_A2_ds10",
+      "lambda": 0.3,
+      "evaluated_events": 12,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.25,
+      "hit_at_5": 0.3333333333333333,
+      "hit_at_10": 0.3333333333333333,
+      "mrr": 0.11805555555555554
+    },
+    {
+      "dataset": "WaDI_A2_ds10",
+      "lambda": 0.35,
+      "evaluated_events": 12,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.08333333333333333,
+      "hit_at_5": 0.16666666666666666,
+      "hit_at_10": 0.3333333333333333,
+      "mrr": 0.06884920634920634
+    },
+    {
+      "dataset": "WaDI_A2_ds10",
+      "lambda": 0.4,
+      "evaluated_events": 12,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.08333333333333333,
+      "hit_at_5": 0.16666666666666666,
+      "hit_at_10": 0.25,
+      "mrr": 0.05694444444444444
+    },
+    {
+      "dataset": "WaDI_A2_ds10",
+      "lambda": 0.45,
+      "evaluated_events": 12,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.08333333333333333,
+      "hit_at_5": 0.16666666666666666,
+      "hit_at_10": 0.25,
+      "mrr": 0.05694444444444444
+    },
+    {
+      "dataset": "WaDI_A2_ds10",
+      "lambda": 0.5,
+      "evaluated_events": 12,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.08333333333333333,
+      "hit_at_5": 0.16666666666666666,
+      "hit_at_10": 0.25,
+      "mrr": 0.05694444444444444
+    },
+    {
+      "dataset": "WaDI_A2_ds10",
+      "lambda": 0.55,
+      "evaluated_events": 12,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.08333333333333333,
+      "hit_at_5": 0.16666666666666666,
+      "hit_at_10": 0.25,
+      "mrr": 0.05694444444444444
+    },
+    {
+      "dataset": "WaDI_A2_ds10",
+      "lambda": 0.6,
+      "evaluated_events": 12,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.08333333333333333,
+      "hit_at_5": 0.16666666666666666,
+      "hit_at_10": 0.25,
+      "mrr": 0.05694444444444444
+    },
+    {
+      "dataset": "WaDI_A2_ds10",
+      "lambda": 0.65,
+      "evaluated_events": 12,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.08333333333333333,
+      "hit_at_5": 0.16666666666666666,
+      "hit_at_10": 0.25,
+      "mrr": 0.05694444444444444
+    },
+    {
+      "dataset": "WaDI_A2_ds10",
+      "lambda": 0.7,
+      "evaluated_events": 12,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.08333333333333333,
+      "hit_at_5": 0.16666666666666666,
+      "hit_at_10": 0.25,
+      "mrr": 0.05694444444444444
+    },
+    {
+      "dataset": "WaDI_A2_ds10",
+      "lambda": 0.75,
+      "evaluated_events": 12,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.08333333333333333,
+      "hit_at_5": 0.16666666666666666,
+      "hit_at_10": 0.25,
+      "mrr": 0.05694444444444444
+    },
+    {
+      "dataset": "WaDI_A2_ds10",
+      "lambda": 0.8,
+      "evaluated_events": 12,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.08333333333333333,
+      "hit_at_5": 0.16666666666666666,
+      "hit_at_10": 0.25,
+      "mrr": 0.05694444444444444
+    },
+    {
+      "dataset": "WaDI_A2_ds10",
+      "lambda": 0.85,
+      "evaluated_events": 12,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.08333333333333333,
+      "hit_at_5": 0.16666666666666666,
+      "hit_at_10": 0.25,
+      "mrr": 0.05694444444444444
+    },
+    {
+      "dataset": "WaDI_A2_ds10",
+      "lambda": 0.9,
+      "evaluated_events": 12,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.08333333333333333,
+      "hit_at_5": 0.16666666666666666,
+      "hit_at_10": 0.25,
+      "mrr": 0.05694444444444444
+    },
+    {
+      "dataset": "WaDI_A2_ds10",
+      "lambda": 0.95,
+      "evaluated_events": 12,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.08333333333333333,
+      "hit_at_5": 0.16666666666666666,
+      "hit_at_10": 0.25,
+      "mrr": 0.05694444444444444
+    },
+    {
+      "dataset": "WaDI_A2_ds10",
+      "lambda": 1.0,
+      "evaluated_events": 12,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.08333333333333333,
+      "hit_at_5": 0.16666666666666666,
+      "hit_at_10": 0.25,
+      "mrr": 0.05694444444444444
+    }
+  ]
+}

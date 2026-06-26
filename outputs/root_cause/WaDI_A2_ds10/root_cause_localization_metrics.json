@@ -1,0 +1,5 @@
+{
+  "status": "pending_ground_truth_labels",
+  "message": "Fill data/root_cause_labels/WaDI_A2_ds10/event_root_cause_template.csv before reporting Hit@K or MRR.",
+  "do_not_use_as_paper_result": true
+}

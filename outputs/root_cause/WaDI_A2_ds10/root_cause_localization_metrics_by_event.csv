@@ -1,0 +1,2 @@
+status,message
+pending_ground_truth_labels,"Fill data/root_cause_labels/WaDI_A2_ds10/event_root_cause_template.csv before reporting Hit@K or MRR."
