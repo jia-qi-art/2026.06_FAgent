@@ -7,7 +7,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).parent))
 
 DEPS = Path(__file__).resolve().parent / ".deps"
-if DEPS.exists():
+if os.environ.get("FAGENT_USE_LOCAL_DEPS") == "1" and DEPS.exists():
     sys.path.insert(0, str(DEPS))
 
 # ErnieBot 认证配置：优先读环境变量，否则使用默认值
