@@ -109,6 +109,7 @@ function App() {
       {route === "/diagnosis" && <Diagnosis dataset={dataset} eventId={eventId} />}
       {route === "/knowledge" && <Knowledge />}
       {route === "/report" && <报告 dataset={dataset} eventId={eventId} />}
+      {route === "/finetune" && <Finetune />}
     </main>
   </div>;
 }
@@ -126,7 +127,7 @@ function TopBar({ dataset, job }: any) {
 }
 
 function Sidebar({ route, nav }: any) {
-  const items = [["/dashboard", "实时监控"], ["/relations", "关系退化"], ["/root-cause", "根因分析"], ["/diagnosis", "诊断 Agent"], ["/knowledge", "知识库"], ["/report", "诊断报告"]];
+  const items = [["/dashboard", "实时监控"], ["/relations", "关系退化"], ["/root-cause", "根因分析"], ["/diagnosis", "诊断 Agent"], ["/knowledge", "知识库"], ["/report", "诊断报告"], ["/finetune", "模型微调"]];
   return <aside className="sidebar">
     {items.map(([p, label]) => <button key={p} className={route === p ? "active" : ""} onClick={() => nav(p)}>{label}</button>)}
     <div className="model-card"><span>系统架构</span><strong>Agent + RAG</strong><small>ChromaDB 配置</small><small>关键词兜底检索</small></div>
@@ -256,6 +257,237 @@ function 报告({ dataset, eventId }: any) {
   if (rep.error) return <State text={rep.error} />;
   if (!rep.data) return <State text="正在加载报告..." />;
   return <div className="report-layout"><section className="panel chat-main"><PanelTitle title="诊断问答" note="快捷问题" /><div className="quick">{["为什么报警？", "最可疑变量", "生成报告", "排查步骤"].map((q) => <button key={q} onClick={() => ask(q)}>{q}</button>)}</div><div className="bubble user">这个事件为什么报警？</div><div className="bubble agent"><strong>Agent 诊断</strong><p>{answer || rep.data.sections.map((s: any) => s.body).join(" ")}</p></div><div className="tool-log">{(calls.length ? calls : ["get_event_summary", "rank_root_causes", "inspect_edge_degradation", "generate_report"].map((name) => ({ name, status: "ready" }))).map((c: any) => <span key={c.name}>{toolLabel(c.name)}：{statusLabel(c.status)}</span>)}</div></section><section className="panel report-main"><PanelTitle title="自动生成诊断报告" note={`事件 ID: ${rep.data.event_id}   时间窗口：${rep.data.time_window}`} />{rep.data.sections.map((s: any) => <article className="report-card" key={s.title}><h3>{s.title}</h3><p>{s.body}</p></article>)}<div className="report-actions"><button>导出 PDF</button><button>工具调用日志</button></div></section></div>;
+}
+
+function Finetune() {
+  const [config, setConfig] = useState<any>(null);
+  const [modelName, setModelName] = useState("Qwen/Qwen2.5-1.5B-Instruct");
+  const [dataset] = useState("WaDI_A2_ds10");
+  const [loraR, setLoraR] = useState(8);
+  const [loraAlpha, setLoraAlpha] = useState(16);
+  const [loraDropout, setLoraDropout] = useState(0.1);
+  const [targetModules, setTargetModules] = useState(["q_proj", "k_proj", "v_proj", "o_proj"]);
+  const [epochs, setEpochs] = useState(5);
+  const [lr, setLr] = useState(2e-4);
+  const [use4bit, setUse4bit] = useState(true);
+  const [job, setJob] = useState<any>(null);
+  const [busy, setBusy] = useState(false);
+  const [testResult, setTestResult] = useState<any>(null);
+  const [testQ, setTestQ] = useState("为什么报警？请给出根因和排查步骤。");
+  const [testEvent, setTestEvent] = useState(1);
+  const [adapters, setAdapters] = useState<any[]>([]);
+
+  useEffect(() => {
+    getJson("/api/finetune/status").then((d) => {
+      setConfig(d);
+      if (d.saved_adapters) setAdapters(d.saved_adapters);
+      if (d.recommended_model) setModelName(d.recommended_model);
+      if (!d.cuda_available) setUse4bit(false);
+    }).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    if (!job?.job_id || ["completed", "failed"].includes(job.status)) return;
+    const t = setInterval(() => getJson(`/api/finetune/jobs/${job.job_id}`).then(setJob), 2000);
+    return () => clearInterval(t);
+  }, [job]);
+
+  const start = async () => {
+    setBusy(true); setJob(null); setTestResult(null);
+    try {
+      const j = await postJson("/api/finetune/start", {
+        model_name: modelName,
+        dataset,
+        lora_r: loraR,
+        lora_alpha: loraAlpha,
+        lora_dropout: loraDropout,
+        target_modules: targetModules,
+        epochs,
+        learning_rate: lr,
+        use_4bit: use4bit,
+      });
+      setJob(j);
+    } finally { setBusy(false); }
+  };
+
+  const runTest = async () => {
+    if (!job?.job_id) return;
+    setBusy(true);
+    try {
+      const r = await postJson("/api/finetune/test", { job_id: job.job_id, dataset, event_id: testEvent, question: testQ });
+      setTestResult(r);
+    } finally { setBusy(false); }
+  };
+
+  const toggleModule = (mod: string) => {
+    setTargetModules((prev) => prev.includes(mod) ? prev.filter((m) => m !== mod) : [...prev, mod]);
+  };
+
+  const refreshAdapters = () => getJson("/api/finetune/models").then((d) => setAdapters(d.adapters || [])).catch(() => {});
+
+  const stages = ["preparing_data", "loading_model", "applying_lora", "training", "saving", "evaluating", "completed"];
+  const stageLabels: Record<string, string> = {
+    preparing_data: "准备数据", loading_model: "加载模型", applying_lora: "注入 LoRA",
+    training: "训练中", saving: "保存权重", evaluating: "评估中", completed: "完成",
+  };
+  const activeStage = Math.max(0, stages.indexOf(job?.stage || "preparing_data"));
+
+  const moduleList = [
+    { id: "q_proj", label: "Q 投影 (Query)", desc: "查询向量 — 决定关注什么" },
+    { id: "k_proj", label: "K 投影 (Key)", desc: "键向量 — 决定被关注什么" },
+    { id: "v_proj", label: "V 投影 (Value)", desc: "值向量 — 决定传递什么信息" },
+    { id: "o_proj", label: "O 投影 (Output)", desc: "输出投影 — 汇总多头注意力" },
+  ];
+
+  const maxLoss = Math.max(...(job?.train_loss || [1]), ...(job?.eval_loss || [1]), 1);
+  const lossPoints = (job?.train_loss || []).map((v: number, i: number) => {
+    const x = 20 + (i / Math.max((job?.train_loss?.length || 1) - 1, 1)) * 780;
+    const y = 160 - (v / maxLoss) * 130;
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(" ");
+  const evalPoints = (job?.eval_loss || []).map((v: number, i: number) => {
+    const x = 20 + (i / Math.max((job?.eval_loss?.length || 1) - 1, 1)) * 780;
+    const y = 160 - (v / maxLoss) * 130;
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(" ");
+
+  return <div className="finetune-layout">
+    {/* 区域 A: 配置面板 */}
+    <section className="panel ft-config">
+      <PanelTitle title="LoRA 微调配置" note="对 Qwen 大模型交叉注意力层进行低秩适配，增强跨模态缺陷特征对齐" />
+
+      <label className="field-label">模型</label>
+      <select value={modelName} onChange={(e) => setModelName(e.target.value)}>
+        {(config?.available_models || [{ id: modelName, name: modelName, size: "?" }]).map((m: any) => (
+          <option key={m.id} value={m.id}>{m.name} ({m.size})</option>
+        ))}
+      </select>
+      {!config?.cuda_available && modelName.includes("7B") && (
+        <div className="ft-warning">CPU 模式加载 7B 模型可能需要 20+ 分钟，建议切换为 0.5B</div>
+      )}
+      {!config?.cuda_available && modelName.includes("1.5B") && (
+        <div className="ft-warning">CPU 模式加载 1.5B 模型约需 5-10 分钟，建议使用 0.5B</div>
+      )}
+      {config?.loading_time_estimate && (
+        <div className="ft-tip">{config.loading_time_estimate}</div>
+      )}
+
+      <div className="ft-param-row">
+        <div><label className="field-label">LoRA Rank (r)</label><input type="range" min={2} max={32} value={loraR} onChange={(e) => setLoraR(+e.target.value)} /><span className="ft-range-val">{loraR}</span></div>
+        <div><label className="field-label">Alpha 缩放</label><input type="range" min={1} max={32} value={loraAlpha} onChange={(e) => setLoraAlpha(+e.target.value)} /><span className="ft-range-val">{loraAlpha}</span></div>
+      </div>
+
+      <div className="ft-param-row">
+        <div><label className="field-label">Dropout</label><input type="range" min={0} max={30} value={Math.round(loraDropout * 100)} onChange={(e) => setLoraDropout(+e.target.value / 100)} /><span className="ft-range-val">{loraDropout.toFixed(2)}</span></div>
+        <div><label className="field-label">Epochs</label><input type="range" min={1} max={10} value={epochs} onChange={(e) => setEpochs(+e.target.value)} /><span className="ft-range-val">{epochs}</span></div>
+      </div>
+
+      <div className="ft-param-row">
+        <div><label className="field-label">Learning Rate</label>
+          <select value={lr} onChange={(e) => setLr(+e.target.value)}>
+            {[5e-5, 1e-4, 2e-4, 5e-4, 1e-3].map((v) => <option key={v} value={v}>{v}</option>)}
+          </select>
+        </div>
+        <div><label className="field-label">量化</label>
+          <select value={use4bit ? "4bit" : "fp16"} onChange={(e) => setUse4bit(e.target.value === "4bit")}>
+            <option value="4bit">4-bit QLoRA (显存友好)</option>
+            <option value="fp16">FP16 (需更多显存)</option>
+          </select>
+        </div>
+      </div>
+
+      <label className="field-label">目标层 — 交叉注意力投影层 <small>（LoRA 注入位置）</small></label>
+      <div className="ft-module-grid">
+        {moduleList.map((m) => (
+          <label key={m.id} className={`ft-module-chip ${targetModules.includes(m.id) ? "on" : ""}`}>
+            <input type="checkbox" checked={targetModules.includes(m.id)} onChange={() => toggleModule(m.id)} />
+            <strong>{m.label}</strong>
+            <small>{m.desc}</small>
+          </label>
+        ))}
+      </div>
+
+      <div className="diagnosis-actions" style={{ marginTop: 18 }}>
+        <button onClick={start} disabled={busy || job?.status === "running"}>
+          {busy ? "启动中..." : "开始 LoRA 微调"}
+        </button>
+        <span>{job ? `任务 ${job.job_id.slice(0, 8)} · ${job.status}` : config?.cuda_available ? "GPU 可用" : "CPU 模式"}</span>
+      </div>
+
+      <div className="stage-track" style={{ marginTop: 16 }}>
+        {stages.map((stage, idx) => (
+          <div key={stage} className={idx <= activeStage ? "done" : ""}>
+            <i />{stageLabels[stage] || stage}
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* 区域 B: 训练监控 */}
+    <section className="panel ft-monitor">
+      <PanelTitle title="训练监控" note="Loss 曲线 & Epoch 进度" />
+      {job?.train_loss?.length ? (
+        <>
+          <svg className="chart" viewBox="0 0 820 180" preserveAspectRatio="none">
+            <Grid />
+            {lossPoints && <polyline fill="none" stroke="#2f6f9f" strokeWidth="2.5" points={lossPoints} />}
+            {evalPoints && <polyline fill="none" stroke="#d64b4b" strokeWidth="2" strokeDasharray="6 4" points={evalPoints} />}
+          </svg>
+          <div className="legend-row" style={{ marginTop: 8 }}>
+            <span><i style={{ background: "#2f6f9f" }} />Train Loss: {job.train_loss[job.train_loss.length - 1]?.toFixed(4) || "?"}</span>
+            {job.eval_loss?.length > 0 && <span><i style={{ background: "#d64b4b" }} />Val Loss: {job.eval_loss[job.eval_loss.length - 1]?.toFixed(4) || "?"}</span>}
+            <span>Epoch: {job.current_epoch}/{job.total_epochs}</span>
+          </div>
+        </>
+      ) : (
+        <StateCompact text={job?.status === "running" ? "训练启动中，等待首个 loss 值..." : "尚未开始训练"} />
+      )}
+      {job?.status === "failed" && <div className="state compact" style={{ color: "#a33131", marginTop: 12 }}>错误: {job.error}</div>}
+    </section>
+
+    {/* 区域 C: 推理测试 */}
+    <section className="panel ft-inference">
+      <PanelTitle title="推理测试" note="对比微调前后模型的诊断回答" />
+      <div className="ft-param-row">
+        <div><label className="field-label">事件 ID</label><input type="number" value={testEvent} onChange={(e) => setTestEvent(+e.target.value)} min={1} /></div>
+      </div>
+      <label className="field-label">诊断问题</label>
+      <textarea value={testQ} onChange={(e) => setTestQ(e.target.value)} rows={2} />
+      <div className="diagnosis-actions">
+        <button onClick={runTest} disabled={!job?.job_id || job.status !== "completed" || busy}>
+          {job?.status !== "completed" ? "等待微调完成..." : "推理测试"}
+        </button>
+        <span>{testResult ? `对比完成` : "需要先完成微调"}</span>
+      </div>
+      {testResult && (
+        <div className="ft-compare">
+          <div className="compare-box baseline">
+            <div className="compare-title">Baseline (原始模型)</div>
+            <p>{testResult.baseline_answer?.substring(0, 400) || "无输出"}{(testResult.baseline_answer?.length || 0) > 400 ? "..." : ""}</p>
+          </div>
+          <div className="compare-box finetuned">
+            <div className="compare-title">LoRA 微调后</div>
+            <p>{testResult.finetuned_answer?.substring(0, 400) || "无输出"}{(testResult.finetuned_answer?.length || 0) > 400 ? "..." : ""}</p>
+          </div>
+        </div>
+      )}
+    </section>
+
+    {/* 区域 D: 模型管理 */}
+    <section className="panel ft-models">
+      <PanelTitle title="已保存的 LoRA Adapter" note="管理微调后的低秩适配器权重" />
+      <button onClick={refreshAdapters} style={{ marginBottom: 12, padding: "6px 14px", borderRadius: 6, background: "#17384a", color: "#fff", fontWeight: 700 }}>刷新列表</button>
+      {adapters.length ? adapters.map((a: any) => (
+        <div className="adapter-row" key={a.id}>
+          <div>
+            <strong>{a.base_model?.split("/").pop() || "Qwen"}</strong>
+            <span>r={a.r}, alpha={a.lora_alpha}</span>
+          </div>
+          <small>{a.id.slice(0, 12)}</small>
+        </div>
+      )) : <StateCompact text="暂无已保存的 LoRA adapter。完成一次微调后会自动保存。" />}
+    </section>
+  </div>;
 }
 
 function OCRDocPanel({ dataset, eventId }: any) {
