@@ -23,7 +23,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
+from config.settings import load_env_file
+
+load_env_file()
+
 import data_service as svc
+import finetune_service as ftsvc
 import diagnosis_tasks
 
 
@@ -349,6 +354,87 @@ def knowledge_upload(req: KnowledgeUploadRequest):
 @app.post("/api/knowledge/search")
 def knowledge_search(req: KnowledgeSearchRequest):
     return svc.knowledge_search(req.query, req.top_k)
+
+
+# ---------- LoRA 微调 ----------
+
+class FinetuneStartRequest(BaseModel):
+    model_name: str = "Qwen/Qwen2.5-1.5B-Instruct"
+    dataset: str = "WaDI_A2_ds10"
+    lora_r: int = Field(default=8, ge=1, le=64)
+    lora_alpha: float = Field(default=16.0, ge=1.0, le=64.0)
+    lora_dropout: float = Field(default=0.1, ge=0.0, le=0.5)
+    target_modules: list[str] = Field(default=["q_proj", "k_proj", "v_proj", "o_proj"])
+    epochs: int = Field(default=5, ge=1, le=20)
+    learning_rate: float = Field(default=2e-4, ge=1e-6, le=1e-2)
+    use_4bit: bool = True
+
+
+class FinetuneTestRequest(BaseModel):
+    job_id: str
+    dataset: str = "WaDI_A2_ds10"
+    event_id: int = 1
+    question: str = "为什么报警？请给出根因和排查步骤。"
+
+
+@app.get("/api/finetune/status")
+def finetune_status():
+    """获取微调系统默认配置、可用模型列表和已保存的 adapter。"""
+    return ftsvc.get_default_status()
+
+
+@app.post("/api/finetune/start")
+def finetune_start(req: FinetuneStartRequest):
+    """启动 LoRA 微调任务（后台线程异步执行）。"""
+    try:
+        job = ftsvc.start_finetune(req.model_dump())
+        return {
+            "job_id": job.job_id,
+            "status": job.status,
+            "model_name": job.model_name,
+            "dataset": job.dataset,
+        }
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
+@app.get("/api/finetune/jobs/{job_id}")
+def finetune_job(job_id: str):
+    """轮询微调任务进度（当前 epoch、loss 曲线等）。"""
+    try:
+        return ftsvc.get_job(job_id)
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail=f"Finetune job not found: {job_id}") from exc
+
+
+@app.get("/api/finetune/jobs/{job_id}/metrics")
+def finetune_metrics(job_id: str):
+    """获取微调完成后的评估指标。"""
+    try:
+        data = ftsvc.get_job(job_id)
+        if data["status"] != "completed":
+            raise HTTPException(status_code=400, detail="Job not completed yet")
+        return data.get("metrics", {})
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail=f"Finetune job not found: {job_id}") from exc
+
+
+@app.post("/api/finetune/test")
+def finetune_test(req: FinetuneTestRequest):
+    """用微调后模型做推理测试，与 baseline 对比。"""
+    try:
+        return ftsvc.test_inference(req.job_id, req.dataset, req.event_id, req.question)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.get("/api/finetune/models")
+def finetune_models():
+    """列出已保存的 LoRA adapter。"""
+    from lora_finetune import list_saved_adapters
+    return {"adapters": list_saved_adapters()}
 
 
 if __name__ == "__main__":
