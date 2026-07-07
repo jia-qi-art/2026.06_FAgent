@@ -128,7 +128,7 @@ function TopBar({ dataset, job }: any) {
 }
 
 function Sidebar({ route, nav }: any) {
-  const items = [["/dashboard", "实时监控"], ["/relations", "关系退化"], ["/root-cause", "根因分析"], ["/diagnosis", "诊断 Agent"], ["/knowledge", "知识库"], ["/report", "诊断报告"], ["/history", "查询记录"]];
+  const items = [["/dashboard", "实时监控"], ["/relations", "关系退化"], ["/root-cause", "根因分析"], ["/diagnosis", "诊断 Agent"], ["/knowledge", "知识库"], ["/report", "诊断报告"], ["/finetune", "模型微调"], ["/history", "查询记录"]];
   return <aside className="sidebar">
     {items.map(([p, label]) => <button key={p} className={route === p ? "active" : ""} onClick={() => nav(p)}>{label}</button>)}
     <div className="model-card"><span>系统架构</span><strong>Agent + RAG</strong><small>ChromaDB 配置</small><small>关键词兜底检索</small></div>
