@@ -25,3 +25,5 @@ outputs/diagnosis_tasks/
 outputs/chroma_db/
 outputs/jobs/
 
+# 环境变量含密钥，不提交
+.env
