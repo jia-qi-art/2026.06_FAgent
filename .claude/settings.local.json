@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c ' *)",
+      "Bash(pip install *)",
+      "Bash(conda install *)",
+      "Bash(python backend/import_document_history_to_chroma.py)",
+      "Bash(python scripts/generate_figures.py)",
+      "Bash(python scripts/extract_industrial_info.py)",
+      "Bash(git init *)",
+      "Bash(git remote *)",
+      "Bash(git add *)"
+    ]
+  }
+}
