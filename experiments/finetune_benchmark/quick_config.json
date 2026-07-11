@@ -1,0 +1,13 @@
+{
+  "dataset": "WaDI_A2_ds10",
+  "finetuned_model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "weak_baseline_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "train_size": 10,
+  "epochs": 2,
+  "learning_rate": 0.0002,
+  "max_length": 768,
+  "max_new_tokens": 128,
+  "gradient_accumulation_steps": 2,
+  "use_4bit": false,
+  "seed": 42
+}
