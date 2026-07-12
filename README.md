@@ -27,6 +27,14 @@ EMBEDDING_MODEL=text-embedding-v4
 
 `EMBEDDING_API_KEY` 和 `EMBEDDING_BASE_URL` 留空时分别复用 `LLM_API_KEY` 和 `LLM_BASE_URL`。不要提交包含真实密钥的 `.env`。
 
+表格分析 Agent 使用独立 Kimi 配置，不影响诊断链路模型：
+
+```dotenv
+TABLE_AGENT_KIMI_API_KEY=sk-xxxxxxxx
+TABLE_AGENT_KIMI_BASE_URL=https://api.moonshot.cn/v1
+TABLE_AGENT_KIMI_MODEL=kimi-k2.6
+```
+
 ## 启动后端
 
 ```powershell
@@ -50,6 +58,7 @@ npm run dev
 - `/relations`：传感器关系图、Top 退化边、边向量对比。
 - `/root-cause`：Top-K 根因候选、证据卡片、历史曲线。
 - `/diagnosis`：汇总 Relation-EVGAT、LoRA/Qwen 和知识库证据，由 DeepSeek V4 Pro 生成诊断。
+- `/table-analysis`：上传 Excel / CSV，由 Kimi 生成安全 SQL 和多图表计划，在 DuckDB 中执行并展示结果。
 - `/knowledge`：本地 Chroma 文档索引与检索，embedding 不可用时自动降级关键词检索。
 - `/report`：结构化证据、自然语言报告和工具调用日志。
 - `/finetune`：Qwen LoRA 微调、评估和 adapter 管理。
@@ -69,6 +78,9 @@ npm run dev
 - `GET /api/root-cause?dataset=WaDI_A2_ds10&event_id=1`
 - `POST /api/agent/ask`
 - `GET /api/report?dataset=WaDI_A2_ds10&event_id=1`
+- `POST /api/table/upload`
+- `GET /api/table/{file_id}/schema`
+- `POST /api/table/query`
 - `POST /api/diagnosis/tasks`
 - `GET /api/diagnosis/tasks/{task_id}`
 - `GET /api/diagnosis/history`
@@ -78,6 +90,22 @@ npm run dev
 - `POST /api/document/extract-info`
 - `POST /api/agent/cross-modal`
 - `GET /api/finetune/status`
+
+## 表格分析 Agent
+
+数据流：
+
+```text
+上传 Excel/CSV -> pandas 读取 -> DuckDB 写入 table_data -> schema 预览
+自然语言问题 -> Kimi 生成主 SELECT SQL + visualizations 图表 SQL -> 后端安全校验 -> DuckDB 执行 -> 查询结果、解释、曲线图、饼图和可选柱状图
+```
+
+安全约束：
+
+- 只允许查询 `table_data` 的 `SELECT` 语句。
+- 禁止 `INSERT`、`UPDATE`、`DELETE`、`DROP`、`ALTER`、`CREATE`、`COPY`、`PRAGMA` 等写入或外部读取能力。
+- `REPLACE()` 等普通字符串函数不会被误判为危险操作。
+- Kimi 图表计划必须至少包含 `line` 和 `pie`，后端逐条执行并校验图表数据。
 
 ## 训练说明
 

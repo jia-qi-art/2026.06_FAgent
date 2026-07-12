@@ -18,7 +18,7 @@ os.environ.setdefault("ERNIE_SECRET_KEY", "nLYGWiCG7nwt76rq2Jplz7wigQYscYGO")
 import json
 import time
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, File, Form, HTTPException, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
@@ -28,8 +28,8 @@ from config.settings import load_env_file
 load_env_file()
 
 import data_service as svc
-import finetune_service as ftsvc
 import diagnosis_tasks
+import table_service as table_svc
 
 
 app = FastAPI(title="Relation-EVGAT Industrial Diagnosis Agent", version="0.1.0")
@@ -41,6 +41,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+def _finetune_service():
+    import finetune_service as ftsvc
+
+    return ftsvc
 
 
 class TrainRequest(BaseModel):
@@ -57,6 +63,11 @@ class AgentRequest(BaseModel):
     question: str
     event_id: int | None = None
     image_base64: str | None = None
+
+
+class TableQueryRequest(BaseModel):
+    file_id: str
+    question: str
 
 
 class DocxRequest(BaseModel):
@@ -276,6 +287,38 @@ def report(dataset: str = "WaDI_A2_ds10", event_id: int | None = Query(default=N
         raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 
+# ---------- 表格智能分析 Agent ----------
+
+@app.post("/api/table/upload")
+async def table_upload(
+    file: UploadFile = File(...),
+    sheet_name: str | None = Form(default=None),
+):
+    try:
+        content = await file.read()
+        return table_svc.upload_table(file.filename or "uploaded_table", content, sheet_name)
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.get("/api/table/{file_id}/schema")
+def table_schema(file_id: str):
+    try:
+        return table_svc.get_table_meta(file_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.post("/api/table/query")
+def table_query(req: TableQueryRequest):
+    try:
+        return table_svc.query_table(req.file_id, req.question)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
 # ---------- 诊断任务 ----------
 
 class DiagnosisRequest(BaseModel):
@@ -384,14 +427,14 @@ class FinetuneTestRequest(BaseModel):
 @app.get("/api/finetune/status")
 def finetune_status():
     """获取微调系统默认配置、可用模型列表和已保存的 adapter。"""
-    return ftsvc.get_default_status()
+    return _finetune_service().get_default_status()
 
 
 @app.post("/api/finetune/start")
 def finetune_start(req: FinetuneStartRequest):
     """启动 LoRA 微调任务（后台线程异步执行）。"""
     try:
-        job = ftsvc.start_finetune(req.model_dump())
+        job = _finetune_service().start_finetune(req.model_dump())
         return {
             "job_id": job.job_id,
             "status": job.status,
@@ -406,7 +449,7 @@ def finetune_start(req: FinetuneStartRequest):
 def finetune_job(job_id: str):
     """轮询微调任务进度（当前 epoch、loss 曲线等）。"""
     try:
-        return ftsvc.get_job(job_id)
+        return _finetune_service().get_job(job_id)
     except KeyError as exc:
         raise HTTPException(status_code=404, detail=f"Finetune job not found: {job_id}") from exc
 
@@ -415,7 +458,7 @@ def finetune_job(job_id: str):
 def finetune_metrics(job_id: str):
     """获取微调完成后的评估指标。"""
     try:
-        data = ftsvc.get_job(job_id)
+        data = _finetune_service().get_job(job_id)
         if data["status"] != "completed":
             raise HTTPException(status_code=400, detail="Job not completed yet")
         return data.get("metrics", {})
@@ -427,7 +470,7 @@ def finetune_metrics(job_id: str):
 def finetune_test(req: FinetuneTestRequest):
     """用微调后模型做推理测试，与 baseline 对比。"""
     try:
-        return ftsvc.test_inference(req.job_id, req.dataset, req.event_id, req.question)
+        return _finetune_service().test_inference(req.job_id, req.dataset, req.event_id, req.question)
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
     except KeyError as exc:
@@ -444,4 +487,3 @@ def finetune_models():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)
-

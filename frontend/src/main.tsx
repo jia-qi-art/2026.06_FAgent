@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles.css";
+import TableAnalysis from "./TableAnalysis";
 
 
 const API = (import.meta as any).env?.VITE_API_BASE || "http://127.0.0.1:8000";
@@ -110,6 +111,7 @@ function App() {
       {route === "/relations" && <Relations dataset={dataset} eventId={eventId} />}
       {route === "/root-cause" && <RootCause dataset={dataset} eventId={eventId} />}
       {route === "/diagnosis" && <Diagnosis dataset={dataset} eventId={eventId} />}
+      {route === "/table-analysis" && <TableAnalysis />}
       {route === "/knowledge" && <Knowledge />}
       {route === "/report" && <报告 dataset={dataset} eventId={eventId} />}
       {route === "/finetune" && <Finetune />}
@@ -131,7 +133,7 @@ function TopBar({ dataset, job }: any) {
 }
 
 function Sidebar({ route, nav }: any) {
-  const items = [["/dashboard", "实时监控"], ["/relations", "关系退化"], ["/root-cause", "根因分析"], ["/diagnosis", "诊断 Agent"], ["/knowledge", "知识库"], ["/report", "诊断报告"], ["/finetune", "模型微调"], ["/history", "查询记录"]];
+  const items = [["/dashboard", "实时监控"], ["/relations", "关系退化"], ["/root-cause", "根因分析"], ["/diagnosis", "诊断 Agent"], ["/table-analysis", "表格分析"], ["/knowledge", "知识库"], ["/report", "诊断报告"], ["/finetune", "模型微调"], ["/history", "查询记录"]];
   return <aside className="sidebar">
     {items.map(([p, label]) => <button key={p} className={route === p ? "active" : ""} onClick={() => nav(p)}>{label}</button>)}
     <div className="model-card"><span>系统架构</span><strong>Agent + RAG</strong><small>ChromaDB 配置</small><small>关键词兜底检索</small></div>
@@ -845,6 +847,5 @@ function scalePoints(points: any[], width: number, height: number) { if (!points
 function pointToXY(point: any, points: any[], width: number, height: number) { const xs = points.map((p) => p.x); const ys = points.map((p) => p.y); const minX = Math.min(...xs); const maxX = Math.max(...xs); const minY = Math.min(...ys); const maxY = Math.max(...ys); const x = ((point.x - minX) / (maxX - minX || 1)) * (width - 40) + 20; const y = height - (((point.y - minY) / (maxY - minY || 1)) * (height - 40) + 20); return [x, y]; }
 
 createRoot(document.getElementById("root")!).render(<App />);
-
 
 

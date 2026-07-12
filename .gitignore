@@ -1,5 +1,8 @@
 node_modules/
 frontend/dist/
+.DS_Store
+.env
+.env.local
 
 .venv/
 venv/
@@ -17,6 +20,9 @@ frontend/_tmp_*
 [A-Za-z0-9_][A-Za-z0-9_][A-Za-z0-9_][A-Za-z0-9_][A-Za-z0-9_][A-Za-z0-9_][A-Za-z0-9_][A-Za-z0-9_]
 /[A-Za-z0-9_][A-Za-z0-9_][A-Za-z0-9_][A-Za-z0-9_][A-Za-z0-9_][A-Za-z0-9_][A-Za-z0-9_][A-Za-z0-9_]
 /relation_evgat/[A-Za-z0-9_][A-Za-z0-9_][A-Za-z0-9_][A-Za-z0-9_][A-Za-z0-9_][A-Za-z0-9_][A-Za-z0-9_][A-Za-z0-9_]
+!frontend/
+!frontend/src/
+!frontend/src/TableAnalysis.tsx
 
 .idea/
 .vscode/
@@ -24,4 +30,4 @@ frontend/_tmp_*
 outputs/diagnosis_tasks/
 outputs/chroma_db/
 outputs/jobs/
-
+storage/
