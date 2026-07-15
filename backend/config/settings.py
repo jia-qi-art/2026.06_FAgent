@@ -93,6 +93,7 @@ def load_agent_config() -> dict[str, Any]:
         "llm_model": os.getenv("LLM_MODEL", ""),
         "llm_api_key": os.getenv("LLM_API_KEY", ""),
         "llm_base_url": os.getenv("LLM_BASE_URL", ""),
+        "reasoning_effort": os.getenv("LLM_REASONING_EFFORT", "high"),
         "mode": "llm" if os.getenv("LLM_API_KEY") else "rule",
     }
 

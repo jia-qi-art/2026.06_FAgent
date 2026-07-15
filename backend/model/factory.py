@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 import threading
 import time
 
@@ -6,6 +6,7 @@ import time
 import json
 import urllib.error
 import urllib.request
+import uuid
 from dataclasses import dataclass
 from typing import Any
 
@@ -32,7 +33,8 @@ class ModelFactory:
         self._min_interval = 1.0 / 5
 
     def status(self) -> ModelStatus:
-        configured = bool(self.config.get("llm_api_key"))
+        api_key = str(self.config.get("llm_api_key") or "")
+        configured = bool(api_key and api_key.isascii())
         provider = self.config.get("llm_provider") or "rule"
         model = self.config.get("llm_model") or "rule-agent"
         return ModelStatus(
@@ -40,10 +42,19 @@ class ModelFactory:
             provider=provider,
             model=model,
             configured=configured,
-            reason="LLM key configured" if configured else "LLM_API_KEY is empty; using deterministic rule agent",
+            reason=(
+                "LLM key configured"
+                if configured
+                else "LLM_API_KEY is empty or invalid; using deterministic rule agent"
+            ),
         )
 
-    def chat(self, messages: list[dict[str, str]], temperature: float = 0.2, timeout: int = 45) -> str:
+    def chat_with_metadata(
+        self,
+        messages: list[dict[str, str]],
+        temperature: float | None = None,
+        timeout: int = 90,
+    ) -> dict[str, Any]:
         #新增QPS限流闸门
         with self._qps_lock:
             now = time.time()
@@ -58,26 +69,32 @@ class ModelFactory:
         if not base_url:
             raise RuntimeError("LLM_BASE_URL is empty")
         url = f"{base_url}/chat/completions"
-        payload: dict[str, Any] = {
-            "model": status.model,
-            "messages": messages,
-            "temperature": temperature,
-        }
+        payload: dict[str, Any] = {"model": status.model, "messages": messages}
+        if temperature is not None:
+            payload["temperature"] = temperature
+        if status.model.startswith("deepseek-v4"):
+            payload["reasoning_effort"] = self.config.get("reasoning_effort", "high")
+        request_id = uuid.uuid4().hex
+        started = time.time()
         req = urllib.request.Request(
             url,
             data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
             headers={
                 "Authorization": f"Bearer {self.config['llm_api_key']}",
                 "Content-Type": "application/json",
+                "X-Client-Request-Id": request_id,
             },
             method="POST",
         )
         try:
             with urllib.request.urlopen(req, timeout=timeout) as resp:
                 data = json.loads(resp.read().decode("utf-8"))
+                response_request_id = resp.headers.get("x-request-id") or resp.headers.get("request-id")
         except urllib.error.HTTPError as exc:
             detail = exc.read().decode("utf-8", errors="ignore")[:500]
             raise RuntimeError(f"LLM HTTP {exc.code}: {detail}") from exc
+        except (urllib.error.URLError, TimeoutError, UnicodeEncodeError) as exc:
+            raise RuntimeError(f"LLM connection failed: {exc}") from exc
         choices = data.get("choices") or []
         if not choices:
             raise RuntimeError("LLM response has no choices")
@@ -85,4 +102,14 @@ class ModelFactory:
         content = message.get("content") or choices[0].get("text")
         if not content:
             raise RuntimeError("LLM response has no content")
-        return str(content).strip()
+        return {
+            "content": str(content).strip(),
+            "provider": status.provider,
+            "model": status.model,
+            "request_id": response_request_id or request_id,
+            "duration_ms": int((time.time() - started) * 1000),
+            "usage": data.get("usage") or {},
+        }
+
+    def chat(self, messages: list[dict[str, str]], temperature: float | None = None, timeout: int = 90) -> str:
+        return str(self.chat_with_metadata(messages, temperature=temperature, timeout=timeout)["content"])

@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import os
 from typing import Literal
@@ -12,19 +12,22 @@ if os.environ.get("FAGENT_USE_LOCAL_DEPS") == "1" and DEPS.exists():
     sys.path.insert(0, str(DEPS))
 
 # ErnieBot 认证配置：优先读环境变量，否则使用默认值
-os.environ.setdefault("ERNIE_API_KEY", "dPiR9tEhhwi9ioLWmFrj1ZFB")
-os.environ.setdefault("ERNIE_SECRET_KEY", "nLYGWiCG7nwt76rq2Jplz7wigQYscYGO")
 
 import json
 import time
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, File, Form, HTTPException, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
+from config.settings import load_env_file
+
+load_env_file()
+
 import data_service as svc
 import diagnosis_tasks
+import table_service as table_svc
 
 
 app = FastAPI(title="Relation-EVGAT Industrial Diagnosis Agent", version="0.1.0")
@@ -36,6 +39,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+def _finetune_service():
+    import finetune_service as ftsvc
+
+    return ftsvc
 
 
 class TrainRequest(BaseModel):
@@ -52,6 +61,11 @@ class AgentRequest(BaseModel):
     question: str
     event_id: int | None = None
     image_base64: str | None = None
+
+
+class TableQueryRequest(BaseModel):
+    file_id: str
+    question: str
 
 
 class DocxRequest(BaseModel):
@@ -137,7 +151,11 @@ def agent(req: AgentRequest):
             ocr_result = svc.ocr_extract_image(req.image_base64)
             if ocr_result["success"]:
                 ocr_text = ocr_result["text"]
-        return svc.agent_answer(req.dataset, req.question, req.event_id, ocr_text=ocr_text)
+        question = req.question
+        if ocr_text:
+            question += f"\n\nOCR 补充文本：{ocr_text[:3000]}"
+        from agent import RuleDiagnosisAgent
+        return RuleDiagnosisAgent().execute(req.dataset, req.event_id, question, use_llm=True)
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
 
@@ -267,6 +285,38 @@ def report(dataset: str = "WaDI_A2_ds10", event_id: int | None = Query(default=N
         raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 
+# ---------- 表格智能分析 Agent ----------
+
+@app.post("/api/table/upload")
+async def table_upload(
+    file: UploadFile = File(...),
+    sheet_name: str | None = Form(default=None),
+):
+    try:
+        content = await file.read()
+        return table_svc.upload_table(file.filename or "uploaded_table", content, sheet_name)
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.get("/api/table/{file_id}/schema")
+def table_schema(file_id: str):
+    try:
+        return table_svc.get_table_meta(file_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.post("/api/table/query")
+def table_query(req: TableQueryRequest):
+    try:
+        return table_svc.query_table(req.file_id, req.question)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
 # ---------- 诊断任务 ----------
 
 class DiagnosisRequest(BaseModel):
@@ -351,7 +401,87 @@ def knowledge_search(req: KnowledgeSearchRequest):
     return svc.knowledge_search(req.query, req.top_k)
 
 
+# ---------- LoRA 微调 ----------
+
+class FinetuneStartRequest(BaseModel):
+    model_name: str = "Qwen/Qwen2.5-1.5B-Instruct"
+    dataset: str = "WaDI_A2_ds10"
+    lora_r: int = Field(default=8, ge=1, le=64)
+    lora_alpha: float = Field(default=16.0, ge=1.0, le=64.0)
+    lora_dropout: float = Field(default=0.1, ge=0.0, le=0.5)
+    target_modules: list[str] = Field(default=["q_proj", "k_proj", "v_proj", "o_proj"])
+    epochs: int = Field(default=5, ge=1, le=20)
+    learning_rate: float = Field(default=2e-4, ge=1e-6, le=1e-2)
+    use_4bit: bool = True
+
+
+class FinetuneTestRequest(BaseModel):
+    job_id: str
+    dataset: str = "WaDI_A2_ds10"
+    event_id: int = 1
+    question: str = "为什么报警？请给出根因和排查步骤。"
+
+
+@app.get("/api/finetune/status")
+def finetune_status():
+    """获取微调系统默认配置、可用模型列表和已保存的 adapter。"""
+    return _finetune_service().get_default_status()
+
+
+@app.post("/api/finetune/start")
+def finetune_start(req: FinetuneStartRequest):
+    """启动 LoRA 微调任务（后台线程异步执行）。"""
+    try:
+        job = _finetune_service().start_finetune(req.model_dump())
+        return {
+            "job_id": job.job_id,
+            "status": job.status,
+            "model_name": job.model_name,
+            "dataset": job.dataset,
+        }
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
+@app.get("/api/finetune/jobs/{job_id}")
+def finetune_job(job_id: str):
+    """轮询微调任务进度（当前 epoch、loss 曲线等）。"""
+    try:
+        return _finetune_service().get_job(job_id)
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail=f"Finetune job not found: {job_id}") from exc
+
+
+@app.get("/api/finetune/jobs/{job_id}/metrics")
+def finetune_metrics(job_id: str):
+    """获取微调完成后的评估指标。"""
+    try:
+        data = _finetune_service().get_job(job_id)
+        if data["status"] != "completed":
+            raise HTTPException(status_code=400, detail="Job not completed yet")
+        return data.get("metrics", {})
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail=f"Finetune job not found: {job_id}") from exc
+
+
+@app.post("/api/finetune/test")
+def finetune_test(req: FinetuneTestRequest):
+    """用微调后模型做推理测试，与 baseline 对比。"""
+    try:
+        return _finetune_service().test_inference(req.job_id, req.dataset, req.event_id, req.question)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.get("/api/finetune/models")
+def finetune_models():
+    """列出已保存的 LoRA adapter。"""
+    from lora_finetune import list_saved_adapters
+    return {"adapters": list_saved_adapters()}
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)
-

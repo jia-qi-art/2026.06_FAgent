@@ -3,6 +3,9 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import os
+import urllib.error
+import urllib.request
 import re
 import time
 from dataclasses import dataclass
@@ -53,6 +56,15 @@ class KnowledgeStore:
         self._index: dict[str, Any] = {"documents": {}, "chunks": []}
         self._load_index()
         self._chroma_status = self._probe_chroma()
+        self._collection = None
+        self._chroma_error: str | None = None
+        if self._chroma_status["enabled"] and self._chroma_status["available"]:
+            try:
+                self._collection = self._get_chroma_collection()
+                if self._collection.count() == 0 and self._index.get("chunks"):
+                    self._upsert_chroma(self._index["chunks"])
+            except Exception as exc:
+                self._chroma_error = str(exc)
         if not self._index.get("documents"):
             self.ingest_directory()
 
@@ -60,7 +72,7 @@ class KnowledgeStore:
     def status(self) -> dict[str, Any]:
         return {
             "provider": self.config["vector_store"].get("provider", "keyword"),
-            "mode": "chroma" if self._chroma_status["enabled"] and self._chroma_status["available"] else "keyword",
+            "mode": "chroma" if self._collection is not None and not self._chroma_error else "keyword",
             "chroma": self._chroma_status,
             "persist_directory": str(self.persist_dir),
             "collection_name": self.config["vector_store"].get("collection_name", "fagent_knowledge"),
@@ -68,6 +80,8 @@ class KnowledgeStore:
             "chunk_count": len(self._index["chunks"]),
             "chunk_size": self.config["splitter"].get("chunk_size", 700),
             "chunk_overlap": self.config["splitter"].get("chunk_overlap", 90),
+            "fallback_reason": self._chroma_error,
+            "embedding": self.config.get("embedding", {}),
         }
 
     def _probe_chroma(self) -> dict[str, Any]:
@@ -81,6 +95,84 @@ class KnowledgeStore:
         except Exception as exc:
             return {"enabled": True, "available": False, "reason": str(exc)}
 
+    def _get_chroma_collection(self):
+        import chromadb  # type: ignore
+
+        client = chromadb.PersistentClient(path=str(self.persist_dir))
+        return client.get_or_create_collection(
+            name=str(self.config["vector_store"].get("collection_name", "fagent_knowledge")),
+            metadata={"hnsw:space": "cosine"},
+        )
+
+    def _embed(self, texts: list[str]) -> list[list[float]]:
+        embedding = self.config.get("embedding", {})
+        model = str(embedding.get("model") or os.getenv("EMBEDDING_MODEL") or "text-embedding-v4")
+        api_key = os.getenv("EMBEDDING_API_KEY") or os.getenv("LLM_API_KEY", "")
+        base_url = (os.getenv("EMBEDDING_BASE_URL") or os.getenv("LLM_BASE_URL", "")).rstrip("/")
+        if not api_key or not base_url:
+            raise RuntimeError("embedding API key/base URL is not configured")
+        payload = json.dumps({"model": model, "input": texts}, ensure_ascii=False).encode("utf-8")
+        request = urllib.request.Request(
+            f"{base_url}/embeddings",
+            data=payload,
+            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(request, timeout=60) as response:
+                data = json.loads(response.read().decode("utf-8"))
+        except urllib.error.HTTPError as exc:
+            detail = exc.read().decode("utf-8", errors="ignore")[:500]
+            raise RuntimeError(f"embedding HTTP {exc.code}: {detail}") from exc
+        rows = sorted(data.get("data") or [], key=lambda item: item.get("index", 0))
+        vectors = [row.get("embedding") for row in rows]
+        if len(vectors) != len(texts) or any(not vector for vector in vectors):
+            raise RuntimeError("embedding response is incomplete")
+        return vectors
+
+    def _upsert_chroma(self, chunks: list[dict[str, Any]]) -> None:
+        if not self._collection or not chunks:
+            return
+        texts = [chunk["text"] for chunk in chunks]
+        embeddings = self._embed(texts)
+        self._collection.upsert(
+            ids=[chunk["chunk_id"] for chunk in chunks],
+            documents=texts,
+            embeddings=embeddings,
+            metadatas=[{
+                "doc_id": chunk["doc_id"],
+                "title": chunk["title"],
+                "source": chunk["source"],
+            } for chunk in chunks],
+        )
+
+    def _search_chroma(self, query: str, top_k: int) -> list[dict[str, Any]]:
+        if not self._collection:
+            raise RuntimeError("Chroma collection is unavailable")
+        count = self._collection.count()
+        if count == 0:
+            return []
+        result = self._collection.query(
+            query_embeddings=self._embed([query]),
+            n_results=max(1, min(top_k, count)),
+        )
+        hits: list[dict[str, Any]] = []
+        ids = (result.get("ids") or [[]])[0]
+        documents = (result.get("documents") or [[]])[0]
+        metadatas = (result.get("metadatas") or [[]])[0]
+        distances = (result.get("distances") or [[]])[0]
+        for chunk_id, document, metadata, distance in zip(ids, documents, metadatas, distances):
+            metadata = metadata or {}
+            hits.append({
+                "doc_id": metadata.get("doc_id", ""),
+                "title": metadata.get("title", ""),
+                "source": metadata.get("source", ""),
+                "chunk_id": chunk_id,
+                "score": max(0.0, 1.0 - float(distance)),
+                "text": document or "",
+                "backend": "chroma",
+            })
+        return hits
     def _load_index(self) -> None:
         if self.index_path.exists():
             self._index = json.loads(self.index_path.read_text(encoding="utf-8"))
@@ -141,6 +233,12 @@ class KnowledgeStore:
                 }
             )
         self._save_index()
+        new_chunks = [chunk for chunk in self._index["chunks"] if chunk.get("doc_id") == digest]
+        try:
+            self._upsert_chroma(new_chunks)
+            self._chroma_error = None
+        except Exception as exc:
+            self._chroma_error = str(exc)
         return {"status": "indexed", **document}
 
     def ingest_file(self, path: Path) -> dict[str, Any]:
@@ -167,6 +265,13 @@ class KnowledgeStore:
 
     def search(self, query: str, top_k: int | None = None) -> list[dict[str, Any]]:
         top_k = int(top_k or self.config.get("top_k", 4))
+        if self._collection:
+            try:
+                hits = self._search_chroma(query, top_k)
+                self._chroma_error = None
+                return hits
+            except Exception as exc:
+                self._chroma_error = str(exc)
         q_tokens = _tokens(query)
         if not q_tokens:
             return []
@@ -205,6 +310,11 @@ class KnowledgeStore:
         doc = self._index["documents"].pop(doc_id, None)
         self._index["chunks"] = [chunk for chunk in self._index["chunks"] if chunk.get("doc_id") != doc_id]
         self._save_index()
+        if self._collection:
+            try:
+                self._collection.delete(where={"doc_id": doc_id})
+            except Exception as exc:
+                self._chroma_error = str(exc)
         if doc:
             path = PROJECT_ROOT / doc.get("source", "")
             if path.exists() and path.is_file():

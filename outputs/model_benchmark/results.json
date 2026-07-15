@@ -1,0 +1,3225 @@
+[
+  {
+    "case_id": "WaDI_A2_ds10__e1__diagnosis",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 1,
+    "question_type": "diagnosis",
+    "model": "rule-agent",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 0,
+    "usage": {},
+    "raw_text": "{\"conclusion\": \"事件 #1 的首要根因候选为 1_MV_004_STATUS。\", \"root_causes\": [{\"sensor\": \"1_MV_004_STATUS\", \"rank\": 1, \"reason\": \"Relation-EVGAT 根因候选\"}, {\"sensor\": \"1_AIT_003_PV\", \"rank\": 2, \"reason\": \"Relation-EVGAT 根因候选\"}, {\"sensor\": \"2B_AIT_003_PV\", \"rank\": 3, \"reason\": \"Relation-EVGAT 根因候选\"}], \"degraded_edges\": [{\"source\": \"1_MV_004_STATUS\", \"target\": \"1_AIT_003_PV\", \"degradation\": 0.710006, \"label\": \"0.71\"}, {\"source\": \"1_AIT_003_PV\", \"target\": \"2B_AIT_003_PV\", \"degradation\": 0.665327, \"label\": \"0.67\"}, {\"source\": \"1_MV_004_STATUS\", \"target\": \"1_MV_001_STATUS\", \"degradation\": 0.66, \"label\": \"0.66\"}], \"recommendations\": [\"核对 1_MV_004_STATUS 的原始读数、量程和采集状态。\", \"复核 1_MV_004_STATUS 到 1_AIT_003_PV 的联动关系。\", \"对照异常窗口检查阀门、泵、控制指令和现场工况记录。\"], \"citations\": [{\"title\": \"wadi_operator_note.md\", \"chunk_id\": \"bd41b8dfddd4d527b49067de288350c5:0\"}, {\"title\": \"wadi_response_sop.md\", \"chunk_id\": \"861febb05b1bf81a44148ed43cb6c230:0\"}, {\"title\": \"wadi_operator_note.md\", \"chunk_id\": \"9c9983a4f664bcb5a1e8ef855081abf6:0\"}], \"report_text\": \"事件 #1 的首要根因候选为 1_MV_004_STATUS。 核对 1_MV_004_STATUS 的原始读数、量程和采集状态。 复核 1_MV_004_STATUS 到 1_AIT_003_PV 的联动关系。 对照异常窗口检查阀门、泵、控制指令和现场工况记录。\"}",
+    "parsed": {
+      "conclusion": "事件 #1 的首要根因候选为 1_MV_004_STATUS。",
+      "root_causes": [
+        {
+          "sensor": "1_MV_004_STATUS",
+          "rank": 1,
+          "reason": "Relation-EVGAT 根因候选"
+        },
+        {
+          "sensor": "1_AIT_003_PV",
+          "rank": 2,
+          "reason": "Relation-EVGAT 根因候选"
+        },
+        {
+          "sensor": "2B_AIT_003_PV",
+          "rank": 3,
+          "reason": "Relation-EVGAT 根因候选"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_AIT_003_PV",
+          "degradation": 0.710006,
+          "label": "0.71"
+        },
+        {
+          "source": "1_AIT_003_PV",
+          "target": "2B_AIT_003_PV",
+          "degradation": 0.665327,
+          "label": "0.67"
+        },
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_MV_001_STATUS",
+          "degradation": 0.66,
+          "label": "0.66"
+        }
+      ],
+      "recommendations": [
+        "核对 1_MV_004_STATUS 的原始读数、量程和采集状态。",
+        "复核 1_MV_004_STATUS 到 1_AIT_003_PV 的联动关系。",
+        "对照异常窗口检查阀门、泵、控制指令和现场工况记录。"
+      ],
+      "citations": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0"
+        },
+        {
+          "title": "wadi_response_sop.md",
+          "chunk_id": "861febb05b1bf81a44148ed43cb6c230:0"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0"
+        }
+      ],
+      "report_text": "事件 #1 的首要根因候选为 1_MV_004_STATUS。 核对 1_MV_004_STATUS 的原始读数、量程和采集状态。 复核 1_MV_004_STATUS 到 1_AIT_003_PV 的联动关系。 对照异常窗口检查阀门、泵、控制指令和现场工况记录。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.0,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 1.0,
+      "recommendation_count": 3,
+      "report_length": 132
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e1__diagnosis",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 1,
+    "question_type": "diagnosis",
+    "model": "qwen-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 15081,
+    "usage": {
+      "prompt_tokens": 1714,
+      "total_tokens": 2509,
+      "completion_tokens": 795,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"报警最可能的根因是1_MV_004_STATUS传感器状态异常，导致其与下游变量的关系退化，进而引发系统级异常。关键证据为该传感器在根因候选中排名第一，且与1_AIT_003_PV之间的关系退化强度达0.71，处于所有退化边中的最高水平。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"1_MV_004_STATUS\",\n      \"rank\": 1,\n      \"reason\": \"该传感器在根因候选中得分最高，且与多个下游变量存在显著关系退化，表明其状态异常可能引发连锁影响。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"1_MV_004_STATUS\",\n      \"target\": \"1_AIT_003_PV\",\n      \"degradation\": 0.710006\n    },\n    {\n      \"source\": \"1_AIT_003_PV\",\n      \"target\": \"2B_AIT_003_PV\",\n      \"degradation\": 0.665327\n    },\n    {\n      \"source\": \"1_MV_004_STATUS\",\n      \"target\": \"1_MV_001_STATUS\",\n      \"degradation\": 0.66\n    },\n    {\n      \"source\": \"2B_AIT_003_PV\",\n      \"target\": \"1_MV_001_STATUS\",\n      \"degradation\": 0.658103\n    },\n    {\n      \"source\": \"1_MV_001_STATUS\",\n      \"target\": \"TOTAL_CONS_REQUIRED_FLOW\",\n      \"degradation\": 0.644873\n    }\n  ],\n  \"recommendations\": [\n    \"立即核查1_MV_004_STATUS的原始读数、采样质量及物理量程是否正常。\",\n    \"检查1_MV_004_STATUS对应的执行机构（如阀门）的指令状态与反馈信号是否一致。\",\n    \"复核上游泵、液位等变量在510~654窗口内的趋势，确认是否存在联动异常。\",\n    \"比对历史正常窗口中1_MV_004_STATUS与其下游变量的依赖关系，验证当前退化是否偏离常态。\",\n    \"记录操作日志并参考运维规程进行闭环处理。\"\n  ],\n  \"citations\": [\n    \"wadi_operator_note.md\",\n    \"wadi_response_sop.md\"\n  ],\n  \"report_text\": \"系统在510~654时间窗口内检测到持续异常，峰值异常分数高达6007751.48，远超设定阈值0.96，触发报警。根因分析显示，1_MV_004_STATUS在候选列表中排名第一，其与1_AIT_003_PV之间的关系退化强度达到0.71，为所有退化边中最显著者，提示该传感器状态异常可能是事件起点。此外，1_MV_004_STATUS与1_MV_001_STATUS之间也存在0.66的退化，进一步表明其在控制链路中的关键作用。根据运维规程，当泵或液位相关变量出现关系退化时，应同步核查传感器校准、执行机构状态、控制命令历史及上下游水位趋势。建议立即开展对1_MV_004_STATUS的现场诊断，包括检查其读数稳定性、采样质量与实际执行状态，并复核上下游设备联动情况，以排除误报或设备故障风险。\"\n}",
+    "parsed": {
+      "conclusion": "报警最可能的根因是1_MV_004_STATUS传感器状态异常，导致其与下游变量的关系退化，进而引发系统级异常。关键证据为该传感器在根因候选中排名第一，且与1_AIT_003_PV之间的关系退化强度达0.71，处于所有退化边中的最高水平。",
+      "root_causes": [
+        {
+          "sensor": "1_MV_004_STATUS",
+          "rank": 1,
+          "reason": "该传感器在根因候选中得分最高，且与多个下游变量存在显著关系退化，表明其状态异常可能引发连锁影响。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_AIT_003_PV",
+          "degradation": 0.710006
+        },
+        {
+          "source": "1_AIT_003_PV",
+          "target": "2B_AIT_003_PV",
+          "degradation": 0.665327
+        },
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_MV_001_STATUS",
+          "degradation": 0.66
+        },
+        {
+          "source": "2B_AIT_003_PV",
+          "target": "1_MV_001_STATUS",
+          "degradation": 0.658103
+        },
+        {
+          "source": "1_MV_001_STATUS",
+          "target": "TOTAL_CONS_REQUIRED_FLOW",
+          "degradation": 0.644873
+        }
+      ],
+      "recommendations": [
+        "立即核查1_MV_004_STATUS的原始读数、采样质量及物理量程是否正常。",
+        "检查1_MV_004_STATUS对应的执行机构（如阀门）的指令状态与反馈信号是否一致。",
+        "复核上游泵、液位等变量在510~654窗口内的趋势，确认是否存在联动异常。",
+        "比对历史正常窗口中1_MV_004_STATUS与其下游变量的依赖关系，验证当前退化是否偏离常态。",
+        "记录操作日志并参考运维规程进行闭环处理。"
+      ],
+      "citations": [
+        "wadi_operator_note.md",
+        "wadi_response_sop.md"
+      ],
+      "report_text": "系统在510~654时间窗口内检测到持续异常，峰值异常分数高达6007751.48，远超设定阈值0.96，触发报警。根因分析显示，1_MV_004_STATUS在候选列表中排名第一，其与1_AIT_003_PV之间的关系退化强度达到0.71，为所有退化边中最显著者，提示该传感器状态异常可能是事件起点。此外，1_MV_004_STATUS与1_MV_001_STATUS之间也存在0.66的退化，进一步表明其在控制链路中的关键作用。根据运维规程，当泵或液位相关变量出现关系退化时，应同步核查传感器校准、执行机构状态、控制命令历史及上下游水位趋势。建议立即开展对1_MV_004_STATUS的现场诊断，包括检查其读数稳定性、采样质量与实际执行状态，并复核上下游设备联动情况，以排除误报或设备故障风险。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 0.3333333333333333,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 5,
+      "report_length": 350
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e1__diagnosis",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 1,
+    "question_type": "diagnosis",
+    "model": "qwen3.5-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 15198,
+    "usage": {
+      "prompt_tokens": 1813,
+      "total_tokens": 2809,
+      "completion_tokens": 996,
+      "completion_tokens_details": {
+        "reasoning_tokens": 425,
+        "text_tokens": 996
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"系统异常主要由阀门状态1_MV_004_STATUS异常引发，伴随下游流量传感器与上游控制阀的连锁退化\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"1_MV_004_STATUS\",\n      \"rank\": 1,\n      \"reason\": \"最高节点归一化评分(0.9999)及最强关系退化起始点(0.71)\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"1_MV_004_STATUS\",\n      \"target\": \"1_AIT_003_PV\",\n      \"degradation\": 0.71\n    },\n    {\n      \"source\": \"1_AIT_003_PV\",\n      \"target\": \"2B_AIT_003_PV\",\n      \"degradation\": 0.67\n    },\n    {\n      \"source\": \"1_MV_004_STATUS\",\n      \"target\": \"1_MV_001_STATUS\",\n      \"degradation\": 0.66\n    }\n  ],\n  \"recommendations\": [\n    \"立即校验1_MV_004_STATUS执行反馈与物理阀门位置一致性\",\n    \"比对1_AIT_003_PV与历史正常流量区间的偏差特征\",\n    \"检查同窗口内1_MV_001_STATUS的控制指令时序记录\"\n  ],\n  \"citations\": [\n    \"wadi_operator_note.md:bd41b8dfddd4d527b49067de288350c5:0\",\n    \"wadi_response_sop.md:861febb05b1bf81a44148ed43cb6c230:0\"\n  ],\n  \"report_text\": \"异常窗口510-654检测到持续异常事件（分数6007751.48）。初步判定根因为阀门状态1_MV_004_STATUS异常，其引发的关系退化最先传导至流量传感器1_AIT_003_PV（退化0.71）。需按标准流程核查：1）阀门实际开度与信号一致性 2）传感器零点漂移 3）控制回路响应延迟。特别注意相邻阀门1_MV_001_STATUS存在0.66等级联锁退化风险。建议采集操作日志对比同期泵组启停记录。\"\n}",
+    "parsed": {
+      "conclusion": "系统异常主要由阀门状态1_MV_004_STATUS异常引发，伴随下游流量传感器与上游控制阀的连锁退化",
+      "root_causes": [
+        {
+          "sensor": "1_MV_004_STATUS",
+          "rank": 1,
+          "reason": "最高节点归一化评分(0.9999)及最强关系退化起始点(0.71)"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_AIT_003_PV",
+          "degradation": 0.71
+        },
+        {
+          "source": "1_AIT_003_PV",
+          "target": "2B_AIT_003_PV",
+          "degradation": 0.67
+        },
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_MV_001_STATUS",
+          "degradation": 0.66
+        }
+      ],
+      "recommendations": [
+        "立即校验1_MV_004_STATUS执行反馈与物理阀门位置一致性",
+        "比对1_AIT_003_PV与历史正常流量区间的偏差特征",
+        "检查同窗口内1_MV_001_STATUS的控制指令时序记录"
+      ],
+      "citations": [
+        "wadi_operator_note.md:bd41b8dfddd4d527b49067de288350c5:0",
+        "wadi_response_sop.md:861febb05b1bf81a44148ed43cb6c230:0"
+      ],
+      "report_text": "异常窗口510-654检测到持续异常事件（分数6007751.48）。初步判定根因为阀门状态1_MV_004_STATUS异常，其引发的关系退化最先传导至流量传感器1_AIT_003_PV（退化0.71）。需按标准流程核查：1）阀门实际开度与信号一致性 2）传感器零点漂移 3）控制回路响应延迟。特别注意相邻阀门1_MV_001_STATUS存在0.66等级联锁退化风险。建议采集操作日志对比同期泵组启停记录。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 0.3333333333333333,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 3,
+      "report_length": 205
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e1__diagnosis",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 1,
+    "question_type": "diagnosis",
+    "model": "deepseek-v4-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 29980,
+    "usage": {
+      "prompt_tokens": 1479,
+      "total_tokens": 2887,
+      "completion_tokens": 1408,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 197
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"最可能的根因是1_MV_004_STATUS（阀门或执行器状态异常），其关系退化到1_AIT_003_PV（分析仪）的强度最高，且排名第一。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"1_MV_004_STATUS\",\n      \"rank\": 1,\n      \"reason\": \"异常分数归一化后接近1（0.99999997），且关系退化到1_AIT_003_PV（0.71）和1_MV_001_STATUS（0.66）均为最高，表明该变量状态异常可能破坏了下游测量与控制的联动关系。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"1_MV_004_STATUS\",\n      \"target\": \"1_AIT_003_PV\",\n      \"degradation\": 0.710006\n    },\n    {\n      \"source\": \"1_AIT_003_PV\",\n      \"target\": \"2B_AIT_003_PV\",\n      \"degradation\": 0.665327\n    },\n    {\n      \"source\": \"1_MV_004_STATUS\",\n      \"target\": \"1_MV_001_STATUS\",\n      \"degradation\": 0.66\n    },\n    {\n      \"source\": \"2B_AIT_003_PV\",\n      \"target\": \"1_MV_001_STATUS\",\n      \"degradation\": 0.658103\n    },\n    {\n      \"source\": \"1_MV_001_STATUS\",\n      \"target\": \"TOTAL_CONS_REQUIRED_FLOW\",\n      \"degradation\": 0.644873\n    }\n  ],\n  \"recommendations\": [\n    \"优先检查1_MV_004_STATUS的传感器读数、执行器状态（阀门/泵反馈）、控制指令历史，确认是否存在卡涩或信号中断。\",\n    \"复核1_AIT_003_PV和2B_AIT_003_PV的校准记录及采样质量，确保分析仪数据正常。\",\n    \"在510~654窗口内对比上下游液位、流量趋势，验证1_MV_001_STATUS与TOTAL_CONS_REQUIRED_FLOW的联动关系是否异常。\",\n    \"参考运维记录，对泵、液位变量附近的传感器进行校准检查，并记录操作日志。\"\n  ],\n  \"citations\": [\n    \"wadi_operator_note.md:bd41b8dfddd4d527b49067de288350c5:0\",\n    \"wadi_response_sop.md:861febb05b1bf81a44148ed43cb6c230:0\",\n    \"wadi_operator_note.md:9c9983a4f664bcb5a1e8ef855081abf6:0\"\n  ],\n  \"report_text\": \"## 异常概况\\n系统在时间窗口510~654内检测到持续异常，峰值异常分数高达6007751.48，远超阈值0.96，表明该时段内工艺过程出现显著偏离正常模式的扰动。\\n\\n## 根因分析\\n根据异常评分与关系退化证据，最可能的根因变量为 **1_MV_004_STATUS**（排名第一，归一化得分0.99999997）。该变量为阀门或执行器状态信号，其与下游分析仪 **1_AIT_003_PV** 的关系退化强度达0.71，为所有退化边中最高，说明两者之间的依赖关系被严重破坏。同时，1_MV_004_STATUS 与另一阀门状态 **1_MV_001_STATUS** 也存在0.66的退化，进一步指向执行器端可能存在问题。\\n\\n## 关系退化证据\\n退化边列表如下：\\n- 1_MV_004_STATUS → 1_AIT_003_PV (0.71)\\n- 1_AIT_003_PV → 2B_AIT_003_PV (0.67)\\n- 1_MV_004_STATUS → 1_MV_001_STATUS (0.66)\\n- 2B_AIT_003_PV → 1_MV_001_STATUS (0.66)\\n- 1_MV_001_STATUS → TOTAL_CONS_REQUIRED_FLOW (0.64)\\n\\n这些退化关系形成了一条从执行器→分析仪→另一执行器→总需求流量的传播链，提示异常可能源于执行器状态异常，进而影响测量和控制逻辑。\\n\\n## 运维建议\\n1. 立即检查1_MV_004_STATUS的传感器读数、阀门/泵的反馈信号以及控制指令记录，确认是否存在卡涩、信号丢失或指令未执行的情况。\\n2. 对1_AIT_003_PV和2B_AIT_003_PV进行校准和采样质量检查，排除分析仪漂移或堵塞。\\n3. 在异常窗口内对比上下游液位、流量趋势，验证1_MV_001_STATUS与总需求流量之间的联动是否正常。\\n4. 参考运维日志中的建议，在泵、液位变量附近出现关系退化时，应同步核对传感器校准、泵指令状态和阀门反馈。\\n\\n## 参考知识\\n- WaDI运维记录：当泵、液位等变量附近出现关系退化时，需核对传感器校准、泵指令状态、阀门反馈及上下游水位趋势。\\n- WaDI异常响应SOP：首先验证排名靠前传感器的原始值、采样质量和物理范围，然后检查上下游执行器、阀门、泵和控制命令，重点关注高退化边对应的变量依赖关系。\"\n}",
+    "parsed": {
+      "conclusion": "最可能的根因是1_MV_004_STATUS（阀门或执行器状态异常），其关系退化到1_AIT_003_PV（分析仪）的强度最高，且排名第一。",
+      "root_causes": [
+        {
+          "sensor": "1_MV_004_STATUS",
+          "rank": 1,
+          "reason": "异常分数归一化后接近1（0.99999997），且关系退化到1_AIT_003_PV（0.71）和1_MV_001_STATUS（0.66）均为最高，表明该变量状态异常可能破坏了下游测量与控制的联动关系。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_AIT_003_PV",
+          "degradation": 0.710006
+        },
+        {
+          "source": "1_AIT_003_PV",
+          "target": "2B_AIT_003_PV",
+          "degradation": 0.665327
+        },
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_MV_001_STATUS",
+          "degradation": 0.66
+        },
+        {
+          "source": "2B_AIT_003_PV",
+          "target": "1_MV_001_STATUS",
+          "degradation": 0.658103
+        },
+        {
+          "source": "1_MV_001_STATUS",
+          "target": "TOTAL_CONS_REQUIRED_FLOW",
+          "degradation": 0.644873
+        }
+      ],
+      "recommendations": [
+        "优先检查1_MV_004_STATUS的传感器读数、执行器状态（阀门/泵反馈）、控制指令历史，确认是否存在卡涩或信号中断。",
+        "复核1_AIT_003_PV和2B_AIT_003_PV的校准记录及采样质量，确保分析仪数据正常。",
+        "在510~654窗口内对比上下游液位、流量趋势，验证1_MV_001_STATUS与TOTAL_CONS_REQUIRED_FLOW的联动关系是否异常。",
+        "参考运维记录，对泵、液位变量附近的传感器进行校准检查，并记录操作日志。"
+      ],
+      "citations": [
+        "wadi_operator_note.md:bd41b8dfddd4d527b49067de288350c5:0",
+        "wadi_response_sop.md:861febb05b1bf81a44148ed43cb6c230:0",
+        "wadi_operator_note.md:9c9983a4f664bcb5a1e8ef855081abf6:0"
+      ],
+      "report_text": "## 异常概况\n系统在时间窗口510~654内检测到持续异常，峰值异常分数高达6007751.48，远超阈值0.96，表明该时段内工艺过程出现显著偏离正常模式的扰动。\n\n## 根因分析\n根据异常评分与关系退化证据，最可能的根因变量为 **1_MV_004_STATUS**（排名第一，归一化得分0.99999997）。该变量为阀门或执行器状态信号，其与下游分析仪 **1_AIT_003_PV** 的关系退化强度达0.71，为所有退化边中最高，说明两者之间的依赖关系被严重破坏。同时，1_MV_004_STATUS 与另一阀门状态 **1_MV_001_STATUS** 也存在0.66的退化，进一步指向执行器端可能存在问题。\n\n## 关系退化证据\n退化边列表如下：\n- 1_MV_004_STATUS → 1_AIT_003_PV (0.71)\n- 1_AIT_003_PV → 2B_AIT_003_PV (0.67)\n- 1_MV_004_STATUS → 1_MV_001_STATUS (0.66)\n- 2B_AIT_003_PV → 1_MV_001_STATUS (0.66)\n- 1_MV_001_STATUS → TOTAL_CONS_REQUIRED_FLOW (0.64)\n\n这些退化关系形成了一条从执行器→分析仪→另一执行器→总需求流量的传播链，提示异常可能源于执行器状态异常，进而影响测量和控制逻辑。\n\n## 运维建议\n1. 立即检查1_MV_004_STATUS的传感器读数、阀门/泵的反馈信号以及控制指令记录，确认是否存在卡涩、信号丢失或指令未执行的情况。\n2. 对1_AIT_003_PV和2B_AIT_003_PV进行校准和采样质量检查，排除分析仪漂移或堵塞。\n3. 在异常窗口内对比上下游液位、流量趋势，验证1_MV_001_STATUS与总需求流量之间的联动是否正常。\n4. 参考运维日志中的建议，在泵、液位变量附近出现关系退化时，应同步核对传感器校准、泵指令状态和阀门反馈。\n\n## 参考知识\n- WaDI运维记录：当泵、液位等变量附近出现关系退化时，需核对传感器校准、泵指令状态、阀门反馈及上下游水位趋势。\n- WaDI异常响应SOP：首先验证排名靠前传感器的原始值、采样质量和物理范围，然后检查上下游执行器、阀门、泵和控制命令，重点关注高退化边对应的变量依赖关系。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 0.3333333333333333,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 4,
+      "report_length": 1004
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e1__diagnosis",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 1,
+    "question_type": "diagnosis",
+    "model": "deepseek-v4-pro",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 28399,
+    "usage": {
+      "prompt_tokens": 1479,
+      "total_tokens": 2835,
+      "completion_tokens": 1356,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 206
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"报警由 1_MV_004_STATUS 变量异常引起，其与 1_AIT_003_PV 等关键变量的关系退化显著，需优先排查该传感器状态、执行指令及上下游联动。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"1_MV_004_STATUS\",\n      \"rank\": 1,\n      \"reason\": \"该变量在根因候选排序中排名第一，且与 1_AIT_003_PV 的关系退化强度最高（0.71），同时与 1_MV_001_STATUS 关系退化达 0.66，暗示该点可能存在测量偏差、执行故障或控制异常，需结合传感器校准、阀门/泵指令状态及上下游水位趋势进一步确认。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"1_MV_004_STATUS\",\n      \"target\": \"1_AIT_003_PV\",\n      \"degradation\": 0.71\n    },\n    {\n      \"source\": \"1_AIT_003_PV\",\n      \"target\": \"2B_AIT_003_PV\",\n      \"degradation\": 0.67\n    },\n    {\n      \"source\": \"1_MV_004_STATUS\",\n      \"target\": \"1_MV_001_STATUS\",\n      \"degradation\": 0.66\n    },\n    {\n      \"source\": \"2B_AIT_003_PV\",\n      \"target\": \"1_MV_001_STATUS\",\n      \"degradation\": 0.66\n    },\n    {\n      \"source\": \"1_MV_001_STATUS\",\n      \"target\": \"TOTAL_CONS_REQUIRED_FLOW\",\n      \"degradation\": 0.64\n    }\n  ],\n  \"recommendations\": [\n    \"检查 1_MV_004_STATUS 的原始读数、采样质量和物理范围，确认传感器是否健康\",\n    \"核对 1_MV_004_STATUS 对应的执行器（阀门/泵）指令状态与实际反馈是否一致\",\n    \"查看报警窗口内 1_MV_004_STATUS 的控制命令历史，判断是否存在异常切换或指令丢失\",\n    \"对比 1_AIT_003_PV、2B_AIT_003_PV 和 1_MV_001_STATUS 的上下游流量/液位趋势，评估连锁影响\",\n    \"记录操作日志，并对相关仪表进行校准或功能测试\"\n  ],\n  \"citations\": [\n    {\n      \"title\": \"wadi_operator_note.md\",\n      \"chunk_id\": \"bd41b8dfddd4d527b49067de288350c5:0\"\n    },\n    {\n      \"title\": \"wadi_response_sop.md\",\n      \"chunk_id\": \"861febb05b1bf81a44148ed43cb6c230:0\"\n    },\n    {\n      \"title\": \"wadi_operator_note.md\",\n      \"chunk_id\": \"9c9983a4f664bcb5a1e8ef855081abf6:0\"\n    }\n  ],\n  \"report_text\": \"一、异常概况\\n在时间窗口 510~654 内，系统检测到持续异常，峰值异常分数达到 6007751.48，远超阈值 0.96，表明存在显著过程偏离。\\n\\n二、根因分析\\n根因候选排序结果显示，1_MV_004_STATUS 排名第一，其节点误差和周边关系退化证据共同指向该变量为最可能的异常源头。关系退化分析显示，1_MV_004_STATUS 与 1_AIT_003_PV 的退化强度高达 0.71，同时与 1_MV_001_STATUS 的退化强度为 0.66，形成了一条从 1_MV_004_STATUS 经 1_AIT_003_PV、2B_AIT_003_PV 到 1_MV_001_STATUS 和 TOTAL_CONS_REQUIRED_FLOW 的退化链路。该链路表明 1_MV_004_STATUS 的异常可能已传导至下游流量和液位变量，导致整体过程关系失配。\\n\\n三、证据依据\\n根据 WaDI 运维记录和报警响应 SOP，当泵、液位等变量附近出现关系退化时，必须在同一异常窗口内核对传感器校准、泵指令状态、阀门反馈以及上下游水位趋势。当前 1_MV_004_STATUS 的关系退化匹配上述提示，因此应作为排查重点。\\n\\n四、操作建议\\n1. 优先检查 1_MV_004_STATUS 的传感器健康状态，确认其原始值是否在正常范围，是否存在漂移或故障。\\n2. 核对 1_MV_004_STATUS 对应的执行器（如阀门或泵）指令与实际状态，确认控制回路是否正常响应。\\n3. 查看报警窗口内该变量的控制命令历史，排查是否存在异常切换、信号丢失或延迟。\\n4. 对比 1_AIT_003_PV、2B_AIT_003_PV 和 1_MV_001_STATUS 的流量/液位趋势，评估异常传播范围。\\n5. 完成检查后，记录运维日志，并对相关仪表进行校准或功能测试，以恢复过程正常关系。\"\n}",
+    "parsed": {
+      "conclusion": "报警由 1_MV_004_STATUS 变量异常引起，其与 1_AIT_003_PV 等关键变量的关系退化显著，需优先排查该传感器状态、执行指令及上下游联动。",
+      "root_causes": [
+        {
+          "sensor": "1_MV_004_STATUS",
+          "rank": 1,
+          "reason": "该变量在根因候选排序中排名第一，且与 1_AIT_003_PV 的关系退化强度最高（0.71），同时与 1_MV_001_STATUS 关系退化达 0.66，暗示该点可能存在测量偏差、执行故障或控制异常，需结合传感器校准、阀门/泵指令状态及上下游水位趋势进一步确认。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_AIT_003_PV",
+          "degradation": 0.71
+        },
+        {
+          "source": "1_AIT_003_PV",
+          "target": "2B_AIT_003_PV",
+          "degradation": 0.67
+        },
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_MV_001_STATUS",
+          "degradation": 0.66
+        },
+        {
+          "source": "2B_AIT_003_PV",
+          "target": "1_MV_001_STATUS",
+          "degradation": 0.66
+        },
+        {
+          "source": "1_MV_001_STATUS",
+          "target": "TOTAL_CONS_REQUIRED_FLOW",
+          "degradation": 0.64
+        }
+      ],
+      "recommendations": [
+        "检查 1_MV_004_STATUS 的原始读数、采样质量和物理范围，确认传感器是否健康",
+        "核对 1_MV_004_STATUS 对应的执行器（阀门/泵）指令状态与实际反馈是否一致",
+        "查看报警窗口内 1_MV_004_STATUS 的控制命令历史，判断是否存在异常切换或指令丢失",
+        "对比 1_AIT_003_PV、2B_AIT_003_PV 和 1_MV_001_STATUS 的上下游流量/液位趋势，评估连锁影响",
+        "记录操作日志，并对相关仪表进行校准或功能测试"
+      ],
+      "citations": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0"
+        },
+        {
+          "title": "wadi_response_sop.md",
+          "chunk_id": "861febb05b1bf81a44148ed43cb6c230:0"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0"
+        }
+      ],
+      "report_text": "一、异常概况\n在时间窗口 510~654 内，系统检测到持续异常，峰值异常分数达到 6007751.48，远超阈值 0.96，表明存在显著过程偏离。\n\n二、根因分析\n根因候选排序结果显示，1_MV_004_STATUS 排名第一，其节点误差和周边关系退化证据共同指向该变量为最可能的异常源头。关系退化分析显示，1_MV_004_STATUS 与 1_AIT_003_PV 的退化强度高达 0.71，同时与 1_MV_001_STATUS 的退化强度为 0.66，形成了一条从 1_MV_004_STATUS 经 1_AIT_003_PV、2B_AIT_003_PV 到 1_MV_001_STATUS 和 TOTAL_CONS_REQUIRED_FLOW 的退化链路。该链路表明 1_MV_004_STATUS 的异常可能已传导至下游流量和液位变量，导致整体过程关系失配。\n\n三、证据依据\n根据 WaDI 运维记录和报警响应 SOP，当泵、液位等变量附近出现关系退化时，必须在同一异常窗口内核对传感器校准、泵指令状态、阀门反馈以及上下游水位趋势。当前 1_MV_004_STATUS 的关系退化匹配上述提示，因此应作为排查重点。\n\n四、操作建议\n1. 优先检查 1_MV_004_STATUS 的传感器健康状态，确认其原始值是否在正常范围，是否存在漂移或故障。\n2. 核对 1_MV_004_STATUS 对应的执行器（如阀门或泵）指令与实际状态，确认控制回路是否正常响应。\n3. 查看报警窗口内该变量的控制命令历史，排查是否存在异常切换、信号丢失或延迟。\n4. 对比 1_AIT_003_PV、2B_AIT_003_PV 和 1_MV_001_STATUS 的流量/液位趋势，评估异常传播范围。\n5. 完成检查后，记录运维日志，并对相关仪表进行校准或功能测试，以恢复过程正常关系。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 0.3333333333333333,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 1.0,
+      "recommendation_count": 5,
+      "report_length": 791
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e1__operations",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 1,
+    "question_type": "operations",
+    "model": "rule-agent",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 0,
+    "usage": {},
+    "raw_text": "{\"conclusion\": \"事件 #1 的首要根因候选为 1_MV_004_STATUS。\", \"root_causes\": [{\"sensor\": \"1_MV_004_STATUS\", \"rank\": 1, \"reason\": \"Relation-EVGAT 根因候选\"}, {\"sensor\": \"1_AIT_003_PV\", \"rank\": 2, \"reason\": \"Relation-EVGAT 根因候选\"}, {\"sensor\": \"2B_AIT_003_PV\", \"rank\": 3, \"reason\": \"Relation-EVGAT 根因候选\"}], \"degraded_edges\": [{\"source\": \"1_MV_004_STATUS\", \"target\": \"1_AIT_003_PV\", \"degradation\": 0.710006, \"label\": \"0.71\"}, {\"source\": \"1_AIT_003_PV\", \"target\": \"2B_AIT_003_PV\", \"degradation\": 0.665327, \"label\": \"0.67\"}, {\"source\": \"1_MV_004_STATUS\", \"target\": \"1_MV_001_STATUS\", \"degradation\": 0.66, \"label\": \"0.66\"}], \"recommendations\": [\"核对 1_MV_004_STATUS 的原始读数、量程和采集状态。\", \"复核 1_MV_004_STATUS 到 1_AIT_003_PV 的联动关系。\", \"对照异常窗口检查阀门、泵、控制指令和现场工况记录。\"], \"citations\": [{\"title\": \"wadi_operator_note.md\", \"chunk_id\": \"bd41b8dfddd4d527b49067de288350c5:0\"}, {\"title\": \"wadi_response_sop.md\", \"chunk_id\": \"861febb05b1bf81a44148ed43cb6c230:0\"}, {\"title\": \"wadi_operator_note.md\", \"chunk_id\": \"9c9983a4f664bcb5a1e8ef855081abf6:0\"}], \"report_text\": \"事件 #1 的首要根因候选为 1_MV_004_STATUS。 核对 1_MV_004_STATUS 的原始读数、量程和采集状态。 复核 1_MV_004_STATUS 到 1_AIT_003_PV 的联动关系。 对照异常窗口检查阀门、泵、控制指令和现场工况记录。\"}",
+    "parsed": {
+      "conclusion": "事件 #1 的首要根因候选为 1_MV_004_STATUS。",
+      "root_causes": [
+        {
+          "sensor": "1_MV_004_STATUS",
+          "rank": 1,
+          "reason": "Relation-EVGAT 根因候选"
+        },
+        {
+          "sensor": "1_AIT_003_PV",
+          "rank": 2,
+          "reason": "Relation-EVGAT 根因候选"
+        },
+        {
+          "sensor": "2B_AIT_003_PV",
+          "rank": 3,
+          "reason": "Relation-EVGAT 根因候选"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_AIT_003_PV",
+          "degradation": 0.710006,
+          "label": "0.71"
+        },
+        {
+          "source": "1_AIT_003_PV",
+          "target": "2B_AIT_003_PV",
+          "degradation": 0.665327,
+          "label": "0.67"
+        },
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_MV_001_STATUS",
+          "degradation": 0.66,
+          "label": "0.66"
+        }
+      ],
+      "recommendations": [
+        "核对 1_MV_004_STATUS 的原始读数、量程和采集状态。",
+        "复核 1_MV_004_STATUS 到 1_AIT_003_PV 的联动关系。",
+        "对照异常窗口检查阀门、泵、控制指令和现场工况记录。"
+      ],
+      "citations": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0"
+        },
+        {
+          "title": "wadi_response_sop.md",
+          "chunk_id": "861febb05b1bf81a44148ed43cb6c230:0"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0"
+        }
+      ],
+      "report_text": "事件 #1 的首要根因候选为 1_MV_004_STATUS。 核对 1_MV_004_STATUS 的原始读数、量程和采集状态。 复核 1_MV_004_STATUS 到 1_AIT_003_PV 的联动关系。 对照异常窗口检查阀门、泵、控制指令和现场工况记录。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.0,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 1.0,
+      "recommendation_count": 3,
+      "report_length": 132
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e1__operations",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 1,
+    "question_type": "operations",
+    "model": "qwen-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 15441,
+    "usage": {
+      "prompt_tokens": 1714,
+      "total_tokens": 2660,
+      "completion_tokens": 946,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"系统在510~654时间窗口内出现显著异常，根因候选为1_MV_004_STATUS，其与1_AIT_003_PV之间的关系退化最为严重，需优先排查。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"1_MV_004_STATUS\",\n      \"rank\": 1,\n      \"reason\": \"在异常窗口内，该传感器的节点状态与相邻变量间的关系退化程度最高（0.71），且在根因候选中排名第一。\"\n    },\n    {\n      \"sensor\": \"1_AIT_003_PV\",\n      \"rank\": 2,\n      \"reason\": \"作为关键中间变量，其与1_MV_004_STATUS及2B_AIT_003_PV之间存在高退化关系，可能受上游状态异常影响。\"\n    },\n    {\n      \"sensor\": \"2B_AIT_003_PV\",\n      \"rank\": 3,\n      \"reason\": \"与1_AIT_003_PV及1_MV_001_STATUS均呈现显著关系退化，提示上下游联动异常。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"1_MV_004_STATUS\",\n      \"target\": \"1_AIT_003_PV\",\n      \"degradation\": 0.710006\n    },\n    {\n      \"source\": \"1_AIT_003_PV\",\n      \"target\": \"2B_AIT_003_PV\",\n      \"degradation\": 0.665327\n    },\n    {\n      \"source\": \"1_MV_004_STATUS\",\n      \"target\": \"1_MV_001_STATUS\",\n      \"degradation\": 0.66\n    },\n    {\n      \"source\": \"2B_AIT_003_PV\",\n      \"target\": \"1_MV_001_STATUS\",\n      \"degradation\": 0.658103\n    },\n    {\n      \"source\": \"1_MV_001_STATUS\",\n      \"target\": \"TOTAL_CONS_REQUIRED_FLOW\",\n      \"degradation\": 0.644873\n    }\n  ],\n  \"recommendations\": [\n    \"立即核查1_MV_004_STATUS传感器的原始读数、采样质量及物理量程是否正常。\",\n    \"检查1_MV_004_STATUS对应的执行器状态（如阀门开度、泵指令）及其控制链路完整性。\",\n    \"核对1_AIT_003_PV与2B_AIT_003_PV的上游/下游水位趋势及泵/阀反馈信号，确认是否存在逻辑不一致。\",\n    \"对比异常窗口与历史正常窗口中相关变量间的依赖关系，识别偏离模式。\",\n    \"记录操作日志并验证是否存在误触发或控制命令延迟现象。\"\n  ],\n  \"citations\": [\n    \"wadi_operator_note.md\",\n    \"wadi_response_sop.md\"\n  ],\n  \"report_text\": \"根据系统检测结果，在510~654时间窗口内，系统异常分数达6007751.48，远超阈值0.96，表明存在持续性异常。根因候选中，1_MV_004_STATUS以最高关联退化得分（0.71）位居首位，其次为1_AIT_003_PV和2B_AIT_003_PV。关系退化网络显示，1_MV_004_STATUS与1_AIT_003_PV之间的连接退化最强，同时1_MV_004_STATUS至1_MV_001_STATUS、2B_AIT_003_PV至1_MV_001_STATUS等路径也表现出显著退化。建议优先排查1_MV_004_STATUS的传感器健康状态、执行器反馈与控制指令一致性，并同步核查上下游泵、阀与液位变量的联动趋势。参考运维规程，应重点核对传感器校准、控制命令历史及上下游水位变化，确保无误报或控制延迟。所有排查动作应记录于操作日志，供后续分析使用。\"\n}",
+    "parsed": {
+      "conclusion": "系统在510~654时间窗口内出现显著异常，根因候选为1_MV_004_STATUS，其与1_AIT_003_PV之间的关系退化最为严重，需优先排查。",
+      "root_causes": [
+        {
+          "sensor": "1_MV_004_STATUS",
+          "rank": 1,
+          "reason": "在异常窗口内，该传感器的节点状态与相邻变量间的关系退化程度最高（0.71），且在根因候选中排名第一。"
+        },
+        {
+          "sensor": "1_AIT_003_PV",
+          "rank": 2,
+          "reason": "作为关键中间变量，其与1_MV_004_STATUS及2B_AIT_003_PV之间存在高退化关系，可能受上游状态异常影响。"
+        },
+        {
+          "sensor": "2B_AIT_003_PV",
+          "rank": 3,
+          "reason": "与1_AIT_003_PV及1_MV_001_STATUS均呈现显著关系退化，提示上下游联动异常。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_AIT_003_PV",
+          "degradation": 0.710006
+        },
+        {
+          "source": "1_AIT_003_PV",
+          "target": "2B_AIT_003_PV",
+          "degradation": 0.665327
+        },
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_MV_001_STATUS",
+          "degradation": 0.66
+        },
+        {
+          "source": "2B_AIT_003_PV",
+          "target": "1_MV_001_STATUS",
+          "degradation": 0.658103
+        },
+        {
+          "source": "1_MV_001_STATUS",
+          "target": "TOTAL_CONS_REQUIRED_FLOW",
+          "degradation": 0.644873
+        }
+      ],
+      "recommendations": [
+        "立即核查1_MV_004_STATUS传感器的原始读数、采样质量及物理量程是否正常。",
+        "检查1_MV_004_STATUS对应的执行器状态（如阀门开度、泵指令）及其控制链路完整性。",
+        "核对1_AIT_003_PV与2B_AIT_003_PV的上游/下游水位趋势及泵/阀反馈信号，确认是否存在逻辑不一致。",
+        "对比异常窗口与历史正常窗口中相关变量间的依赖关系，识别偏离模式。",
+        "记录操作日志并验证是否存在误触发或控制命令延迟现象。"
+      ],
+      "citations": [
+        "wadi_operator_note.md",
+        "wadi_response_sop.md"
+      ],
+      "report_text": "根据系统检测结果，在510~654时间窗口内，系统异常分数达6007751.48，远超阈值0.96，表明存在持续性异常。根因候选中，1_MV_004_STATUS以最高关联退化得分（0.71）位居首位，其次为1_AIT_003_PV和2B_AIT_003_PV。关系退化网络显示，1_MV_004_STATUS与1_AIT_003_PV之间的连接退化最强，同时1_MV_004_STATUS至1_MV_001_STATUS、2B_AIT_003_PV至1_MV_001_STATUS等路径也表现出显著退化。建议优先排查1_MV_004_STATUS的传感器健康状态、执行器反馈与控制指令一致性，并同步核查上下游泵、阀与液位变量的联动趋势。参考运维规程，应重点核对传感器校准、控制命令历史及上下游水位变化，确保无误报或控制延迟。所有排查动作应记录于操作日志，供后续分析使用。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.0,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 5,
+      "report_length": 386
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e1__operations",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 1,
+    "question_type": "operations",
+    "model": "qwen3.5-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 49505,
+    "usage": {
+      "prompt_tokens": 1813,
+      "total_tokens": 6588,
+      "completion_tokens": 4775,
+      "completion_tokens_details": {
+        "reasoning_tokens": 3463,
+        "text_tokens": 4775
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"系统检测到 WaDI 事件，时间窗口 510~654，异常分数 6007751.48 超过阈值 0.96，依据排名和关系退化线索锁定主要排查目标为 1_MV_004_STATUS 及其下游耦合变量。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"1_MV_004_STATUS\",\n      \"rank\": 1,\n      \"reason\": \"节点得分最高且与 1_AIT_003_PV 存在高退化边 (0.71)，作为首要排查对象需验证读数及设备状态。\"\n    },\n    {\n      \"sensor\": \"1_AIT_003_PV\",\n      \"rank\": 2,\n      \"reason\": \"作为退化链核心节点，连接上游阀门与下游液位传感器，需核对物理范围与校准数据。\"\n    },\n    {\n      \"sensor\": \"2B_AIT_003_PV\",\n      \"rank\": 3,\n      \"reason\": \"位于退化路径末端，受上游信号影响较大，需对比历史正常窗口的依赖关系。\"\n    },\n    {\n      \"sensor\": \"1_MV_001_STATUS\",\n      \"rank\": 4,\n      \"reason\": \"与多节点存在退化关联，需检查执行器状态及上下游水位趋势。\"\n    },\n    {\n      \"sensor\": \"TOTAL_CONS_REQUIRED_FLOW\",\n      \"rank\": 5,\n      \"reason\": \"处于退化网络出口，需复核流量计算逻辑与上游联动指令。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"1_MV_004_STATUS\",\n      \"target\": \"1_AIT_003_PV\",\n      \"degradation\": 0.710006\n    },\n    {\n      \"source\": \"1_AIT_003_PV\",\n      \"target\": \"2B_AIT_003_PV\",\n      \"degradation\": 0.665327\n    },\n    {\n      \"source\": \"1_MV_004_STATUS\",\n      \"target\": \"1_MV_001_STATUS\",\n      \"degradation\": 0.66\n    },\n    {\n      \"source\": \"2B_AIT_003_PV\",\n      \"target\": \"1_MV_001_STATUS\",\n      \"degradation\": 0.658103\n    },\n    {\n      \"source\": \"1_MV_001_STATUS\",\n      \"target\": \"TOTAL_CONS_REQUIRED_FLOW\",\n      \"degradation\": 0.644873\n    }\n  ],\n  \"recommendations\": [\n    \"优先核实排名第 1 的传感器 1_MV_004_STATUS 的原始数据质量、采样完整性及物理量程是否异常。\",\n    \"对照 wa_di_response_sop，检查同一异常窗口内的上游执行器、阀门反馈及控制命令历史。\",\n    \"针对泵、液位变量附近的退化关系，在 510~654 窗口内核对传感器校准状态及上下游水位/流量趋势。\",\n    \"若某两变量间关系退化强度较高 (>0.6)，请将其当前运行依赖与历史正常窗口数据进行比对分析。\",\n    \"记录操作日志并确认故障复现条件，以便后续复盘。\"\n  ],\n  \"citations\": [\n    \"wadi_response_sop.md:861febb05b1bf81a44148ed43cb6c230:0\",\n    \"wadi_operator_note.md:bd41b8dfddd4d527b49067de288350c5:0\",\n    \"wadi_operator_note.md:9c9983a4f664bcb5a1e8ef855081abf6:0\"\n  ],\n  \"report_text\": \"一、异常概况\\n系统在时间窗口 510~654 内检测到持续异常，峰值异常分数为 6007751.48，远高于设定阈值 0.96。\\n二、根因候选分析\\n根据异常评分与关系退化证据，按优先级列出以下 5 个关键节点供重点排查：\\n1. 1_MV_004_STATUS：排名第一，与下游传感器存在最高强度退化关联（0.71）。\\n2. 1_AIT_003_PV：排名第二，处于退化链路中心位置。\\n3. 2B_AIT_003_PV、1_MV_001_STATUS、TOTAL_CONS_REQUIRED_FLOW 依次排后。\\n三、关系退化线索\\n检测到多条边退化强度超过 0.6，其中 1_MV_004_STATUS → 1_AIT_003_PV 最为显著（0.71）。此类现象提示泵阀与传感器间的物理依赖或信号传输可能受到干扰，但仅作为排查线索，不作为绝对因果定论。\\n四、运维排查建议\\n依据 SOP 标准操作程序，建议按以下步骤处理：\\n1. 验证顶层传感器的原始值、采样质量及物理范围是否正常。\\n2. 检查上游及下游的执行器、阀门、泵的状态与控制指令是否在异常窗口内匹配。\\n3. 当发现泵或液位变量附近出现关系退化时，务必核对传感器校准、设备反馈及水位趋势。\\n4. 对比预期操作依赖与历史正常窗口的差异，确认是否存在模型漂移或实际工况变化。\\n5. 做好运维记录，归档本次事件的详细参数以供后续分析。\"\n}",
+    "parsed": {
+      "conclusion": "系统检测到 WaDI 事件，时间窗口 510~654，异常分数 6007751.48 超过阈值 0.96，依据排名和关系退化线索锁定主要排查目标为 1_MV_004_STATUS 及其下游耦合变量。",
+      "root_causes": [
+        {
+          "sensor": "1_MV_004_STATUS",
+          "rank": 1,
+          "reason": "节点得分最高且与 1_AIT_003_PV 存在高退化边 (0.71)，作为首要排查对象需验证读数及设备状态。"
+        },
+        {
+          "sensor": "1_AIT_003_PV",
+          "rank": 2,
+          "reason": "作为退化链核心节点，连接上游阀门与下游液位传感器，需核对物理范围与校准数据。"
+        },
+        {
+          "sensor": "2B_AIT_003_PV",
+          "rank": 3,
+          "reason": "位于退化路径末端，受上游信号影响较大，需对比历史正常窗口的依赖关系。"
+        },
+        {
+          "sensor": "1_MV_001_STATUS",
+          "rank": 4,
+          "reason": "与多节点存在退化关联，需检查执行器状态及上下游水位趋势。"
+        },
+        {
+          "sensor": "TOTAL_CONS_REQUIRED_FLOW",
+          "rank": 5,
+          "reason": "处于退化网络出口，需复核流量计算逻辑与上游联动指令。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_AIT_003_PV",
+          "degradation": 0.710006
+        },
+        {
+          "source": "1_AIT_003_PV",
+          "target": "2B_AIT_003_PV",
+          "degradation": 0.665327
+        },
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_MV_001_STATUS",
+          "degradation": 0.66
+        },
+        {
+          "source": "2B_AIT_003_PV",
+          "target": "1_MV_001_STATUS",
+          "degradation": 0.658103
+        },
+        {
+          "source": "1_MV_001_STATUS",
+          "target": "TOTAL_CONS_REQUIRED_FLOW",
+          "degradation": 0.644873
+        }
+      ],
+      "recommendations": [
+        "优先核实排名第 1 的传感器 1_MV_004_STATUS 的原始数据质量、采样完整性及物理量程是否异常。",
+        "对照 wa_di_response_sop，检查同一异常窗口内的上游执行器、阀门反馈及控制命令历史。",
+        "针对泵、液位变量附近的退化关系，在 510~654 窗口内核对传感器校准状态及上下游水位/流量趋势。",
+        "若某两变量间关系退化强度较高 (>0.6)，请将其当前运行依赖与历史正常窗口数据进行比对分析。",
+        "记录操作日志并确认故障复现条件，以便后续复盘。"
+      ],
+      "citations": [
+        "wadi_response_sop.md:861febb05b1bf81a44148ed43cb6c230:0",
+        "wadi_operator_note.md:bd41b8dfddd4d527b49067de288350c5:0",
+        "wadi_operator_note.md:9c9983a4f664bcb5a1e8ef855081abf6:0"
+      ],
+      "report_text": "一、异常概况\n系统在时间窗口 510~654 内检测到持续异常，峰值异常分数为 6007751.48，远高于设定阈值 0.96。\n二、根因候选分析\n根据异常评分与关系退化证据，按优先级列出以下 5 个关键节点供重点排查：\n1. 1_MV_004_STATUS：排名第一，与下游传感器存在最高强度退化关联（0.71）。\n2. 1_AIT_003_PV：排名第二，处于退化链路中心位置。\n3. 2B_AIT_003_PV、1_MV_001_STATUS、TOTAL_CONS_REQUIRED_FLOW 依次排后。\n三、关系退化线索\n检测到多条边退化强度超过 0.6，其中 1_MV_004_STATUS → 1_AIT_003_PV 最为显著（0.71）。此类现象提示泵阀与传感器间的物理依赖或信号传输可能受到干扰，但仅作为排查线索，不作为绝对因果定论。\n四、运维排查建议\n依据 SOP 标准操作程序，建议按以下步骤处理：\n1. 验证顶层传感器的原始值、采样质量及物理范围是否正常。\n2. 检查上游及下游的执行器、阀门、泵的状态与控制指令是否在异常窗口内匹配。\n3. 当发现泵或液位变量附近出现关系退化时，务必核对传感器校准、设备反馈及水位趋势。\n4. 对比预期操作依赖与历史正常窗口的差异，确认是否存在模型漂移或实际工况变化。\n5. 做好运维记录，归档本次事件的详细参数以供后续分析。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.6666666666666667,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 5,
+      "report_length": 592
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e1__operations",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 1,
+    "question_type": "operations",
+    "model": "deepseek-v4-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 26064,
+    "usage": {
+      "prompt_tokens": 1479,
+      "total_tokens": 3110,
+      "completion_tokens": 1631,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 96
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"系统在时间窗口 510~654 内检测到异常，峰值异常分数 6007751.48 远超阈值 0.96。根因分析以 1_MV_004_STATUS 为首要候选，其与下游 1_AIT_003_PV 间的边退化强度最高（0.71），需优先排查该阀门的传感器读数、执行状态及控制指令。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"1_MV_004_STATUS\",\n      \"rank\": 1,\n      \"reason\": \"该传感器节点异常分数最高（0.0355，归一化 0.99999997），且其指向 1_AIT_003_PV 的边退化强度（0.71）为所有退化边之首，作为关系退化排查的起点。\"\n    },\n    {\n      \"sensor\": \"1_AIT_003_PV\",\n      \"rank\": 2,\n      \"reason\": \"异常分数次高（0.033266），其与上游阀门和下游分析仪的退化边均显著，需结合上游阀门状态进行复核。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"1_MV_004_STATUS\",\n      \"target\": \"1_AIT_003_PV\",\n      \"degradation\": 0.710006\n    },\n    {\n      \"source\": \"1_AIT_003_PV\",\n      \"target\": \"2B_AIT_003_PV\",\n      \"degradation\": 0.665327\n    },\n    {\n      \"source\": \"1_MV_004_STATUS\",\n      \"target\": \"1_MV_001_STATUS\",\n      \"degradation\": 0.66\n    },\n    {\n      \"source\": \"2B_AIT_003_PV\",\n      \"target\": \"1_MV_001_STATUS\",\n      \"degradation\": 0.658103\n    },\n    {\n      \"source\": \"1_MV_001_STATUS\",\n      \"target\": \"TOTAL_CONS_REQUIRED_FLOW\",\n      \"degradation\": 0.644873\n    }\n  ],\n  \"recommendations\": [\n    \"1. 立即检查 1_MV_004_STATUS 的原始读数、采样质量和物理量程，确认是否存在传感器漂移或通信异常。\",\n    \"2. 核实 1_MV_004_STATUS 的执行状态（阀门开/关反馈）与控制指令是否一致，检查相邻阀门/泵的状态。\",\n    \"3. 复核 1_AIT_003_PV 的校准时戳、最近标定记录，并与上游 1_MV_004_STATUS 的开度趋势做时间对齐分析。\",\n    \"4. 查看 1_MV_001_STATUS 和 2B_AIT_003_PV 的联动关系，评估管路流动或液位是否受控。\",\n    \"5. 对照历史正常窗口下相同变量的依赖关系，记录本次异常的操作日志以备后续参考。\"\n  ],\n  \"citations\": [\n    {\n      \"title\": \"wadi_operator_note.md\",\n      \"chunk_id\": \"bd41b8dfddd4d527b49067de288350c5:0\"\n    },\n    {\n      \"title\": \"wadi_response_sop.md\",\n      \"chunk_id\": \"861febb05b1bf81a44148ed43cb6c230:0\"\n    },\n    {\n      \"title\": \"wadi_operator_note.md\",\n      \"chunk_id\": \"9c9983a4f664bcb5a1e8ef855081abf6:0\"\n    }\n  ],\n  \"report_text\": \"## 异常概况\\n\\n系统在时间窗口 510~654 内检测到持续异常，峰值异常分数高达 6007751.48，远超激活阈值 0.96。该窗口内多个传感器节点和变量之间的关系出现显著退化。\\n\\n## 根因候选分析\\n\\n根据节点预测误差和相邻关系退化证据，根因候选排序如下：\\n1. **1_MV_004_STATUS**（排名第一）：异常分数 0.0355，归一化值接近 1.0，且其指向 1_AIT_003_PV 的边退化强度达 0.71，为所有退化边中最高。\\n2. **1_AIT_003_PV**（排名第二）：异常分数 0.0333，与上游阀门和下游分析仪间的退化边均被标记。\\n3. 其他候选包括 2B_AIT_003_PV、1_MV_001_STATUS 和 TOTAL_CONS_REQUIRED_FLOW，需在后续排查中依次验证。\\n\\n## 关系退化证据\\n\\n检测到 5 条高置信度退化边，按退化强度降序排列：\\n- 1_MV_004_STATUS → 1_AIT_003_PV：0.71\\n- 1_AIT_003_PV → 2B_AIT_003_PV：0.67\\n- 1_MV_004_STATUS → 1_MV_001_STATUS：0.66\\n- 2B_AIT_003_PV → 1_MV_001_STATUS：0.66\\n- 1_MV_001_STATUS → TOTAL_CONS_REQUIRED_FLOW：0.64\\n\\n这些退化边提示阀门状态、分析仪测量值与总需求流量之间的预期依赖关系在此窗口中失效。\\n\\n## 运维排查步骤（按优先级）\\n\\n1. **优先检查 1_MV_004_STATUS**：读取其原始数值、采样质量及物理量程范围，确认是否超出正常阈值。同时核实该阀门的开/关状态反馈与控制室指令是否一致，检查相邻泵或液位信号是否存在异常。\\n2. **复核 1_AIT_003_PV 的校准与趋势**：查看该分析仪最近一次标定时间、历史稳定性，并与上游 1_MV_004_STATUS 的阀门开度趋势做时间对齐，判断测量值是否可信。\\n3. **检查 1_MV_001_STATUS 和 2B_AIT_003_PV 的联动**：分析这两个变量之间的控制逻辑，评估是否存在管路堵塞、液位波动或控制指令延迟。\\n4. **对比正常历史窗口**：选取相同时间段的正常数据，重新计算上述退化边的强度，确认当前窗口的异常是否为偶发噪声或系统性偏差。\\n5. **记录操作日志**：将本次异常发现、已执行检查步骤和异常特征记录到运维日志中，便于后续故障溯源与模型改进。\\n\\n以上步骤引用了 WaDI 运维记录和告警响应 SOP 中的规范，即当泵、液位等变量附近出现关系退化时，需优先核对传感器校准、泵指令状态、阀门反馈以及上下游水位趋势；同时按照“确认传感器健康→检查执行器状态→复核控制指令→比较上下游变量→记日志”的清单执行。\"\n}",
+    "parsed": {
+      "conclusion": "系统在时间窗口 510~654 内检测到异常，峰值异常分数 6007751.48 远超阈值 0.96。根因分析以 1_MV_004_STATUS 为首要候选，其与下游 1_AIT_003_PV 间的边退化强度最高（0.71），需优先排查该阀门的传感器读数、执行状态及控制指令。",
+      "root_causes": [
+        {
+          "sensor": "1_MV_004_STATUS",
+          "rank": 1,
+          "reason": "该传感器节点异常分数最高（0.0355，归一化 0.99999997），且其指向 1_AIT_003_PV 的边退化强度（0.71）为所有退化边之首，作为关系退化排查的起点。"
+        },
+        {
+          "sensor": "1_AIT_003_PV",
+          "rank": 2,
+          "reason": "异常分数次高（0.033266），其与上游阀门和下游分析仪的退化边均显著，需结合上游阀门状态进行复核。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_AIT_003_PV",
+          "degradation": 0.710006
+        },
+        {
+          "source": "1_AIT_003_PV",
+          "target": "2B_AIT_003_PV",
+          "degradation": 0.665327
+        },
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_MV_001_STATUS",
+          "degradation": 0.66
+        },
+        {
+          "source": "2B_AIT_003_PV",
+          "target": "1_MV_001_STATUS",
+          "degradation": 0.658103
+        },
+        {
+          "source": "1_MV_001_STATUS",
+          "target": "TOTAL_CONS_REQUIRED_FLOW",
+          "degradation": 0.644873
+        }
+      ],
+      "recommendations": [
+        "1. 立即检查 1_MV_004_STATUS 的原始读数、采样质量和物理量程，确认是否存在传感器漂移或通信异常。",
+        "2. 核实 1_MV_004_STATUS 的执行状态（阀门开/关反馈）与控制指令是否一致，检查相邻阀门/泵的状态。",
+        "3. 复核 1_AIT_003_PV 的校准时戳、最近标定记录，并与上游 1_MV_004_STATUS 的开度趋势做时间对齐分析。",
+        "4. 查看 1_MV_001_STATUS 和 2B_AIT_003_PV 的联动关系，评估管路流动或液位是否受控。",
+        "5. 对照历史正常窗口下相同变量的依赖关系，记录本次异常的操作日志以备后续参考。"
+      ],
+      "citations": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0"
+        },
+        {
+          "title": "wadi_response_sop.md",
+          "chunk_id": "861febb05b1bf81a44148ed43cb6c230:0"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0"
+        }
+      ],
+      "report_text": "## 异常概况\n\n系统在时间窗口 510~654 内检测到持续异常，峰值异常分数高达 6007751.48，远超激活阈值 0.96。该窗口内多个传感器节点和变量之间的关系出现显著退化。\n\n## 根因候选分析\n\n根据节点预测误差和相邻关系退化证据，根因候选排序如下：\n1. **1_MV_004_STATUS**（排名第一）：异常分数 0.0355，归一化值接近 1.0，且其指向 1_AIT_003_PV 的边退化强度达 0.71，为所有退化边中最高。\n2. **1_AIT_003_PV**（排名第二）：异常分数 0.0333，与上游阀门和下游分析仪间的退化边均被标记。\n3. 其他候选包括 2B_AIT_003_PV、1_MV_001_STATUS 和 TOTAL_CONS_REQUIRED_FLOW，需在后续排查中依次验证。\n\n## 关系退化证据\n\n检测到 5 条高置信度退化边，按退化强度降序排列：\n- 1_MV_004_STATUS → 1_AIT_003_PV：0.71\n- 1_AIT_003_PV → 2B_AIT_003_PV：0.67\n- 1_MV_004_STATUS → 1_MV_001_STATUS：0.66\n- 2B_AIT_003_PV → 1_MV_001_STATUS：0.66\n- 1_MV_001_STATUS → TOTAL_CONS_REQUIRED_FLOW：0.64\n\n这些退化边提示阀门状态、分析仪测量值与总需求流量之间的预期依赖关系在此窗口中失效。\n\n## 运维排查步骤（按优先级）\n\n1. **优先检查 1_MV_004_STATUS**：读取其原始数值、采样质量及物理量程范围，确认是否超出正常阈值。同时核实该阀门的开/关状态反馈与控制室指令是否一致，检查相邻泵或液位信号是否存在异常。\n2. **复核 1_AIT_003_PV 的校准与趋势**：查看该分析仪最近一次标定时间、历史稳定性，并与上游 1_MV_004_STATUS 的阀门开度趋势做时间对齐，判断测量值是否可信。\n3. **检查 1_MV_001_STATUS 和 2B_AIT_003_PV 的联动**：分析这两个变量之间的控制逻辑，评估是否存在管路堵塞、液位波动或控制指令延迟。\n4. **对比正常历史窗口**：选取相同时间段的正常数据，重新计算上述退化边的强度，确认当前窗口的异常是否为偶发噪声或系统性偏差。\n5. **记录操作日志**：将本次异常发现、已执行检查步骤和异常特征记录到运维日志中，便于后续故障溯源与模型改进。\n\n以上步骤引用了 WaDI 运维记录和告警响应 SOP 中的规范，即当泵、液位等变量附近出现关系退化时，需优先核对传感器校准、泵指令状态、阀门反馈以及上下游水位趋势；同时按照“确认传感器健康→检查执行器状态→复核控制指令→比较上下游变量→记日志”的清单执行。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 0.6666666666666666,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 1.0,
+      "recommendation_count": 5,
+      "report_length": 1207
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e1__operations",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 1,
+    "question_type": "operations",
+    "model": "deepseek-v4-pro",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 36840,
+    "usage": {
+      "prompt_tokens": 1479,
+      "total_tokens": 3100,
+      "completion_tokens": 1621,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 377
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"异常窗口 510~654 内，1_MV_004_STATUS 为最可能的异常根因变量，其与 1_AIT_003_PV 等变量间的关系退化显著，建议优先排查该阀门状态及上下游关联设备。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"1_MV_004_STATUS\",\n      \"rank\": 1,\n      \"reason\": \"归一化根因得分最高，与 1_AIT_003_PV 和 1_MV_001_STATUS 的关系退化强度均超过 0.66，表明该阀门状态可能引发连锁异常。\"\n    },\n    {\n      \"sensor\": \"1_AIT_003_PV\",\n      \"rank\": 2,\n      \"reason\": \"根因得分第二，与上游 1_MV_004_STATUS 和下游 2B_AIT_003_PV 均存在高退化边，可能为故障传播的关键节点。\"\n    },\n    {\n      \"sensor\": \"2B_AIT_003_PV\",\n      \"rank\": 3,\n      \"reason\": \"根因得分第三，与 1_MV_001_STATUS 关系退化约 0.66，反映该分析仪表信号可能受上游影响。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"1_MV_004_STATUS\",\n      \"target\": \"1_AIT_003_PV\",\n      \"degradation\": 0.710006\n    },\n    {\n      \"source\": \"1_AIT_003_PV\",\n      \"target\": \"2B_AIT_003_PV\",\n      \"degradation\": 0.665327\n    },\n    {\n      \"source\": \"1_MV_004_STATUS\",\n      \"target\": \"1_MV_001_STATUS\",\n      \"degradation\": 0.66\n    },\n    {\n      \"source\": \"2B_AIT_003_PV\",\n      \"target\": \"1_MV_001_STATUS\",\n      \"degradation\": 0.658103\n    },\n    {\n      \"source\": \"1_MV_001_STATUS\",\n      \"target\": \"TOTAL_CONS_REQUIRED_FLOW\",\n      \"degradation\": 0.644873\n    }\n  ],\n  \"recommendations\": [\n    \"立即核对 1_MV_004_STATUS 的阀门位置反馈、驱动指令及供电状态，确认是否卡滞、误动或控制失效。\",\n    \"检查 1_AIT_003_PV 分析仪表的校准记录、采样管线及测量值趋势，排除传感器漂移或堵塞。\",\n    \"交叉比对 1_MV_001_STATUS、2B_AIT_003_PV 和 TOTAL_CONS_REQUIRED_FLOW 在同一窗口的原始值，确认上下游流量/液位逻辑一致性。\",\n    \"回溯控制指令历史，确认 1_MV_004 的动作指令是否与流程需求匹配，验证控制回路是否存在异常切换。\",\n    \"若上述检查均未发现明显异常，建议对 1_MV_004 进行物理功能测试，并延长监测窗口观察关系退化是否恢复。\"\n  ],\n  \"citations\": [\n    {\n      \"title\": \"wadi_operator_note.md\",\n      \"chunk_id\": \"bd41b8dfddd4d527b49067de288350c5:0\"\n    },\n    {\n      \"title\": \"wadi_response_sop.md\",\n      \"chunk_id\": \"861febb05b1bf81a44148ed43cb6c230:0\"\n    },\n    {\n      \"title\": \"wadi_operator_note.md\",\n      \"chunk_id\": \"9c9983a4f664bcb5a1e8ef855081abf6:0\"\n    }\n  ],\n  \"report_text\": \"异常检测报告：在时间窗口 510~654 内，系统检测到显著异常，峰值分数 6007751.48，远超阈值 0.96。根因推理显示，1_MV_004_STATUS（阀门状态）为最可能的异常源，其归一化根因得分最高，且与 1_AIT_003_PV（分析仪表）及 1_MV_001_STATUS（另一阀门状态）的关系退化强度分别达到 0.71 和 0.66，表明该阀门状态异常可能通过工艺链传播，影响了分析仪表读数和下游流量需求计算。\\n\\n按优先级排列的现场排查步骤：\\n1. 首先检查 1_MV_004_STATUS 的物理状态：确认阀门实际开度、驱动信号、位置反馈及供电是否正常，有无卡涩或误动作迹象。\\n2. 核实 1_AIT_003_PV 的传感器健康度：检查校准证书、取样管路是否堵塞、测量值是否在合理物理范围内，并与历史趋势对比。\\n3. 交叉验证上下游变量：在同一窗口内，比对 1_MV_001_STATUS、2B_AIT_003_PV 和 TOTAL_CONS_REQUIRED_FLOW 的原始值，确认它们之间的逻辑关系是否符合工艺设计。\\n4. 调阅控制指令历史：查看 1_MV_004 的控制信号是否与当前流程需求一致，排除控制回路异常或误操作。\\n5. 若以上步骤未发现明确故障，执行阀门功能测试并延长观察窗口，记录关系退化恢复情况，必要时进行进一步诊断。\\n\\n运维建议：请优先处理 1_MV_004 相关线索，因为其退化关系最强且位于故障传播链起始端，后续步骤可依据现场发现灵活调整。所有操作需记录在案，以便事后追溯。\"\n}",
+    "parsed": {
+      "conclusion": "异常窗口 510~654 内，1_MV_004_STATUS 为最可能的异常根因变量，其与 1_AIT_003_PV 等变量间的关系退化显著，建议优先排查该阀门状态及上下游关联设备。",
+      "root_causes": [
+        {
+          "sensor": "1_MV_004_STATUS",
+          "rank": 1,
+          "reason": "归一化根因得分最高，与 1_AIT_003_PV 和 1_MV_001_STATUS 的关系退化强度均超过 0.66，表明该阀门状态可能引发连锁异常。"
+        },
+        {
+          "sensor": "1_AIT_003_PV",
+          "rank": 2,
+          "reason": "根因得分第二，与上游 1_MV_004_STATUS 和下游 2B_AIT_003_PV 均存在高退化边，可能为故障传播的关键节点。"
+        },
+        {
+          "sensor": "2B_AIT_003_PV",
+          "rank": 3,
+          "reason": "根因得分第三，与 1_MV_001_STATUS 关系退化约 0.66，反映该分析仪表信号可能受上游影响。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_AIT_003_PV",
+          "degradation": 0.710006
+        },
+        {
+          "source": "1_AIT_003_PV",
+          "target": "2B_AIT_003_PV",
+          "degradation": 0.665327
+        },
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_MV_001_STATUS",
+          "degradation": 0.66
+        },
+        {
+          "source": "2B_AIT_003_PV",
+          "target": "1_MV_001_STATUS",
+          "degradation": 0.658103
+        },
+        {
+          "source": "1_MV_001_STATUS",
+          "target": "TOTAL_CONS_REQUIRED_FLOW",
+          "degradation": 0.644873
+        }
+      ],
+      "recommendations": [
+        "立即核对 1_MV_004_STATUS 的阀门位置反馈、驱动指令及供电状态，确认是否卡滞、误动或控制失效。",
+        "检查 1_AIT_003_PV 分析仪表的校准记录、采样管线及测量值趋势，排除传感器漂移或堵塞。",
+        "交叉比对 1_MV_001_STATUS、2B_AIT_003_PV 和 TOTAL_CONS_REQUIRED_FLOW 在同一窗口的原始值，确认上下游流量/液位逻辑一致性。",
+        "回溯控制指令历史，确认 1_MV_004 的动作指令是否与流程需求匹配，验证控制回路是否存在异常切换。",
+        "若上述检查均未发现明显异常，建议对 1_MV_004 进行物理功能测试，并延长监测窗口观察关系退化是否恢复。"
+      ],
+      "citations": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0"
+        },
+        {
+          "title": "wadi_response_sop.md",
+          "chunk_id": "861febb05b1bf81a44148ed43cb6c230:0"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0"
+        }
+      ],
+      "report_text": "异常检测报告：在时间窗口 510~654 内，系统检测到显著异常，峰值分数 6007751.48，远超阈值 0.96。根因推理显示，1_MV_004_STATUS（阀门状态）为最可能的异常源，其归一化根因得分最高，且与 1_AIT_003_PV（分析仪表）及 1_MV_001_STATUS（另一阀门状态）的关系退化强度分别达到 0.71 和 0.66，表明该阀门状态异常可能通过工艺链传播，影响了分析仪表读数和下游流量需求计算。\n\n按优先级排列的现场排查步骤：\n1. 首先检查 1_MV_004_STATUS 的物理状态：确认阀门实际开度、驱动信号、位置反馈及供电是否正常，有无卡涩或误动作迹象。\n2. 核实 1_AIT_003_PV 的传感器健康度：检查校准证书、取样管路是否堵塞、测量值是否在合理物理范围内，并与历史趋势对比。\n3. 交叉验证上下游变量：在同一窗口内，比对 1_MV_001_STATUS、2B_AIT_003_PV 和 TOTAL_CONS_REQUIRED_FLOW 的原始值，确认它们之间的逻辑关系是否符合工艺设计。\n4. 调阅控制指令历史：查看 1_MV_004 的控制信号是否与当前流程需求一致，排除控制回路异常或误操作。\n5. 若以上步骤未发现明确故障，执行阀门功能测试并延长观察窗口，记录关系退化恢复情况，必要时进行进一步诊断。\n\n运维建议：请优先处理 1_MV_004 相关线索，因为其退化关系最强且位于故障传播链起始端，后续步骤可依据现场发现灵活调整。所有操作需记录在案，以便事后追溯。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.0,
+      "sensor_hallucination_count": 1,
+      "citation_precision": 1.0,
+      "recommendation_count": 5,
+      "report_length": 663
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e2__diagnosis",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 2,
+    "question_type": "diagnosis",
+    "model": "rule-agent",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 0,
+    "usage": {},
+    "raw_text": "{\"conclusion\": \"事件 #2 的首要根因候选为 2_FIC_601_PV。\", \"root_causes\": [{\"sensor\": \"2_FIC_601_PV\", \"rank\": 1, \"reason\": \"Relation-EVGAT 根因候选\"}, {\"sensor\": \"3_AIT_002_PV\", \"rank\": 2, \"reason\": \"Relation-EVGAT 根因候选\"}, {\"sensor\": \"2_FIC_601_SP\", \"rank\": 3, \"reason\": \"Relation-EVGAT 根因候选\"}], \"degraded_edges\": [{\"source\": \"2_FIC_601_PV\", \"target\": \"3_AIT_002_PV\", \"degradation\": 0.92318, \"label\": \"0.92\"}, {\"source\": \"3_AIT_002_PV\", \"target\": \"2_FIC_601_SP\", \"degradation\": 0.829998, \"label\": \"0.83\"}, {\"source\": \"2_FIC_601_SP\", \"target\": \"2_P_004_SPEED\", \"degradation\": 0.78048, \"label\": \"0.78\"}], \"recommendations\": [\"核对 2_FIC_601_PV 的原始读数、量程和采集状态。\", \"复核 2_FIC_601_PV 到 3_AIT_002_PV 的联动关系。\", \"对照异常窗口检查阀门、泵、控制指令和现场工况记录。\"], \"citations\": [{\"title\": \"wadi_operator_note.md\", \"chunk_id\": \"bd41b8dfddd4d527b49067de288350c5:0\"}, {\"title\": \"wadi_response_sop.md\", \"chunk_id\": \"861febb05b1bf81a44148ed43cb6c230:0\"}, {\"title\": \"wadi_operator_note.md\", \"chunk_id\": \"9c9983a4f664bcb5a1e8ef855081abf6:0\"}], \"report_text\": \"事件 #2 的首要根因候选为 2_FIC_601_PV。 核对 2_FIC_601_PV 的原始读数、量程和采集状态。 复核 2_FIC_601_PV 到 3_AIT_002_PV 的联动关系。 对照异常窗口检查阀门、泵、控制指令和现场工况记录。\"}",
+    "parsed": {
+      "conclusion": "事件 #2 的首要根因候选为 2_FIC_601_PV。",
+      "root_causes": [
+        {
+          "sensor": "2_FIC_601_PV",
+          "rank": 1,
+          "reason": "Relation-EVGAT 根因候选"
+        },
+        {
+          "sensor": "3_AIT_002_PV",
+          "rank": 2,
+          "reason": "Relation-EVGAT 根因候选"
+        },
+        {
+          "sensor": "2_FIC_601_SP",
+          "rank": 3,
+          "reason": "Relation-EVGAT 根因候选"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "2_FIC_601_PV",
+          "target": "3_AIT_002_PV",
+          "degradation": 0.92318,
+          "label": "0.92"
+        },
+        {
+          "source": "3_AIT_002_PV",
+          "target": "2_FIC_601_SP",
+          "degradation": 0.829998,
+          "label": "0.83"
+        },
+        {
+          "source": "2_FIC_601_SP",
+          "target": "2_P_004_SPEED",
+          "degradation": 0.78048,
+          "label": "0.78"
+        }
+      ],
+      "recommendations": [
+        "核对 2_FIC_601_PV 的原始读数、量程和采集状态。",
+        "复核 2_FIC_601_PV 到 3_AIT_002_PV 的联动关系。",
+        "对照异常窗口检查阀门、泵、控制指令和现场工况记录。"
+      ],
+      "citations": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0"
+        },
+        {
+          "title": "wadi_response_sop.md",
+          "chunk_id": "861febb05b1bf81a44148ed43cb6c230:0"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0"
+        }
+      ],
+      "report_text": "事件 #2 的首要根因候选为 2_FIC_601_PV。 核对 2_FIC_601_PV 的原始读数、量程和采集状态。 复核 2_FIC_601_PV 到 3_AIT_002_PV 的联动关系。 对照异常窗口检查阀门、泵、控制指令和现场工况记录。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.0,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 1.0,
+      "recommendation_count": 3,
+      "report_length": 123
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e2__diagnosis",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 2,
+    "question_type": "diagnosis",
+    "model": "qwen-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 10863,
+    "usage": {
+      "prompt_tokens": 1723,
+      "total_tokens": 2457,
+      "completion_tokens": 734,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"报警最可能的根因是2_FIC_601_PV传感器异常或其控制链路存在故障，导致上下游变量关系退化。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"2_FIC_601_PV\",\n      \"rank\": 1,\n      \"reason\": \"在所有候选中排名第一，其节点预测误差与关联边退化强度均显著，且为退化链的起始点。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"2_FIC_601_PV\",\n      \"target\": \"3_AIT_002_PV\",\n      \"degradation\": 0.92318\n    },\n    {\n      \"source\": \"3_AIT_002_PV\",\n      \"target\": \"2_FIC_601_SP\",\n      \"degradation\": 0.829998\n    },\n    {\n      \"source\": \"2_FIC_601_SP\",\n      \"target\": \"2_P_004_SPEED\",\n      \"degradation\": 0.78048\n    },\n    {\n      \"source\": \"2_P_004_SPEED\",\n      \"target\": \"2_MV_201_STATUS\",\n      \"degradation\": 0.759882\n    },\n    {\n      \"source\": \"2_MV_201_STATUS\",\n      \"target\": \"2_FIC_501_CO\",\n      \"degradation\": 0.757509\n    }\n  ],\n  \"recommendations\": [\n    \"立即核查2_FIC_601_PV传感器的实时读数、采样质量及物理量程是否正常。\",\n    \"检查2_FIC_601_PV对应的泵指令状态、阀门反馈信号以及上游/下游水位趋势。\",\n    \"复核该事件窗口内控制命令历史，确认是否存在异常指令下发或执行中断。\",\n    \"对比正常运行窗口下相关变量间的预期依赖关系，验证退化是否由非正常工况引起。\"\n  ],\n  \"citations\": [\n    \"wadi_operator_note.md\",\n    \"wadi_response_sop.md\"\n  ],\n  \"report_text\": \"系统在5910~5958时间窗口内检测到持续异常，峰值异常分数高达6007751.48，远超阈值0.96，触发报警。根因候选中，2_FIC_601_PV以最高排名（第1）和显著的边退化强度（0.92318）被识别为最可能的源头。其与3_AIT_002_PV之间的关系退化程度最高，随后依次影响2_FIC_601_SP、2_P_004_SPEED、2_MV_201_STATUS直至2_FIC_501_CO，形成一条完整的退化链。根据运维规程，当泵与液位等关键变量附近出现关系退化时，应同步核查传感器校准状态、泵指令与阀门反馈信号，并分析上下游水位或流量趋势。建议优先检查2_FIC_601_PV的原始数据质量、控制命令历史及其上下游设备的联动状态，确认是否存在传感器失效、控制指令异常或执行偏差等问题。\"\n}",
+    "parsed": {
+      "conclusion": "报警最可能的根因是2_FIC_601_PV传感器异常或其控制链路存在故障，导致上下游变量关系退化。",
+      "root_causes": [
+        {
+          "sensor": "2_FIC_601_PV",
+          "rank": 1,
+          "reason": "在所有候选中排名第一，其节点预测误差与关联边退化强度均显著，且为退化链的起始点。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "2_FIC_601_PV",
+          "target": "3_AIT_002_PV",
+          "degradation": 0.92318
+        },
+        {
+          "source": "3_AIT_002_PV",
+          "target": "2_FIC_601_SP",
+          "degradation": 0.829998
+        },
+        {
+          "source": "2_FIC_601_SP",
+          "target": "2_P_004_SPEED",
+          "degradation": 0.78048
+        },
+        {
+          "source": "2_P_004_SPEED",
+          "target": "2_MV_201_STATUS",
+          "degradation": 0.759882
+        },
+        {
+          "source": "2_MV_201_STATUS",
+          "target": "2_FIC_501_CO",
+          "degradation": 0.757509
+        }
+      ],
+      "recommendations": [
+        "立即核查2_FIC_601_PV传感器的实时读数、采样质量及物理量程是否正常。",
+        "检查2_FIC_601_PV对应的泵指令状态、阀门反馈信号以及上游/下游水位趋势。",
+        "复核该事件窗口内控制命令历史，确认是否存在异常指令下发或执行中断。",
+        "对比正常运行窗口下相关变量间的预期依赖关系，验证退化是否由非正常工况引起。"
+      ],
+      "citations": [
+        "wadi_operator_note.md",
+        "wadi_response_sop.md"
+      ],
+      "report_text": "系统在5910~5958时间窗口内检测到持续异常，峰值异常分数高达6007751.48，远超阈值0.96，触发报警。根因候选中，2_FIC_601_PV以最高排名（第1）和显著的边退化强度（0.92318）被识别为最可能的源头。其与3_AIT_002_PV之间的关系退化程度最高，随后依次影响2_FIC_601_SP、2_P_004_SPEED、2_MV_201_STATUS直至2_FIC_501_CO，形成一条完整的退化链。根据运维规程，当泵与液位等关键变量附近出现关系退化时，应同步核查传感器校准状态、泵指令与阀门反馈信号，并分析上下游水位或流量趋势。建议优先检查2_FIC_601_PV的原始数据质量、控制命令历史及其上下游设备的联动状态，确认是否存在传感器失效、控制指令异常或执行偏差等问题。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 0.3333333333333333,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 4,
+      "report_length": 351
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e2__diagnosis",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 2,
+    "question_type": "diagnosis",
+    "model": "qwen3.5-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 18692,
+    "usage": {
+      "prompt_tokens": 1822,
+      "total_tokens": 3332,
+      "completion_tokens": 1510,
+      "completion_tokens_details": {
+        "reasoning_tokens": 777,
+        "text_tokens": 1510
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"报警最可能由传感器2_FIC_601_PV的读数异常引发，其与下游变量3_AIT_002_PV的关系退化强度达0.92，需优先核查该传感器及其关联控制链路\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"2_FIC_601_PV\",\n      \"rank\": 1,\n      \"reason\": \"节点归一化得分最高(0.9999)，且为关系退化链路的起始点\"\n    },\n    {\n      \"sensor\": \"3_AIT_002_PV\",\n      \"rank\": 2,\n      \"reason\": \"与上游传感器存在高退化关系(0.83)，可能受流量变化影响\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\"source\": \"2_FIC_601_PV\", \"target\": \"3_AIT_002_PV\", \"degradation\": 0.92318},\n    {\"source\": \"3_AIT_002_PV\", \"target\": \"2_FIC_601_SP\", \"degradation\": 0.829998},\n    {\"source\": \"2_FIC_601_SP\", \"target\": \"2_P_004_SPEED\", \"degradation\": 0.78048}\n  ],\n  \"recommendations\": [\n    \"立即校验2_FIC_601_PV的传感器读数范围和采样质量\",\n    \"核对3_AIT_002_PV的液位测量值与历史正常周期偏差\",\n    \"检查2_P_004_SPEED对应的泵指令状态及机械反馈\",\n    \"追踪5910~5958时段内阀门2_MV_201_STATUS的开闭时序\"\n  ],\n  \"citations\": [\n    \"wadi_operator_note.md:bd41b8dfddd4d527b49067de288350c5:0\",\n    \"wadi_response_sop.md:861febb05b1bf81a44148ed43cb6c230:0\"\n  ],\n  \"report_text\": \"在5910-5958时间窗口检测到系统持续异常，峰值异常分数6007751.48远超阈值0.96。核心问题集中在流量监控模块：首要嫌疑为2_FIC_601_PV（流量计测量值），其相邻液位传感器3_AIT_002_PV出现严重依赖关系退化（强度0.92）。该信号链还延伸至流量设定值、泵转速及阀门状态环节。根据运维经验，此类联动异常通常伴随传感器漂移或控制逻辑冲突。建议立即开展以下操作：1) 对比2_FIC_601_PV校准记录与实时数值 2) 调取上下游水箱水位曲线 3) 验证泵控指令与机械动作的同步性 4) 检查2_MV_201_STATUS阀门开度反馈延迟。特别注意若泵转速2_P_004_SPEED与液位变化不同步，可能存在机械传动故障风险。\"\n}",
+    "parsed": {
+      "conclusion": "报警最可能由传感器2_FIC_601_PV的读数异常引发，其与下游变量3_AIT_002_PV的关系退化强度达0.92，需优先核查该传感器及其关联控制链路",
+      "root_causes": [
+        {
+          "sensor": "2_FIC_601_PV",
+          "rank": 1,
+          "reason": "节点归一化得分最高(0.9999)，且为关系退化链路的起始点"
+        },
+        {
+          "sensor": "3_AIT_002_PV",
+          "rank": 2,
+          "reason": "与上游传感器存在高退化关系(0.83)，可能受流量变化影响"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "2_FIC_601_PV",
+          "target": "3_AIT_002_PV",
+          "degradation": 0.92318
+        },
+        {
+          "source": "3_AIT_002_PV",
+          "target": "2_FIC_601_SP",
+          "degradation": 0.829998
+        },
+        {
+          "source": "2_FIC_601_SP",
+          "target": "2_P_004_SPEED",
+          "degradation": 0.78048
+        }
+      ],
+      "recommendations": [
+        "立即校验2_FIC_601_PV的传感器读数范围和采样质量",
+        "核对3_AIT_002_PV的液位测量值与历史正常周期偏差",
+        "检查2_P_004_SPEED对应的泵指令状态及机械反馈",
+        "追踪5910~5958时段内阀门2_MV_201_STATUS的开闭时序"
+      ],
+      "citations": [
+        "wadi_operator_note.md:bd41b8dfddd4d527b49067de288350c5:0",
+        "wadi_response_sop.md:861febb05b1bf81a44148ed43cb6c230:0"
+      ],
+      "report_text": "在5910-5958时间窗口检测到系统持续异常，峰值异常分数6007751.48远超阈值0.96。核心问题集中在流量监控模块：首要嫌疑为2_FIC_601_PV（流量计测量值），其相邻液位传感器3_AIT_002_PV出现严重依赖关系退化（强度0.92）。该信号链还延伸至流量设定值、泵转速及阀门状态环节。根据运维经验，此类联动异常通常伴随传感器漂移或控制逻辑冲突。建议立即开展以下操作：1) 对比2_FIC_601_PV校准记录与实时数值 2) 调取上下游水箱水位曲线 3) 验证泵控指令与机械动作的同步性 4) 检查2_MV_201_STATUS阀门开度反馈延迟。特别注意若泵转速2_P_004_SPEED与液位变化不同步，可能存在机械传动故障风险。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 0.6666666666666666,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 4,
+      "report_length": 327
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e2__diagnosis",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 2,
+    "question_type": "diagnosis",
+    "model": "deepseek-v4-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 20095,
+    "usage": {
+      "prompt_tokens": 1481,
+      "total_tokens": 3020,
+      "completion_tokens": 1539,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 516
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"报警由传感器2_FIC_601_PV的异常引起，该传感器与下游变量3_AIT_002_PV的关系退化最强烈（0.923），且其在根因候选中排名第一。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"2_FIC_601_PV\",\n      \"rank\": 1,\n      \"reason\": \"该传感器与下游分析仪3_AIT_002_PV的关系退化强度最高(0.923)，结合其排名第一，表明异常由该流量传感器故障或干扰引起。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"2_FIC_601_PV\",\n      \"target\": \"3_AIT_002_PV\",\n      \"degradation\": 0.92318\n    },\n    {\n      \"source\": \"3_AIT_002_PV\",\n      \"target\": \"2_FIC_601_SP\",\n      \"degradation\": 0.829998\n    },\n    {\n      \"source\": \"2_FIC_601_SP\",\n      \"target\": \"2_P_004_SPEED\",\n      \"degradation\": 0.78048\n    },\n    {\n      \"source\": \"2_P_004_SPEED\",\n      \"target\": \"2_MV_201_STATUS\",\n      \"degradation\": 0.759882\n    },\n    {\n      \"source\": \"2_MV_201_STATUS\",\n      \"target\": \"2_FIC_501_CO\",\n      \"degradation\": 0.757509\n    }\n  ],\n  \"recommendations\": [\n    \"优先检查2_FIC_601_PV的读数质量、物理范围及传感器校准状态\",\n    \"核查2_FIC_601_PV上下游的执行器状态（阀门/泵）及控制命令历史\",\n    \"在5910~5958窗口内复核2_FIC_601_PV与3_AIT_002_PV的联动趋势，并与历史正常窗口对比\",\n    \"记录操作日志，关注泵、液位等变量的关系变化\"\n  ],\n  \"citations\": [\n    {\n      \"title\": \"wadi_operator_note.md\",\n      \"chunk_id\": \"bd41b8dfddd4d527b49067de288350c5:0\"\n    },\n    {\n      \"title\": \"wadi_response_sop.md\",\n      \"chunk_id\": \"861febb05b1bf81a44148ed43cb6c230:0\"\n    },\n    {\n      \"title\": \"wadi_operator_note.md\",\n      \"chunk_id\": \"9c9983a4f664bcb5a1e8ef855081abf6:0\"\n    }\n  ],\n  \"report_text\": \"## 异常概况\\n系统在时间窗口5910~5958内检测到持续异常，峰值异常分数为6007751.48（阈值0.96），远超告警线。根因候选排序显示2_FIC_601_PV（流量控制器PV值）排名第一，归一化分数接近1.0，其边退化分数高达0.92318。\\n\\n## 根因分析\\n最可能的根因是传感器2_FIC_601_PV。该传感器与下游分析仪3_AIT_002_PV的关系退化强度最高，达到0.923，同时与2_FIC_601_SP、2_P_004_SPEED、2_MV_201_STATUS等变量间的关联也依次出现显著退化。根据运维知识，当泵、液位等变量附近出现关系退化时，应优先核查传感器校准和上下游状态。\\n\\n## 退化关系链条\\n关键退化链路为：2_FIC_601_PV → 3_AIT_002_PV (0.92) → 2_FIC_601_SP (0.83) → 2_P_004_SPEED (0.78) → 2_MV_201_STATUS (0.76) → 2_FIC_501_CO (0.76)。该链条表明异常从2_FIC_601_PV开始传播至下游控制回路和执行机构。\\n\\n## 运维建议\\n1. 立即检查2_FIC_601_PV的原始读数、采样质量及物理范围，确认传感器是否失效或受干扰；\\n2. 核查2_FIC_601_PV上游阀门、泵的状态以及控制命令历史，确认执行器响应是否正常；\\n3. 在相同的异常窗口内，对比2_FIC_601_PV与3_AIT_002_PV的联动趋势与历史正常样本；\\n4. 记录操作日志，特别关注泵和液位变量附近的关系退化情况。\"\n}",
+    "parsed": {
+      "conclusion": "报警由传感器2_FIC_601_PV的异常引起，该传感器与下游变量3_AIT_002_PV的关系退化最强烈（0.923），且其在根因候选中排名第一。",
+      "root_causes": [
+        {
+          "sensor": "2_FIC_601_PV",
+          "rank": 1,
+          "reason": "该传感器与下游分析仪3_AIT_002_PV的关系退化强度最高(0.923)，结合其排名第一，表明异常由该流量传感器故障或干扰引起。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "2_FIC_601_PV",
+          "target": "3_AIT_002_PV",
+          "degradation": 0.92318
+        },
+        {
+          "source": "3_AIT_002_PV",
+          "target": "2_FIC_601_SP",
+          "degradation": 0.829998
+        },
+        {
+          "source": "2_FIC_601_SP",
+          "target": "2_P_004_SPEED",
+          "degradation": 0.78048
+        },
+        {
+          "source": "2_P_004_SPEED",
+          "target": "2_MV_201_STATUS",
+          "degradation": 0.759882
+        },
+        {
+          "source": "2_MV_201_STATUS",
+          "target": "2_FIC_501_CO",
+          "degradation": 0.757509
+        }
+      ],
+      "recommendations": [
+        "优先检查2_FIC_601_PV的读数质量、物理范围及传感器校准状态",
+        "核查2_FIC_601_PV上下游的执行器状态（阀门/泵）及控制命令历史",
+        "在5910~5958窗口内复核2_FIC_601_PV与3_AIT_002_PV的联动趋势，并与历史正常窗口对比",
+        "记录操作日志，关注泵、液位等变量的关系变化"
+      ],
+      "citations": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0"
+        },
+        {
+          "title": "wadi_response_sop.md",
+          "chunk_id": "861febb05b1bf81a44148ed43cb6c230:0"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0"
+        }
+      ],
+      "report_text": "## 异常概况\n系统在时间窗口5910~5958内检测到持续异常，峰值异常分数为6007751.48（阈值0.96），远超告警线。根因候选排序显示2_FIC_601_PV（流量控制器PV值）排名第一，归一化分数接近1.0，其边退化分数高达0.92318。\n\n## 根因分析\n最可能的根因是传感器2_FIC_601_PV。该传感器与下游分析仪3_AIT_002_PV的关系退化强度最高，达到0.923，同时与2_FIC_601_SP、2_P_004_SPEED、2_MV_201_STATUS等变量间的关联也依次出现显著退化。根据运维知识，当泵、液位等变量附近出现关系退化时，应优先核查传感器校准和上下游状态。\n\n## 退化关系链条\n关键退化链路为：2_FIC_601_PV → 3_AIT_002_PV (0.92) → 2_FIC_601_SP (0.83) → 2_P_004_SPEED (0.78) → 2_MV_201_STATUS (0.76) → 2_FIC_501_CO (0.76)。该链条表明异常从2_FIC_601_PV开始传播至下游控制回路和执行机构。\n\n## 运维建议\n1. 立即检查2_FIC_601_PV的原始读数、采样质量及物理范围，确认传感器是否失效或受干扰；\n2. 核查2_FIC_601_PV上游阀门、泵的状态以及控制命令历史，确认执行器响应是否正常；\n3. 在相同的异常窗口内，对比2_FIC_601_PV与3_AIT_002_PV的联动趋势与历史正常样本；\n4. 记录操作日志，特别关注泵和液位变量附近的关系退化情况。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 0.3333333333333333,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 1.0,
+      "recommendation_count": 4,
+      "report_length": 680
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e2__diagnosis",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 2,
+    "question_type": "diagnosis",
+    "model": "deepseek-v4-pro",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 32004,
+    "usage": {
+      "prompt_tokens": 1481,
+      "total_tokens": 2939,
+      "completion_tokens": 1458,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 411
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"在5910~5958窗口内，流量控制器2_FIC_601_PV的过程值出现异常，导致其与下游温度变送器3_AIT_002_PV的关系严重退化（退化强度0.92），进而引发报警。最可能的根因是2_FIC_601_PV传感器读数失真或相关联的流量调节回路异常。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"2_FIC_601_PV\",\n      \"rank\": 1,\n      \"reason\": \"根因候选排名第一，节点预测误差与相邻关系退化综合评分最高，且作为退化链路的起点，2_FIC_601_PV→3_AIT_002_PV退化强度达0.92。\"\n    },\n    {\n      \"sensor\": \"3_AIT_002_PV\",\n      \"rank\": 2,\n      \"reason\": \"作为退化链路的直接下游，受上游2_FIC_601_PV影响，与2_FIC_601_SP的关系退化强度0.83，可能为传导效应。\"\n    },\n    {\n      \"sensor\": \"2_FIC_601_SP\",\n      \"rank\": 3,\n      \"reason\": \"设定值变量，与2_P_004_SPEED关系退化0.78，可能反映控制回路异常或设定值偏差。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"2_FIC_601_PV\",\n      \"target\": \"3_AIT_002_PV\",\n      \"degradation\": 0.92318\n    },\n    {\n      \"source\": \"3_AIT_002_PV\",\n      \"target\": \"2_FIC_601_SP\",\n      \"degradation\": 0.829998\n    },\n    {\n      \"source\": \"2_FIC_601_SP\",\n      \"target\": \"2_P_004_SPEED\",\n      \"degradation\": 0.78048\n    },\n    {\n      \"source\": \"2_P_004_SPEED\",\n      \"target\": \"2_MV_201_STATUS\",\n      \"degradation\": 0.759882\n    },\n    {\n      \"source\": \"2_MV_201_STATUS\",\n      \"target\": \"2_FIC_501_CO\",\n      \"degradation\": 0.757509\n    }\n  ],\n  \"recommendations\": [\n    \"优先检查2_FIC_601_PV的传感器校准状态、物理接线和采样质量，确认是否有漂移或故障。\",\n    \"核对2_FIC_601控制回路中阀门（如2_MV_201_STATUS）的实际开度与指令是否一致，检查阀门反馈信号。\",\n    \"查看2_P_004泵的转速指令和实际运行状态，确认泵是否正常响应控制信号。\",\n    \"对比上下游水位/流量趋势（如2_FIC_501_CO），分析异常窗口内工艺参数联动关系是否合理。\",\n    \"查阅历史正常窗口的数据，验证2_FIC_601_PV与3_AIT_002_PV的原有依赖关系，评估退化程度。\"\n  ],\n  \"citations\": [\n    \"wadi_operator_note.md (bd41b8dfddd4d527b49067de288350c5:0)\",\n    \"wadi_response_sop.md (861febb05b1bf81a44148ed43cb6c230:0)\",\n    \"wadi_operator_note.md (9c9983a4f664bcb5a1e8ef855081abf6:0)\"\n  ],\n  \"report_text\": \"异常概况：在时间窗口5910~5958内，系统检测到持续异常，峰值异常分数高达6007751.48，远超阈值0.96，触发报警。根因分析：综合根因候选排序和关系退化证据，流量控制器2_FIC_601_PV的过程值异常是首要可疑对象。其与下游温度变送器3_AIT_002_PV的退化强度达到0.92，表明两者原有依赖关系破裂。进一步退化链路显示，2_FIC_601_PV→3_AIT_002_PV→2_FIC_601_SP→2_P_004_SPEED→2_MV_201_STATUS→2_FIC_501_CO，反映出可能由流量测量或控制回路异常引发的连锁效应。关键证据：2_FIC_601_PV在根因候选排名第一，且作为退化链路的起点，其与直接下游的关系退化最严重。根据运维记录，当泵、液位等变量附近出现关系退化时，应优先核对传感器校准、泵指令、阀门反馈及上下游水位趋势。因此，建议运维人员立即检查2_FIC_601_PV的传感器健康状态、相关阀门和泵的执行情况，并结合历史正常窗口数据评估控制回路完整性。\"\n}",
+    "parsed": {
+      "conclusion": "在5910~5958窗口内，流量控制器2_FIC_601_PV的过程值出现异常，导致其与下游温度变送器3_AIT_002_PV的关系严重退化（退化强度0.92），进而引发报警。最可能的根因是2_FIC_601_PV传感器读数失真或相关联的流量调节回路异常。",
+      "root_causes": [
+        {
+          "sensor": "2_FIC_601_PV",
+          "rank": 1,
+          "reason": "根因候选排名第一，节点预测误差与相邻关系退化综合评分最高，且作为退化链路的起点，2_FIC_601_PV→3_AIT_002_PV退化强度达0.92。"
+        },
+        {
+          "sensor": "3_AIT_002_PV",
+          "rank": 2,
+          "reason": "作为退化链路的直接下游，受上游2_FIC_601_PV影响，与2_FIC_601_SP的关系退化强度0.83，可能为传导效应。"
+        },
+        {
+          "sensor": "2_FIC_601_SP",
+          "rank": 3,
+          "reason": "设定值变量，与2_P_004_SPEED关系退化0.78，可能反映控制回路异常或设定值偏差。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "2_FIC_601_PV",
+          "target": "3_AIT_002_PV",
+          "degradation": 0.92318
+        },
+        {
+          "source": "3_AIT_002_PV",
+          "target": "2_FIC_601_SP",
+          "degradation": 0.829998
+        },
+        {
+          "source": "2_FIC_601_SP",
+          "target": "2_P_004_SPEED",
+          "degradation": 0.78048
+        },
+        {
+          "source": "2_P_004_SPEED",
+          "target": "2_MV_201_STATUS",
+          "degradation": 0.759882
+        },
+        {
+          "source": "2_MV_201_STATUS",
+          "target": "2_FIC_501_CO",
+          "degradation": 0.757509
+        }
+      ],
+      "recommendations": [
+        "优先检查2_FIC_601_PV的传感器校准状态、物理接线和采样质量，确认是否有漂移或故障。",
+        "核对2_FIC_601控制回路中阀门（如2_MV_201_STATUS）的实际开度与指令是否一致，检查阀门反馈信号。",
+        "查看2_P_004泵的转速指令和实际运行状态，确认泵是否正常响应控制信号。",
+        "对比上下游水位/流量趋势（如2_FIC_501_CO），分析异常窗口内工艺参数联动关系是否合理。",
+        "查阅历史正常窗口的数据，验证2_FIC_601_PV与3_AIT_002_PV的原有依赖关系，评估退化程度。"
+      ],
+      "citations": [
+        "wadi_operator_note.md (bd41b8dfddd4d527b49067de288350c5:0)",
+        "wadi_response_sop.md (861febb05b1bf81a44148ed43cb6c230:0)",
+        "wadi_operator_note.md (9c9983a4f664bcb5a1e8ef855081abf6:0)"
+      ],
+      "report_text": "异常概况：在时间窗口5910~5958内，系统检测到持续异常，峰值异常分数高达6007751.48，远超阈值0.96，触发报警。根因分析：综合根因候选排序和关系退化证据，流量控制器2_FIC_601_PV的过程值异常是首要可疑对象。其与下游温度变送器3_AIT_002_PV的退化强度达到0.92，表明两者原有依赖关系破裂。进一步退化链路显示，2_FIC_601_PV→3_AIT_002_PV→2_FIC_601_SP→2_P_004_SPEED→2_MV_201_STATUS→2_FIC_501_CO，反映出可能由流量测量或控制回路异常引发的连锁效应。关键证据：2_FIC_601_PV在根因候选排名第一，且作为退化链路的起点，其与直接下游的关系退化最严重。根据运维记录，当泵、液位等变量附近出现关系退化时，应优先核对传感器校准、泵指令、阀门反馈及上下游水位趋势。因此，建议运维人员立即检查2_FIC_601_PV的传感器健康状态、相关阀门和泵的执行情况，并结合历史正常窗口数据评估控制回路完整性。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.0,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 5,
+      "report_length": 452
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e2__operations",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 2,
+    "question_type": "operations",
+    "model": "rule-agent",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 0,
+    "usage": {},
+    "raw_text": "{\"conclusion\": \"事件 #2 的首要根因候选为 2_FIC_601_PV。\", \"root_causes\": [{\"sensor\": \"2_FIC_601_PV\", \"rank\": 1, \"reason\": \"Relation-EVGAT 根因候选\"}, {\"sensor\": \"3_AIT_002_PV\", \"rank\": 2, \"reason\": \"Relation-EVGAT 根因候选\"}, {\"sensor\": \"2_FIC_601_SP\", \"rank\": 3, \"reason\": \"Relation-EVGAT 根因候选\"}], \"degraded_edges\": [{\"source\": \"2_FIC_601_PV\", \"target\": \"3_AIT_002_PV\", \"degradation\": 0.92318, \"label\": \"0.92\"}, {\"source\": \"3_AIT_002_PV\", \"target\": \"2_FIC_601_SP\", \"degradation\": 0.829998, \"label\": \"0.83\"}, {\"source\": \"2_FIC_601_SP\", \"target\": \"2_P_004_SPEED\", \"degradation\": 0.78048, \"label\": \"0.78\"}], \"recommendations\": [\"核对 2_FIC_601_PV 的原始读数、量程和采集状态。\", \"复核 2_FIC_601_PV 到 3_AIT_002_PV 的联动关系。\", \"对照异常窗口检查阀门、泵、控制指令和现场工况记录。\"], \"citations\": [{\"title\": \"wadi_operator_note.md\", \"chunk_id\": \"bd41b8dfddd4d527b49067de288350c5:0\"}, {\"title\": \"wadi_response_sop.md\", \"chunk_id\": \"861febb05b1bf81a44148ed43cb6c230:0\"}, {\"title\": \"wadi_operator_note.md\", \"chunk_id\": \"9c9983a4f664bcb5a1e8ef855081abf6:0\"}], \"report_text\": \"事件 #2 的首要根因候选为 2_FIC_601_PV。 核对 2_FIC_601_PV 的原始读数、量程和采集状态。 复核 2_FIC_601_PV 到 3_AIT_002_PV 的联动关系。 对照异常窗口检查阀门、泵、控制指令和现场工况记录。\"}",
+    "parsed": {
+      "conclusion": "事件 #2 的首要根因候选为 2_FIC_601_PV。",
+      "root_causes": [
+        {
+          "sensor": "2_FIC_601_PV",
+          "rank": 1,
+          "reason": "Relation-EVGAT 根因候选"
+        },
+        {
+          "sensor": "3_AIT_002_PV",
+          "rank": 2,
+          "reason": "Relation-EVGAT 根因候选"
+        },
+        {
+          "sensor": "2_FIC_601_SP",
+          "rank": 3,
+          "reason": "Relation-EVGAT 根因候选"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "2_FIC_601_PV",
+          "target": "3_AIT_002_PV",
+          "degradation": 0.92318,
+          "label": "0.92"
+        },
+        {
+          "source": "3_AIT_002_PV",
+          "target": "2_FIC_601_SP",
+          "degradation": 0.829998,
+          "label": "0.83"
+        },
+        {
+          "source": "2_FIC_601_SP",
+          "target": "2_P_004_SPEED",
+          "degradation": 0.78048,
+          "label": "0.78"
+        }
+      ],
+      "recommendations": [
+        "核对 2_FIC_601_PV 的原始读数、量程和采集状态。",
+        "复核 2_FIC_601_PV 到 3_AIT_002_PV 的联动关系。",
+        "对照异常窗口检查阀门、泵、控制指令和现场工况记录。"
+      ],
+      "citations": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0"
+        },
+        {
+          "title": "wadi_response_sop.md",
+          "chunk_id": "861febb05b1bf81a44148ed43cb6c230:0"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0"
+        }
+      ],
+      "report_text": "事件 #2 的首要根因候选为 2_FIC_601_PV。 核对 2_FIC_601_PV 的原始读数、量程和采集状态。 复核 2_FIC_601_PV 到 3_AIT_002_PV 的联动关系。 对照异常窗口检查阀门、泵、控制指令和现场工况记录。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.0,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 1.0,
+      "recommendation_count": 3,
+      "report_length": 123
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e2__operations",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 2,
+    "question_type": "operations",
+    "model": "qwen-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 12759,
+    "usage": {
+      "prompt_tokens": 1723,
+      "total_tokens": 2740,
+      "completion_tokens": 1017,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"系统在5910~5958时间窗口内出现显著异常，主要表现为从2_FIC_601_PV到2_MV_201_STATUS的多级关系退化，优先排查传感器读数与控制链路联动问题。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"2_FIC_601_PV\",\n      \"rank\": 1,\n      \"reason\": \"该传感器在根因候选中排名第一，且其与下游3_AIT_002_PV的关系退化强度达0.92，表明其测量值可能偏离正常状态，影响后续控制逻辑判断。\"\n    },\n    {\n      \"sensor\": \"3_AIT_002_PV\",\n      \"rank\": 2,\n      \"reason\": \"作为关键中间节点，其与上游2_FIC_601_PV和下游2_FIC_601_SP均呈现高退化，提示其可能受上游信号异常或自身反馈失准影响。\"\n    },\n    {\n      \"sensor\": \"2_FIC_601_SP\",\n      \"rank\": 3,\n      \"reason\": \"设定值与实际值之间存在持续偏差，且其与2_P_004_SPEED的关联退化达0.78，可能反映控制器输出未有效驱动执行机构。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"2_FIC_601_PV\",\n      \"target\": \"3_AIT_002_PV\",\n      \"degradation\": 0.92318\n    },\n    {\n      \"source\": \"3_AIT_002_PV\",\n      \"target\": \"2_FIC_601_SP\",\n      \"degradation\": 0.829998\n    },\n    {\n      \"source\": \"2_FIC_601_SP\",\n      \"target\": \"2_P_004_SPEED\",\n      \"degradation\": 0.78048\n    },\n    {\n      \"source\": \"2_P_004_SPEED\",\n      \"target\": \"2_MV_201_STATUS\",\n      \"degradation\": 0.759882\n    },\n    {\n      \"source\": \"2_MV_201_STATUS\",\n      \"target\": \"2_FIC_501_CO\",\n      \"degradation\": 0.757509\n    }\n  ],\n  \"recommendations\": [\n    \"立即核查2_FIC_601_PV在5910~5958窗口内的原始读数是否超出物理量程或出现跳变，确认其校准状态及采样质量。\",\n    \"检查2_FIC_601_PV对应的上游阀门/泵指令状态与反馈信号一致性，排除控制命令未生效或反馈延迟问题。\",\n    \"复核2_FIC_601_SP的设定值历史记录，验证其是否在异常窗口内发生非预期调整，并与2_P_004_SPEED的实际转速进行比对。\",\n    \"审查2_P_004_SPEED与2_MV_201_STATUS之间的联动逻辑，确认电机运行状态与阀门开度是否匹配，是否存在机械卡滞或电气故障。\",\n    \"结合上下游水位趋势与流量变量，分析整个控制链路是否存在累积误差或响应迟滞现象。\",\n    \"根据《wadi_response_sop.md》建议，建立异常事件期间的完整操作日志追踪，包括传感器读数、控制命令、设备状态等，为后续根因定位提供依据。\"\n  ],\n  \"citations\": [\n    \"wadi_response_sop.md\",\n    \"wadi_operator_note.md\"\n  ],\n  \"report_text\": \"现场排查应按以下优先级执行：首先确认2_FIC_601_PV在5910~5958时间窗口内的原始数据是否正常，检查其是否超量程、漂移或采样中断；其次核查该传感器所关联的上游泵与阀门的控制指令与反馈状态，确认是否存在控制命令未执行或反馈缺失的情况；接着对比2_FIC_601_SP的设定值与实际值变化趋势，判断控制器输出是否合理；再检查2_P_004_SPEED与2_MV_201_STATUS之间的联动关系，评估电机是否正常驱动阀门动作；最后综合上下游水位与流量趋势，分析是否存在累积性偏差或系统响应迟滞。根据《wadi_response_sop.md》与《wadi_operator_note.md》中的运维规范，所有操作应记录于事件日志，确保可追溯性。\"\n}",
+    "parsed": {
+      "conclusion": "系统在5910~5958时间窗口内出现显著异常，主要表现为从2_FIC_601_PV到2_MV_201_STATUS的多级关系退化，优先排查传感器读数与控制链路联动问题。",
+      "root_causes": [
+        {
+          "sensor": "2_FIC_601_PV",
+          "rank": 1,
+          "reason": "该传感器在根因候选中排名第一，且其与下游3_AIT_002_PV的关系退化强度达0.92，表明其测量值可能偏离正常状态，影响后续控制逻辑判断。"
+        },
+        {
+          "sensor": "3_AIT_002_PV",
+          "rank": 2,
+          "reason": "作为关键中间节点，其与上游2_FIC_601_PV和下游2_FIC_601_SP均呈现高退化，提示其可能受上游信号异常或自身反馈失准影响。"
+        },
+        {
+          "sensor": "2_FIC_601_SP",
+          "rank": 3,
+          "reason": "设定值与实际值之间存在持续偏差，且其与2_P_004_SPEED的关联退化达0.78，可能反映控制器输出未有效驱动执行机构。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "2_FIC_601_PV",
+          "target": "3_AIT_002_PV",
+          "degradation": 0.92318
+        },
+        {
+          "source": "3_AIT_002_PV",
+          "target": "2_FIC_601_SP",
+          "degradation": 0.829998
+        },
+        {
+          "source": "2_FIC_601_SP",
+          "target": "2_P_004_SPEED",
+          "degradation": 0.78048
+        },
+        {
+          "source": "2_P_004_SPEED",
+          "target": "2_MV_201_STATUS",
+          "degradation": 0.759882
+        },
+        {
+          "source": "2_MV_201_STATUS",
+          "target": "2_FIC_501_CO",
+          "degradation": 0.757509
+        }
+      ],
+      "recommendations": [
+        "立即核查2_FIC_601_PV在5910~5958窗口内的原始读数是否超出物理量程或出现跳变，确认其校准状态及采样质量。",
+        "检查2_FIC_601_PV对应的上游阀门/泵指令状态与反馈信号一致性，排除控制命令未生效或反馈延迟问题。",
+        "复核2_FIC_601_SP的设定值历史记录，验证其是否在异常窗口内发生非预期调整，并与2_P_004_SPEED的实际转速进行比对。",
+        "审查2_P_004_SPEED与2_MV_201_STATUS之间的联动逻辑，确认电机运行状态与阀门开度是否匹配，是否存在机械卡滞或电气故障。",
+        "结合上下游水位趋势与流量变量，分析整个控制链路是否存在累积误差或响应迟滞现象。",
+        "根据《wadi_response_sop.md》建议，建立异常事件期间的完整操作日志追踪，包括传感器读数、控制命令、设备状态等，为后续根因定位提供依据。"
+      ],
+      "citations": [
+        "wadi_response_sop.md",
+        "wadi_operator_note.md"
+      ],
+      "report_text": "现场排查应按以下优先级执行：首先确认2_FIC_601_PV在5910~5958时间窗口内的原始数据是否正常，检查其是否超量程、漂移或采样中断；其次核查该传感器所关联的上游泵与阀门的控制指令与反馈状态，确认是否存在控制命令未执行或反馈缺失的情况；接着对比2_FIC_601_SP的设定值与实际值变化趋势，判断控制器输出是否合理；再检查2_P_004_SPEED与2_MV_201_STATUS之间的联动关系，评估电机是否正常驱动阀门动作；最后综合上下游水位与流量趋势，分析是否存在累积性偏差或系统响应迟滞。根据《wadi_response_sop.md》与《wadi_operator_note.md》中的运维规范，所有操作应记录于事件日志，确保可追溯性。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.0,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 6,
+      "report_length": 328
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e2__operations",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 2,
+    "question_type": "operations",
+    "model": "qwen3.5-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 43322,
+    "usage": {
+      "prompt_tokens": 1822,
+      "total_tokens": 5718,
+      "completion_tokens": 3896,
+      "completion_tokens_details": {
+        "reasoning_tokens": 2555,
+        "text_tokens": 3896
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"在时间窗口 5910~5958 内系统检测到显著异常，主要信号来自流量变送器 PV 读数及关联控制回路，建议重点排查传感器状态及上下游联动关系。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"2_FIC_601_PV\",\n      \"rank\": 1,\n      \"reason\": \"节点预测归一化分数最高 (0.999)，且与下游传感器存在最强关系退化证据 (0.923)\"\n    },\n    {\n      \"sensor\": \"3_AIT_002_PV\",\n      \"rank\": 2,\n      \"reason\": \"节点归一化分数次高 (0.899)，与上游流量及上游设定值均存在显著关系退化 (0.830)\"\n    },\n    {\n      \"sensor\": \"2_FIC_601_SP\",\n      \"rank\": 3,\n      \"reason\": \"作为设定值参与控制链路，与速度信号存在退化关系 (0.780)，可能受执行器影响\"\n    },\n    {\n      \"sensor\": \"2_P_004_SPEED\",\n      \"rank\": 4,\n      \"reason\": \"泵速信号异常，与阀门状态存在退化关联 (0.760)，需核对物理运行状态\"\n    },\n    {\n      \"sensor\": \"2_MV_201_STATUS\",\n      \"rank\": 5,\n      \"reason\": \"阀门反馈状态参与链路，与其他控制变量存在较高退化度 (0.757)\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"2_FIC_601_PV\",\n      \"target\": \"3_AIT_002_PV\",\n      \"degradation\": 0.92318\n    },\n    {\n      \"source\": \"3_AIT_002_PV\",\n      \"target\": \"2_FIC_601_SP\",\n      \"degradation\": 0.829998\n    },\n    {\n      \"source\": \"2_FIC_601_SP\",\n      \"target\": \"2_P_004_SPEED\",\n      \"degradation\": 0.78048\n    },\n    {\n      \"source\": \"2_P_004_SPEED\",\n      \"target\": \"2_MV_201_STATUS\",\n      \"degradation\": 0.759882\n    },\n    {\n      \"source\": \"2_MV_201_STATUS\",\n      \"target\": \"2_FIC_501_CO\",\n      \"degradation\": 0.757509\n    }\n  ],\n  \"recommendations\": [\n    \"优先验证排名第一的传感器 2_FIC_601_PV 原始数值、采样质量及物理量程是否正常\",\n    \"检查相关执行机构（泵、阀门）的控制指令历史及当前反馈状态是否与预期一致\",\n    \"对比异常窗口内上下游液位或流量变量的趋势，确认是否存在物理过程层面的联动异常\",\n    \"复核传感器校准记录，特别是当关系退化出现在泵和液位变量附近时\",\n    \"记录操作日志并保存该异常窗口的上下游关联数据以便后续回溯分析\"\n  ],\n  \"citations\": [\n    \"wadi_operator_note.md:bd41b8dfddd4d527b49067de288350c5:0\",\n    \"wadi_response_sop.md:861febb05b1bf81a44148ed43cb6c230:0\",\n    \"wadi_operator_note.md:9c9983a4f664bcb5a1e8ef855081abf6:0\"\n  ],\n  \"report_text\": \"WaDI 事件异常诊断报告\\n\\n1. 异常概况\\n系统在时间窗口 5910~5958 检测到持续异常，峰值异常分数约为 600 万，超过阈值 0.96。\\n\\n2. 根因候选分析\\n模型依据节点预测误差和相邻关系退化证据，给出以下排序靠前的疑似根因：\\n1) 2_FIC_601_PV (排名第一): 归一化得分接近 1.0，表明其数据偏离基线最严重。\\n2) 3_AIT_002_PV (排名第二): 关联度较高，可能存在耦合偏差。\\n3) 其他变量如 2_FIC_601_SP、2_P_004_SPEED、2_MV_201_STATUS 依次排列。\\n\\n3. 关系退化线索\\n观察到一条主要的退化链条：2_FIC_601_PV → 3_AIT_002_PV → 2_FIC_601_SP → 2_P_004_SPEED → 2_MV_201_STATUS。\\n其中 2_FIC_601_PV 到 3_AIT_002_PV 的关系退化强度最高 (0.92)。请注意，关系退化仅作为排查线索，不代表严格的因果关系，可能由传感器故障、执行器动作延迟或工艺波动共同导致。\\n\\n4. 运维建议\\n根据标准操作规程 (SOP) 及运维记录建议：\\n- 第一步：现场检查 2_FIC_601_PV 传感器的读数稳定性及物理量程。\\n- 第二步：核对同一窗口内的泵指令状态、阀门反馈以及上下游水位/流量趋势。\\n- 第三步：对比历史正常窗口下的变量依赖关系，判断是否为系统性漂移。\\n- 第四步：若现场无法立即修复，请记录详细日志并通知工程师进一步校准传感器。\\n\\n请结合现场实际情况优先处理排名靠前的传感器及相关执行机构。\"\n}",
+    "parsed": {
+      "conclusion": "在时间窗口 5910~5958 内系统检测到显著异常，主要信号来自流量变送器 PV 读数及关联控制回路，建议重点排查传感器状态及上下游联动关系。",
+      "root_causes": [
+        {
+          "sensor": "2_FIC_601_PV",
+          "rank": 1,
+          "reason": "节点预测归一化分数最高 (0.999)，且与下游传感器存在最强关系退化证据 (0.923)"
+        },
+        {
+          "sensor": "3_AIT_002_PV",
+          "rank": 2,
+          "reason": "节点归一化分数次高 (0.899)，与上游流量及上游设定值均存在显著关系退化 (0.830)"
+        },
+        {
+          "sensor": "2_FIC_601_SP",
+          "rank": 3,
+          "reason": "作为设定值参与控制链路，与速度信号存在退化关系 (0.780)，可能受执行器影响"
+        },
+        {
+          "sensor": "2_P_004_SPEED",
+          "rank": 4,
+          "reason": "泵速信号异常，与阀门状态存在退化关联 (0.760)，需核对物理运行状态"
+        },
+        {
+          "sensor": "2_MV_201_STATUS",
+          "rank": 5,
+          "reason": "阀门反馈状态参与链路，与其他控制变量存在较高退化度 (0.757)"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "2_FIC_601_PV",
+          "target": "3_AIT_002_PV",
+          "degradation": 0.92318
+        },
+        {
+          "source": "3_AIT_002_PV",
+          "target": "2_FIC_601_SP",
+          "degradation": 0.829998
+        },
+        {
+          "source": "2_FIC_601_SP",
+          "target": "2_P_004_SPEED",
+          "degradation": 0.78048
+        },
+        {
+          "source": "2_P_004_SPEED",
+          "target": "2_MV_201_STATUS",
+          "degradation": 0.759882
+        },
+        {
+          "source": "2_MV_201_STATUS",
+          "target": "2_FIC_501_CO",
+          "degradation": 0.757509
+        }
+      ],
+      "recommendations": [
+        "优先验证排名第一的传感器 2_FIC_601_PV 原始数值、采样质量及物理量程是否正常",
+        "检查相关执行机构（泵、阀门）的控制指令历史及当前反馈状态是否与预期一致",
+        "对比异常窗口内上下游液位或流量变量的趋势，确认是否存在物理过程层面的联动异常",
+        "复核传感器校准记录，特别是当关系退化出现在泵和液位变量附近时",
+        "记录操作日志并保存该异常窗口的上下游关联数据以便后续回溯分析"
+      ],
+      "citations": [
+        "wadi_operator_note.md:bd41b8dfddd4d527b49067de288350c5:0",
+        "wadi_response_sop.md:861febb05b1bf81a44148ed43cb6c230:0",
+        "wadi_operator_note.md:9c9983a4f664bcb5a1e8ef855081abf6:0"
+      ],
+      "report_text": "WaDI 事件异常诊断报告\n\n1. 异常概况\n系统在时间窗口 5910~5958 检测到持续异常，峰值异常分数约为 600 万，超过阈值 0.96。\n\n2. 根因候选分析\n模型依据节点预测误差和相邻关系退化证据，给出以下排序靠前的疑似根因：\n1) 2_FIC_601_PV (排名第一): 归一化得分接近 1.0，表明其数据偏离基线最严重。\n2) 3_AIT_002_PV (排名第二): 关联度较高，可能存在耦合偏差。\n3) 其他变量如 2_FIC_601_SP、2_P_004_SPEED、2_MV_201_STATUS 依次排列。\n\n3. 关系退化线索\n观察到一条主要的退化链条：2_FIC_601_PV → 3_AIT_002_PV → 2_FIC_601_SP → 2_P_004_SPEED → 2_MV_201_STATUS。\n其中 2_FIC_601_PV 到 3_AIT_002_PV 的关系退化强度最高 (0.92)。请注意，关系退化仅作为排查线索，不代表严格的因果关系，可能由传感器故障、执行器动作延迟或工艺波动共同导致。\n\n4. 运维建议\n根据标准操作规程 (SOP) 及运维记录建议：\n- 第一步：现场检查 2_FIC_601_PV 传感器的读数稳定性及物理量程。\n- 第二步：核对同一窗口内的泵指令状态、阀门反馈以及上下游水位/流量趋势。\n- 第三步：对比历史正常窗口下的变量依赖关系，判断是否为系统性漂移。\n- 第四步：若现场无法立即修复，请记录详细日志并通知工程师进一步校准传感器。\n\n请结合现场实际情况优先处理排名靠前的传感器及相关执行机构。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.6666666666666667,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 5,
+      "report_length": 688
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e2__operations",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 2,
+    "question_type": "operations",
+    "model": "deepseek-v4-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 43860,
+    "usage": {
+      "prompt_tokens": 1481,
+      "total_tokens": 3520,
+      "completion_tokens": 2039,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 393
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"系统在窗口5910~5958内检测到异常，最高退化边为2_FIC_601_PV→3_AIT_002_PV，建议优先排查2_FIC_601_PV传感器及相关执行器。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"2_FIC_601_PV\",\n      \"rank\": 1,\n      \"reason\": \"节点预测误差评分最高（0.046），且与3_AIT_002_PV的关系退化强度高达0.92，表明该传感器可能发生漂移或故障，导致下游变量异常。\"\n    },\n    {\n      \"sensor\": \"3_AIT_002_PV\",\n      \"rank\": 2,\n      \"reason\": \"节点预测误差评分第二（0.0415），与上游2_FIC_601_PV及下游2_FIC_601_SP均存在显著关系退化，受2_FIC_601_PV影响的可能性大。\"\n    },\n    {\n      \"sensor\": \"2_FIC_601_SP\",\n      \"rank\": 3,\n      \"reason\": \"节点预测误差评分第三（0.039），与2_P_004_SPEED的关系退化强度0.78，可能反映了设定值与实际流量不匹配或控制回路异常。\"\n    },\n    {\n      \"sensor\": \"2_P_004_SPEED\",\n      \"rank\": 4,\n      \"reason\": \"节点预测误差评分第四（0.038），与2_MV_201_STATUS关系退化强度0.76，提示泵速度指令与阀门状态之间的联动可能失效。\"\n    },\n    {\n      \"sensor\": \"2_MV_201_STATUS\",\n      \"rank\": 5,\n      \"reason\": \"节点预测误差评分第五（0.0379），与2_FIC_501_CO的关系退化强度0.76，表明阀门反馈信号与控制指令可能存在偏差。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"2_FIC_601_PV\",\n      \"target\": \"3_AIT_002_PV\",\n      \"degradation\": 0.92318\n    },\n    {\n      \"source\": \"3_AIT_002_PV\",\n      \"target\": \"2_FIC_601_SP\",\n      \"degradation\": 0.829998\n    },\n    {\n      \"source\": \"2_FIC_601_SP\",\n      \"target\": \"2_P_004_SPEED\",\n      \"degradation\": 0.78048\n    },\n    {\n      \"source\": \"2_P_004_SPEED\",\n      \"target\": \"2_MV_201_STATUS\",\n      \"degradation\": 0.759882\n    },\n    {\n      \"source\": \"2_MV_201_STATUS\",\n      \"target\": \"2_FIC_501_CO\",\n      \"degradation\": 0.757509\n    }\n  ],\n  \"recommendations\": [\n    \"优先检查排名第一的传感器2_FIC_601_PV的原始读数、采样质量及物理范围（参考SOP第1步）。\",\n    \"核对2_FIC_601_SP设定值是否在正常历史区间内，检查控制命令历史记录。\",\n    \"检查2_P_004_SPEED泵速度指令的实际响应，确认是否存在指令丢失或执行偏差。\",\n    \"检查2_MV_201_STATUS阀门反馈信号是否与指令一致，必要时现场确认阀门开度。\",\n    \"在异常窗口5910~5958内，对比上游2_FIC_601_PV与下游3_AIT_002_PV的流量/液位趋势，识别关系退化原因。\",\n    \"记录操作日志，包括传感器校准情况、执行器状态、上下游水位趋势，供后续分析。\"\n  ],\n  \"citations\": [\n    {\n      \"title\": \"wadi_operator_note.md\",\n      \"chunk_id\": \"bd41b8dfddd4d527b49067de288350c5:0\"\n    },\n    {\n      \"title\": \"wadi_response_sop.md\",\n      \"chunk_id\": \"861febb05b1bf81a44148ed43cb6c230:0\"\n    },\n    {\n      \"title\": \"wadi_operator_note.md\",\n      \"chunk_id\": \"9c9983a4f664bcb5a1e8ef855081abf6:0\"\n    }\n  ],\n  \"report_text\": \"## 异常概况\\n系统在时间窗口 5910~5958 内检测到持续异常，峰值异常分数为 6007751.48，远超阈值 0.96，表明该时段内存在显著的工业过程异常。\\n\\n## 根因分析\\n基于节点预测误差与边关系退化证据，排名前五的根因候选为：\\n1. 2_FIC_601_PV（流量控制器实际值）——评分最高，且与 3_AIT_002_PV 的关系退化强度达 0.92，是异常传播的起点。\\n2. 3_AIT_002_PV（分析仪）——受上游影响，且与 2_FIC_601_SP 存在 0.83 的退化。\\n3. 2_FIC_601_SP（流量控制器设定值）——与 2_P_004_SPEED 的退化强度 0.78。\\n4. 2_P_004_SPEED（泵速度）——与 2_MV_201_STATUS 退化 0.76。\\n5. 2_MV_201_STATUS（阀门状态）——与下游 2_FIC_501_CO 退化 0.76。\\n\\n## 关系退化链条\\n检测到以下主要退化边：\\n- 2_FIC_601_PV → 3_AIT_002_PV (0.92)\\n- 3_AIT_002_PV → 2_FIC_601_SP (0.83)\\n- 2_FIC_601_SP → 2_P_004_SPEED (0.78)\\n- 2_P_004_SPEED → 2_MV_201_STATUS (0.76)\\n- 2_MV_201_STATUS → 2_FIC_501_CO (0.76)\\n该链条表明异常从流量测量环节逐步向控制设定、执行器传播。\\n\\n## 排查步骤（按优先级）\\n1. 立即检查 2_FIC_601_PV 传感器：原始值是否超出量程、采样是否异常，对比历史正常窗口趋势。\\n2. 核实 2_FIC_601_SP 设定值是否为人工修改或受控系统变化，追溯控制命令历史。\\n3. 检查 2_P_004_SPEED 泵速度指令与反馈差值，确认变频器或调速机构是否正常。\\n4. 检查 2_MV_201_STATUS 阀门反馈信号，现场确认阀门实际开度与反馈一致。\\n5. 在异常窗口内，对比 2_FIC_601_PV 与 3_AIT_002_PV 的流量/液位联动关系，判断是否存在传感器漂移或管道堵塞。\\n\\n## 运维建议\\n- 如传感器校准问题，立即安排现场校准并记录。\\n- 若执行器（泵/阀）异常，检查电源、通信及机械部件。\\n- 比对正常历史窗口的上下游关系，建立基线，用于自动检测类似退化。\\n- 记录本次事件的操作笔记，更新异常响应SOP。\"\n}",
+    "parsed": {
+      "conclusion": "系统在窗口5910~5958内检测到异常，最高退化边为2_FIC_601_PV→3_AIT_002_PV，建议优先排查2_FIC_601_PV传感器及相关执行器。",
+      "root_causes": [
+        {
+          "sensor": "2_FIC_601_PV",
+          "rank": 1,
+          "reason": "节点预测误差评分最高（0.046），且与3_AIT_002_PV的关系退化强度高达0.92，表明该传感器可能发生漂移或故障，导致下游变量异常。"
+        },
+        {
+          "sensor": "3_AIT_002_PV",
+          "rank": 2,
+          "reason": "节点预测误差评分第二（0.0415），与上游2_FIC_601_PV及下游2_FIC_601_SP均存在显著关系退化，受2_FIC_601_PV影响的可能性大。"
+        },
+        {
+          "sensor": "2_FIC_601_SP",
+          "rank": 3,
+          "reason": "节点预测误差评分第三（0.039），与2_P_004_SPEED的关系退化强度0.78，可能反映了设定值与实际流量不匹配或控制回路异常。"
+        },
+        {
+          "sensor": "2_P_004_SPEED",
+          "rank": 4,
+          "reason": "节点预测误差评分第四（0.038），与2_MV_201_STATUS关系退化强度0.76，提示泵速度指令与阀门状态之间的联动可能失效。"
+        },
+        {
+          "sensor": "2_MV_201_STATUS",
+          "rank": 5,
+          "reason": "节点预测误差评分第五（0.0379），与2_FIC_501_CO的关系退化强度0.76，表明阀门反馈信号与控制指令可能存在偏差。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "2_FIC_601_PV",
+          "target": "3_AIT_002_PV",
+          "degradation": 0.92318
+        },
+        {
+          "source": "3_AIT_002_PV",
+          "target": "2_FIC_601_SP",
+          "degradation": 0.829998
+        },
+        {
+          "source": "2_FIC_601_SP",
+          "target": "2_P_004_SPEED",
+          "degradation": 0.78048
+        },
+        {
+          "source": "2_P_004_SPEED",
+          "target": "2_MV_201_STATUS",
+          "degradation": 0.759882
+        },
+        {
+          "source": "2_MV_201_STATUS",
+          "target": "2_FIC_501_CO",
+          "degradation": 0.757509
+        }
+      ],
+      "recommendations": [
+        "优先检查排名第一的传感器2_FIC_601_PV的原始读数、采样质量及物理范围（参考SOP第1步）。",
+        "核对2_FIC_601_SP设定值是否在正常历史区间内，检查控制命令历史记录。",
+        "检查2_P_004_SPEED泵速度指令的实际响应，确认是否存在指令丢失或执行偏差。",
+        "检查2_MV_201_STATUS阀门反馈信号是否与指令一致，必要时现场确认阀门开度。",
+        "在异常窗口5910~5958内，对比上游2_FIC_601_PV与下游3_AIT_002_PV的流量/液位趋势，识别关系退化原因。",
+        "记录操作日志，包括传感器校准情况、执行器状态、上下游水位趋势，供后续分析。"
+      ],
+      "citations": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0"
+        },
+        {
+          "title": "wadi_response_sop.md",
+          "chunk_id": "861febb05b1bf81a44148ed43cb6c230:0"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0"
+        }
+      ],
+      "report_text": "## 异常概况\n系统在时间窗口 5910~5958 内检测到持续异常，峰值异常分数为 6007751.48，远超阈值 0.96，表明该时段内存在显著的工业过程异常。\n\n## 根因分析\n基于节点预测误差与边关系退化证据，排名前五的根因候选为：\n1. 2_FIC_601_PV（流量控制器实际值）——评分最高，且与 3_AIT_002_PV 的关系退化强度达 0.92，是异常传播的起点。\n2. 3_AIT_002_PV（分析仪）——受上游影响，且与 2_FIC_601_SP 存在 0.83 的退化。\n3. 2_FIC_601_SP（流量控制器设定值）——与 2_P_004_SPEED 的退化强度 0.78。\n4. 2_P_004_SPEED（泵速度）——与 2_MV_201_STATUS 退化 0.76。\n5. 2_MV_201_STATUS（阀门状态）——与下游 2_FIC_501_CO 退化 0.76。\n\n## 关系退化链条\n检测到以下主要退化边：\n- 2_FIC_601_PV → 3_AIT_002_PV (0.92)\n- 3_AIT_002_PV → 2_FIC_601_SP (0.83)\n- 2_FIC_601_SP → 2_P_004_SPEED (0.78)\n- 2_P_004_SPEED → 2_MV_201_STATUS (0.76)\n- 2_MV_201_STATUS → 2_FIC_501_CO (0.76)\n该链条表明异常从流量测量环节逐步向控制设定、执行器传播。\n\n## 排查步骤（按优先级）\n1. 立即检查 2_FIC_601_PV 传感器：原始值是否超出量程、采样是否异常，对比历史正常窗口趋势。\n2. 核实 2_FIC_601_SP 设定值是否为人工修改或受控系统变化，追溯控制命令历史。\n3. 检查 2_P_004_SPEED 泵速度指令与反馈差值，确认变频器或调速机构是否正常。\n4. 检查 2_MV_201_STATUS 阀门反馈信号，现场确认阀门实际开度与反馈一致。\n5. 在异常窗口内，对比 2_FIC_601_PV 与 3_AIT_002_PV 的流量/液位联动关系，判断是否存在传感器漂移或管道堵塞。\n\n## 运维建议\n- 如传感器校准问题，立即安排现场校准并记录。\n- 若执行器（泵/阀）异常，检查电源、通信及机械部件。\n- 比对正常历史窗口的上下游关系，建立基线，用于自动检测类似退化。\n- 记录本次事件的操作笔记，更新异常响应SOP。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.6666666666666667,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 1.0,
+      "recommendation_count": 6,
+      "report_length": 1050
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e2__operations",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 2,
+    "question_type": "operations",
+    "model": "deepseek-v4-pro",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 44877,
+    "usage": {
+      "prompt_tokens": 1481,
+      "total_tokens": 3862,
+      "completion_tokens": 2381,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 912
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"在时间窗口 5910~5958 内检测到高强度异常，峰值分数达 6007751.48。根因候选 2_FIC_601_PV 排名第一，其与下游 3_AIT_002_PV 的关联退化强度高达 0.92，提示该流量传感器或其相关控制链路可能存在异常，但需现场验证而非直接断言因果。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"2_FIC_601_PV\",\n      \"rank\": 1,\n      \"reason\": \"根因评分最高（归一化≈1.0），且与 3_AIT_002_PV 的退化边强度为 0.92，显示该传感器读数异常可能通过控制链路影响下游。\"\n    },\n    {\n      \"sensor\": \"3_AIT_002_PV\",\n      \"rank\": 2,\n      \"reason\": \"排名第二，作为上游 2_FIC_601_PV 的直接下游，其退化边强度 0.83，可能受上游异常传导或自身测量偏差影响。\"\n    },\n    {\n      \"sensor\": \"2_FIC_601_SP\",\n      \"rank\": 3,\n      \"reason\": \"排名第三，与下游泵速存在退化（0.78），设定值异常可能引发泵速变化，需排查控制逻辑。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"2_FIC_601_PV\",\n      \"target\": \"3_AIT_002_PV\",\n      \"degradation\": 0.92318\n    },\n    {\n      \"source\": \"3_AIT_002_PV\",\n      \"target\": \"2_FIC_601_SP\",\n      \"degradation\": 0.829998\n    },\n    {\n      \"source\": \"2_FIC_601_SP\",\n      \"target\": \"2_P_004_SPEED\",\n      \"degradation\": 0.78048\n    },\n    {\n      \"source\": \"2_P_004_SPEED\",\n      \"target\": \"2_MV_201_STATUS\",\n      \"degradation\": 0.759882\n    },\n    {\n      \"source\": \"2_MV_201_STATUS\",\n      \"target\": \"2_FIC_501_CO\",\n      \"degradation\": 0.757509\n    }\n  ],\n  \"recommendations\": [\n    \"1. 现场检查 2_FIC_601_PV 传感器：确认安装牢固、无物理损伤、信号线路无干扰，读取原始值并比对过程量程，必要时进行校准或更换。\",\n    \"2. 核对 3_AIT_002_PV 读数：在异常窗口内观察其趋势是否与 2_FIC_601_PV 变化同步，排除测量错误或信号干扰。\",\n    \"3. 检查 2_FIC_601_SP 设定值：通过控制记录查看设定值是否异常波动，确认控制逻辑输出是否符合预期。\",\n    \"4. 诊断 2_P_004_SPEED 泵速：核对泵实际转速与指令是否一致，查看泵、电机及变频器状态，确认无机械故障或卡涩。\",\n    \"5. 验证 2_MV_201_STATUS 阀门状态：确认阀门开度反馈与实际位置一致，检查气源或电动执行器是否正常。\",\n    \"6. 复核下游 2_FIC_501_CO：评估该控制器输出是否受上游连锁影响，结合历史趋势判断是否存在异常响应。\",\n    \"7. 对比历史正常窗口：调取 5910-5958 时段之前的数据，评估上下游变量的正常依赖关系，确认当前退化是否偏离。\",\n    \"8. 记录维护日志：将本次排查结果、调整措施及观察到的现象记入运维记录，便于后续追踪。\"\n  ],\n  \"citations\": [\n    {\n      \"title\": \"wadi_operator_note.md\",\n      \"chunk_id\": \"bd41b8dfddd4d527b49067de288350c5:0\"\n    },\n    {\n      \"title\": \"wadi_response_sop.md\",\n      \"chunk_id\": \"861febb05b1bf81a44148ed43cb6c230:0\"\n    },\n    {\n      \"title\": \"wadi_operator_note.md\",\n      \"chunk_id\": \"9c9983a4f664bcb5a1e8ef855081abf6:0\"\n    }\n  ],\n  \"report_text\": \"异常诊断报告（事件ID：2）\\n时间窗口：5910~5958\\n异常分数：峰值 6007751.48（阈值 0.96）\\n\\n一、异常概况\\n系统在窗口内检测到持续高强度异常，异常分数远超阈值，表明多个变量之间的关系出现显著退化。\\n\\n二、根因分析\\n模型识别到根因候选 2_FIC_601_PV（流量传感器）排名第一，归一化评分接近 1.0，且其与 3_AIT_002_PV 的关联退化强度高达 0.92。同时，退化链从 2_FIC_601_PV 经 3_AIT_002_PV、2_FIC_601_SP、2_P_004_SPEED 一直延伸到 2_MV_201_STATUS 和 2_FIC_501_CO，提示该传感器读数的异常可能触发了控制回路的连锁反应。但请注意，关系退化仅为排查线索，不能直接证明因果关系，需现场逐一核实。\\n\\n三、优先排查步骤\\n1. 先检查 2_FIC_601_PV 传感器本身，排除硬件故障、接线问题或校准偏移。\\n2. 观察 3_AIT_002_PV 读数是否同步异常，确认测量链完整性。\\n3. 核对 2_FIC_601_SP 设定值是否有非预期变化，检查控制程序。\\n4. 检查 2_P_004_SPEED 泵实际运行状态，确认泵速指令执行情况。\\n5. 验证 2_MV_201_STATUS 阀门开度反馈，确保执行器工作正常。\\n6. 复核 2_FIC_501_CO 控制器输出，评估下游影响。\\n7. 参考历史正常窗口，对比当前变量间的依赖关系，判断退化是否真实偏离。\\n8. 完成排查后，整理运维记录并存档。\\n\\n四、引用依据\\n本次诊断依据 WaDI 运维记录和告警响应 SOP，强调在关系退化场景下，需核对传感器校准、泵指令、阀门反馈及上下游趋势。\\n\\n请运维人员按上述步骤优先排查，及时恢复系统稳定。\"\n}",
+    "parsed": {
+      "conclusion": "在时间窗口 5910~5958 内检测到高强度异常，峰值分数达 6007751.48。根因候选 2_FIC_601_PV 排名第一，其与下游 3_AIT_002_PV 的关联退化强度高达 0.92，提示该流量传感器或其相关控制链路可能存在异常，但需现场验证而非直接断言因果。",
+      "root_causes": [
+        {
+          "sensor": "2_FIC_601_PV",
+          "rank": 1,
+          "reason": "根因评分最高（归一化≈1.0），且与 3_AIT_002_PV 的退化边强度为 0.92，显示该传感器读数异常可能通过控制链路影响下游。"
+        },
+        {
+          "sensor": "3_AIT_002_PV",
+          "rank": 2,
+          "reason": "排名第二，作为上游 2_FIC_601_PV 的直接下游，其退化边强度 0.83，可能受上游异常传导或自身测量偏差影响。"
+        },
+        {
+          "sensor": "2_FIC_601_SP",
+          "rank": 3,
+          "reason": "排名第三，与下游泵速存在退化（0.78），设定值异常可能引发泵速变化，需排查控制逻辑。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "2_FIC_601_PV",
+          "target": "3_AIT_002_PV",
+          "degradation": 0.92318
+        },
+        {
+          "source": "3_AIT_002_PV",
+          "target": "2_FIC_601_SP",
+          "degradation": 0.829998
+        },
+        {
+          "source": "2_FIC_601_SP",
+          "target": "2_P_004_SPEED",
+          "degradation": 0.78048
+        },
+        {
+          "source": "2_P_004_SPEED",
+          "target": "2_MV_201_STATUS",
+          "degradation": 0.759882
+        },
+        {
+          "source": "2_MV_201_STATUS",
+          "target": "2_FIC_501_CO",
+          "degradation": 0.757509
+        }
+      ],
+      "recommendations": [
+        "1. 现场检查 2_FIC_601_PV 传感器：确认安装牢固、无物理损伤、信号线路无干扰，读取原始值并比对过程量程，必要时进行校准或更换。",
+        "2. 核对 3_AIT_002_PV 读数：在异常窗口内观察其趋势是否与 2_FIC_601_PV 变化同步，排除测量错误或信号干扰。",
+        "3. 检查 2_FIC_601_SP 设定值：通过控制记录查看设定值是否异常波动，确认控制逻辑输出是否符合预期。",
+        "4. 诊断 2_P_004_SPEED 泵速：核对泵实际转速与指令是否一致，查看泵、电机及变频器状态，确认无机械故障或卡涩。",
+        "5. 验证 2_MV_201_STATUS 阀门状态：确认阀门开度反馈与实际位置一致，检查气源或电动执行器是否正常。",
+        "6. 复核下游 2_FIC_501_CO：评估该控制器输出是否受上游连锁影响，结合历史趋势判断是否存在异常响应。",
+        "7. 对比历史正常窗口：调取 5910-5958 时段之前的数据，评估上下游变量的正常依赖关系，确认当前退化是否偏离。",
+        "8. 记录维护日志：将本次排查结果、调整措施及观察到的现象记入运维记录，便于后续追踪。"
+      ],
+      "citations": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0"
+        },
+        {
+          "title": "wadi_response_sop.md",
+          "chunk_id": "861febb05b1bf81a44148ed43cb6c230:0"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0"
+        }
+      ],
+      "report_text": "异常诊断报告（事件ID：2）\n时间窗口：5910~5958\n异常分数：峰值 6007751.48（阈值 0.96）\n\n一、异常概况\n系统在窗口内检测到持续高强度异常，异常分数远超阈值，表明多个变量之间的关系出现显著退化。\n\n二、根因分析\n模型识别到根因候选 2_FIC_601_PV（流量传感器）排名第一，归一化评分接近 1.0，且其与 3_AIT_002_PV 的关联退化强度高达 0.92。同时，退化链从 2_FIC_601_PV 经 3_AIT_002_PV、2_FIC_601_SP、2_P_004_SPEED 一直延伸到 2_MV_201_STATUS 和 2_FIC_501_CO，提示该传感器读数的异常可能触发了控制回路的连锁反应。但请注意，关系退化仅为排查线索，不能直接证明因果关系，需现场逐一核实。\n\n三、优先排查步骤\n1. 先检查 2_FIC_601_PV 传感器本身，排除硬件故障、接线问题或校准偏移。\n2. 观察 3_AIT_002_PV 读数是否同步异常，确认测量链完整性。\n3. 核对 2_FIC_601_SP 设定值是否有非预期变化，检查控制程序。\n4. 检查 2_P_004_SPEED 泵实际运行状态，确认泵速指令执行情况。\n5. 验证 2_MV_201_STATUS 阀门开度反馈，确保执行器工作正常。\n6. 复核 2_FIC_501_CO 控制器输出，评估下游影响。\n7. 参考历史正常窗口，对比当前变量间的依赖关系，判断退化是否真实偏离。\n8. 完成排查后，整理运维记录并存档。\n\n四、引用依据\n本次诊断依据 WaDI 运维记录和告警响应 SOP，强调在关系退化场景下，需核对传感器校准、泵指令、阀门反馈及上下游趋势。\n\n请运维人员按上述步骤优先排查，及时恢复系统稳定。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.0,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 1.0,
+      "recommendation_count": 8,
+      "report_length": 755
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e1__diagnosis",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 1,
+    "question_type": "diagnosis",
+    "model": "rule-agent",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 0,
+    "usage": {},
+    "raw_text": "{\"conclusion\": \"事件 #1 的首要根因候选为 D29。\", \"root_causes\": [{\"sensor\": \"D29\", \"rank\": 1, \"reason\": \"Relation-EVGAT 根因候选\"}, {\"sensor\": \"D27\", \"rank\": 2, \"reason\": \"Relation-EVGAT 根因候选\"}, {\"sensor\": \"D34\", \"rank\": 3, \"reason\": \"Relation-EVGAT 根因候选\"}], \"degraded_edges\": [{\"source\": \"D29\", \"target\": \"D10\", \"degradation\": 0.66, \"label\": \"0.66\"}, {\"source\": \"D29\", \"target\": \"D27\", \"degradation\": 0.0, \"label\": \"0.00\"}, {\"source\": \"D27\", \"target\": \"D34\", \"degradation\": 0.0, \"label\": \"0.00\"}], \"recommendations\": [\"核对 D29 的原始读数、量程和采集状态。\", \"复核 D29 到 D10 的联动关系。\", \"对照异常窗口检查阀门、泵、控制指令和现场工况记录。\"], \"citations\": [{\"title\": \"wadi_operator_note.md\", \"chunk_id\": \"bd41b8dfddd4d527b49067de288350c5:0\"}, {\"title\": \"wadi_operator_note.md\", \"chunk_id\": \"9c9983a4f664bcb5a1e8ef855081abf6:0\"}, {\"title\": \"relation_evgat_method.md\", \"chunk_id\": \"42eb167ddf2094f75a9c1be3e0f9d1e5:0\"}], \"report_text\": \"事件 #1 的首要根因候选为 D29。 核对 D29 的原始读数、量程和采集状态。 复核 D29 到 D10 的联动关系。 对照异常窗口检查阀门、泵、控制指令和现场工况记录。\"}",
+    "parsed": {
+      "conclusion": "事件 #1 的首要根因候选为 D29。",
+      "root_causes": [
+        {
+          "sensor": "D29",
+          "rank": 1,
+          "reason": "Relation-EVGAT 根因候选"
+        },
+        {
+          "sensor": "D27",
+          "rank": 2,
+          "reason": "Relation-EVGAT 根因候选"
+        },
+        {
+          "sensor": "D34",
+          "rank": 3,
+          "reason": "Relation-EVGAT 根因候选"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66,
+          "label": "0.66"
+        },
+        {
+          "source": "D29",
+          "target": "D27",
+          "degradation": 0.0,
+          "label": "0.00"
+        },
+        {
+          "source": "D27",
+          "target": "D34",
+          "degradation": 0.0,
+          "label": "0.00"
+        }
+      ],
+      "recommendations": [
+        "核对 D29 的原始读数、量程和采集状态。",
+        "复核 D29 到 D10 的联动关系。",
+        "对照异常窗口检查阀门、泵、控制指令和现场工况记录。"
+      ],
+      "citations": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0"
+        },
+        {
+          "title": "relation_evgat_method.md",
+          "chunk_id": "42eb167ddf2094f75a9c1be3e0f9d1e5:0"
+        }
+      ],
+      "report_text": "事件 #1 的首要根因候选为 D29。 核对 D29 的原始读数、量程和采集状态。 复核 D29 到 D10 的联动关系。 对照异常窗口检查阀门、泵、控制指令和现场工况记录。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.0,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 1.0,
+      "recommendation_count": 3,
+      "report_length": 87
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e1__diagnosis",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 1,
+    "question_type": "diagnosis",
+    "model": "qwen-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 10718,
+    "usage": {
+      "prompt_tokens": 1683,
+      "total_tokens": 2192,
+      "completion_tokens": 509,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"报警最可能的根因是传感器D29的异常，其高节点预测误差和与D10之间的显著关系退化（0.66）构成关键证据。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"D29\",\n      \"rank\": 1,\n      \"reason\": \"D29在异常窗口内表现出最高的节点预测误差，且与下游传感器D10之间存在显著的关系退化，表明其状态异常可能影响下游关联变量。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"D29\",\n      \"target\": \"D10\",\n      \"degradation\": 0.66\n    }\n  ],\n  \"recommendations\": [\n    \"立即核查传感器D29的读数准确性、校准状态及物理连接状况。\",\n    \"检查与D29相关的泵指令状态、阀门反馈信号及其上下游控制链路的联动情况。\",\n    \"在异常时间窗口（15854~16390）内核对上游水位趋势与下游液位响应，确认是否存在非预期的流动或控制偏差。\",\n    \"结合运维记录建议，同步排查临近泵与液位相关变量的关系退化情况。\"\n  ],\n  \"citations\": [\n    \"wadi_operator_note.md\",\n    \"relation_evgat_method.md\"\n  ],\n  \"report_text\": \"系统在15854~16390时间段内检测到持续异常，峰值异常分数为92901.26，超过设定阈值0.96，触发报警。根因候选分析显示，传感器D29排名第一，其节点预测误差最高，且与下游传感器D10之间存在显著的关系退化（强度0.66），表明两者间的动态关联出现明显偏离。尽管关系退化不能严格定义为因果链条，但该证据强烈提示应优先排查D29及其关联控制路径。建议运维人员立即核查D29的校准状态、执行信号及与泵、阀门等设备的联动关系，并在相同异常窗口内复核上下游水位趋势变化，以确认是否存在非正常工况。根据运维记录提示，当泵与液位变量附近出现关系退化时，需综合验证传感器数据、控制指令与反馈信号的一致性。\"\n}",
+    "parsed": {
+      "conclusion": "报警最可能的根因是传感器D29的异常，其高节点预测误差和与D10之间的显著关系退化（0.66）构成关键证据。",
+      "root_causes": [
+        {
+          "sensor": "D29",
+          "rank": 1,
+          "reason": "D29在异常窗口内表现出最高的节点预测误差，且与下游传感器D10之间存在显著的关系退化，表明其状态异常可能影响下游关联变量。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66
+        }
+      ],
+      "recommendations": [
+        "立即核查传感器D29的读数准确性、校准状态及物理连接状况。",
+        "检查与D29相关的泵指令状态、阀门反馈信号及其上下游控制链路的联动情况。",
+        "在异常时间窗口（15854~16390）内核对上游水位趋势与下游液位响应，确认是否存在非预期的流动或控制偏差。",
+        "结合运维记录建议，同步排查临近泵与液位相关变量的关系退化情况。"
+      ],
+      "citations": [
+        "wadi_operator_note.md",
+        "relation_evgat_method.md"
+      ],
+      "report_text": "系统在15854~16390时间段内检测到持续异常，峰值异常分数为92901.26，超过设定阈值0.96，触发报警。根因候选分析显示，传感器D29排名第一，其节点预测误差最高，且与下游传感器D10之间存在显著的关系退化（强度0.66），表明两者间的动态关联出现明显偏离。尽管关系退化不能严格定义为因果链条，但该证据强烈提示应优先排查D29及其关联控制路径。建议运维人员立即核查D29的校准状态、执行信号及与泵、阀门等设备的联动关系，并在相同异常窗口内复核上下游水位趋势变化，以确认是否存在非正常工况。根据运维记录提示，当泵与液位变量附近出现关系退化时，需综合验证传感器数据、控制指令与反馈信号的一致性。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 0.3333333333333333,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 4,
+      "report_length": 301
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e1__diagnosis",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 1,
+    "question_type": "diagnosis",
+    "model": "qwen3.5-flash",
+    "status": "failed",
+    "error": "Remote end closed connection without response",
+    "latency_ms": 39159,
+    "usage": {},
+    "raw_text": "",
+    "parsed": null,
+    "scores": {
+      "json_valid": false,
+      "schema_completeness": 0.0,
+      "top1_root_mentioned": false,
+      "candidate_coverage": 0.0,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 0,
+      "report_length": 0
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e1__diagnosis",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 1,
+    "question_type": "diagnosis",
+    "model": "deepseek-v4-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 23135,
+    "usage": {
+      "prompt_tokens": 1413,
+      "total_tokens": 2544,
+      "completion_tokens": 1131,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 666
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"D29传感器异常是当前报警的最可能根因。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"D29\",\n      \"rank\": 1,\n      \"reason\": \"节点预测误差分数最高（617.88），归一化分数接近1（0.9999），且与D10存在0.66的关系退化，表明其异常程度显著。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"D29\",\n      \"target\": \"D10\",\n      \"degradation\": 0.66\n    }\n  ],\n  \"recommendations\": [\n    \"优先检查D29的传感器校准、泵/阀执行状态和控制指令历史。\",\n    \"核对同一异常窗口内D10、D27、D34、D30的上下游水位趋势或压力/流量联动关系。\",\n    \"复查D29与D10之间关系退化的时间细节，确认是否由局部故障或工况切换引起。\"\n  ],\n  \"citations\": [\n    \"wadi_operator_note.md:bd41b8dfddd4d527b49067de288350c5:0\",\n    \"relation_evgat_method.md:42eb167ddf2094f75a9c1be3e0f9d1e5:0\"\n  ],\n  \"report_text\": \"在时间窗口15854~16390内，系统检测到异常分数高达92901.26（阈值0.96），触发报警。通过根因分析，传感器D29的节点预测误差以617.88分位列第一，归一化值接近1，远高于其他候选（如D27的0.74），且D29与D10之间存在0.66的关系退化。依据运维知识，泵/液位变量附近的关系退化提示需校验传感器校准、指令状态及上下游趋势。因此，D29的异常是本次报警的最可能根源，关系退化证据则指向D10应与其联合排查。建议优先检查D29的传感器精度、执行器反馈，并复核同一窗口内D10等关联变量的趋势变化，以定位具体故障原因。\"\n}",
+    "parsed": {
+      "conclusion": "D29传感器异常是当前报警的最可能根因。",
+      "root_causes": [
+        {
+          "sensor": "D29",
+          "rank": 1,
+          "reason": "节点预测误差分数最高（617.88），归一化分数接近1（0.9999），且与D10存在0.66的关系退化，表明其异常程度显著。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66
+        }
+      ],
+      "recommendations": [
+        "优先检查D29的传感器校准、泵/阀执行状态和控制指令历史。",
+        "核对同一异常窗口内D10、D27、D34、D30的上下游水位趋势或压力/流量联动关系。",
+        "复查D29与D10之间关系退化的时间细节，确认是否由局部故障或工况切换引起。"
+      ],
+      "citations": [
+        "wadi_operator_note.md:bd41b8dfddd4d527b49067de288350c5:0",
+        "relation_evgat_method.md:42eb167ddf2094f75a9c1be3e0f9d1e5:0"
+      ],
+      "report_text": "在时间窗口15854~16390内，系统检测到异常分数高达92901.26（阈值0.96），触发报警。通过根因分析，传感器D29的节点预测误差以617.88分位列第一，归一化值接近1，远高于其他候选（如D27的0.74），且D29与D10之间存在0.66的关系退化。依据运维知识，泵/液位变量附近的关系退化提示需校验传感器校准、指令状态及上下游趋势。因此，D29的异常是本次报警的最可能根源，关系退化证据则指向D10应与其联合排查。建议优先检查D29的传感器精度、执行器反馈，并复核同一窗口内D10等关联变量的趋势变化，以定位具体故障原因。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 0.3333333333333333,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 3,
+      "report_length": 270
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e1__diagnosis",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 1,
+    "question_type": "diagnosis",
+    "model": "deepseek-v4-pro",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 18874,
+    "usage": {
+      "prompt_tokens": 1413,
+      "total_tokens": 2014,
+      "completion_tokens": 601,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 151
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"报警由传感器 D29 的异常信号引发，其高节点预测误差与 D29→D10 的关系退化共同指向 D29 为最可能根因。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"D29\",\n      \"rank\": 1,\n      \"reason\": \"节点预测误差得分最高（617.88），且唯一强关系退化边 D29→D10（退化 0.66）指向该传感器，需优先排查其读数和关联控制链路。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"D29\",\n      \"target\": \"D10\",\n      \"degradation\": 0.66\n    }\n  ],\n  \"recommendations\": [\n    \"检查 D29 传感器校准、执行状态及相邻阀门/泵指令；\",\n    \"核对 D29 与 D10 之间的上下游水位趋势和联动关系；\",\n    \"复盘 15854~16390 窗口内 D29 的原始信号和历史记录。\"\n  ],\n  \"citations\": [\n    \"wadi_operator_note.md\",\n    \"relation_evgat_method.md\"\n  ],\n  \"report_text\": \"异常概况：系统在 15854~16390 时间窗口内检测到持续异常，峰值异常分数达 92901.26，远超阈值 0.96。根因分析：根因候选排序中，D29 以 617.88 的节点预测误差得分位列第一，远高于第二名 D27（457.76）。关系退化证据显示，仅 D29→D10 存在显著退化（退化强度 0.66），其余候选边退化均为 0.00。根据 Relation-EVGAT 方法，关系退化应作为排查线索而非严格因果链，因此 D29 是当前最需要关注的传感器。运维建议：优先检查 D29 的读数、执行器状态、相关联的阀门/泵，并复核该窗口内 D29 与 D10 的上下游水位趋势，同时核查传感器校准记录。\"\n}",
+    "parsed": {
+      "conclusion": "报警由传感器 D29 的异常信号引发，其高节点预测误差与 D29→D10 的关系退化共同指向 D29 为最可能根因。",
+      "root_causes": [
+        {
+          "sensor": "D29",
+          "rank": 1,
+          "reason": "节点预测误差得分最高（617.88），且唯一强关系退化边 D29→D10（退化 0.66）指向该传感器，需优先排查其读数和关联控制链路。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66
+        }
+      ],
+      "recommendations": [
+        "检查 D29 传感器校准、执行状态及相邻阀门/泵指令；",
+        "核对 D29 与 D10 之间的上下游水位趋势和联动关系；",
+        "复盘 15854~16390 窗口内 D29 的原始信号和历史记录。"
+      ],
+      "citations": [
+        "wadi_operator_note.md",
+        "relation_evgat_method.md"
+      ],
+      "report_text": "异常概况：系统在 15854~16390 时间窗口内检测到持续异常，峰值异常分数达 92901.26，远超阈值 0.96。根因分析：根因候选排序中，D29 以 617.88 的节点预测误差得分位列第一，远高于第二名 D27（457.76）。关系退化证据显示，仅 D29→D10 存在显著退化（退化强度 0.66），其余候选边退化均为 0.00。根据 Relation-EVGAT 方法，关系退化应作为排查线索而非严格因果链，因此 D29 是当前最需要关注的传感器。运维建议：优先检查 D29 的读数、执行器状态、相关联的阀门/泵，并复核该窗口内 D29 与 D10 的上下游水位趋势，同时核查传感器校准记录。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 0.3333333333333333,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 3,
+      "report_length": 304
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e1__operations",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 1,
+    "question_type": "operations",
+    "model": "rule-agent",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 0,
+    "usage": {},
+    "raw_text": "{\"conclusion\": \"事件 #1 的首要根因候选为 D29。\", \"root_causes\": [{\"sensor\": \"D29\", \"rank\": 1, \"reason\": \"Relation-EVGAT 根因候选\"}, {\"sensor\": \"D27\", \"rank\": 2, \"reason\": \"Relation-EVGAT 根因候选\"}, {\"sensor\": \"D34\", \"rank\": 3, \"reason\": \"Relation-EVGAT 根因候选\"}], \"degraded_edges\": [{\"source\": \"D29\", \"target\": \"D10\", \"degradation\": 0.66, \"label\": \"0.66\"}, {\"source\": \"D29\", \"target\": \"D27\", \"degradation\": 0.0, \"label\": \"0.00\"}, {\"source\": \"D27\", \"target\": \"D34\", \"degradation\": 0.0, \"label\": \"0.00\"}], \"recommendations\": [\"核对 D29 的原始读数、量程和采集状态。\", \"复核 D29 到 D10 的联动关系。\", \"对照异常窗口检查阀门、泵、控制指令和现场工况记录。\"], \"citations\": [{\"title\": \"wadi_operator_note.md\", \"chunk_id\": \"bd41b8dfddd4d527b49067de288350c5:0\"}, {\"title\": \"wadi_operator_note.md\", \"chunk_id\": \"9c9983a4f664bcb5a1e8ef855081abf6:0\"}, {\"title\": \"relation_evgat_method.md\", \"chunk_id\": \"42eb167ddf2094f75a9c1be3e0f9d1e5:0\"}], \"report_text\": \"事件 #1 的首要根因候选为 D29。 核对 D29 的原始读数、量程和采集状态。 复核 D29 到 D10 的联动关系。 对照异常窗口检查阀门、泵、控制指令和现场工况记录。\"}",
+    "parsed": {
+      "conclusion": "事件 #1 的首要根因候选为 D29。",
+      "root_causes": [
+        {
+          "sensor": "D29",
+          "rank": 1,
+          "reason": "Relation-EVGAT 根因候选"
+        },
+        {
+          "sensor": "D27",
+          "rank": 2,
+          "reason": "Relation-EVGAT 根因候选"
+        },
+        {
+          "sensor": "D34",
+          "rank": 3,
+          "reason": "Relation-EVGAT 根因候选"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66,
+          "label": "0.66"
+        },
+        {
+          "source": "D29",
+          "target": "D27",
+          "degradation": 0.0,
+          "label": "0.00"
+        },
+        {
+          "source": "D27",
+          "target": "D34",
+          "degradation": 0.0,
+          "label": "0.00"
+        }
+      ],
+      "recommendations": [
+        "核对 D29 的原始读数、量程和采集状态。",
+        "复核 D29 到 D10 的联动关系。",
+        "对照异常窗口检查阀门、泵、控制指令和现场工况记录。"
+      ],
+      "citations": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0"
+        },
+        {
+          "title": "relation_evgat_method.md",
+          "chunk_id": "42eb167ddf2094f75a9c1be3e0f9d1e5:0"
+        }
+      ],
+      "report_text": "事件 #1 的首要根因候选为 D29。 核对 D29 的原始读数、量程和采集状态。 复核 D29 到 D10 的联动关系。 对照异常窗口检查阀门、泵、控制指令和现场工况记录。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.0,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 1.0,
+      "recommendation_count": 3,
+      "report_length": 87
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e1__operations",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 1,
+    "question_type": "operations",
+    "model": "qwen-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 11512,
+    "usage": {
+      "prompt_tokens": 1683,
+      "total_tokens": 2401,
+      "completion_tokens": 718,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"D29 是最可能的根因，其异常表现与关联关系退化（尤其是与 D10 之间的退化）共同指向传感器或控制链路问题。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"D29\",\n      \"rank\": 1,\n      \"reason\": \"在异常窗口内，该传感器节点的预测误差最高，且其与下游传感器 D10 存在显著的关系退化证据。\"\n    },\n    {\n      \"sensor\": \"D27\",\n      \"rank\": 2,\n      \"reason\": \"节点预测误差次高，虽无直接关系退化，但其作为上游节点，可能影响下游系统状态。\"\n    },\n    {\n      \"sensor\": \"D34\",\n      \"rank\": 3,\n      \"reason\": \"节点异常得分较低，但其与 D27 及 D10 的关系未见退化，需结合上下游联动分析。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"D29\",\n      \"target\": \"D10\",\n      \"degradation\": 0.66\n    }\n  ],\n  \"recommendations\": [\n    \"立即核查 D29 传感器的实时读数、校准状态及执行指令是否正常。\",\n    \"检查与 D29 相连的泵/阀门反馈信号及其控制链路，确认是否存在指令延迟或反馈异常。\",\n    \"核对异常窗口内（15854~16390）上下游水位趋势，排查是否存在液位波动引发的连锁反应。\",\n    \"复核该时段内其他相关传感器（如 D10、D27、D34）的数据完整性与通信状态。\",\n    \"若发现传感器漂移或信号中断，优先执行校准或更换操作，并验证系统响应恢复情况。\"\n  ],\n  \"citations\": [\n    \"wadi_operator_note.md\",\n    \"relation_evgat_method.md\"\n  ],\n  \"report_text\": \"系统在时间窗口 15854~16390 内检测到持续异常，峰值异常分数达 92901.26，远超阈值 0.96，表明存在显著工业过程异常。根据诊断结果，根因候选中排名首位的是传感器 D29，其节点预测误差最高，且与下游传感器 D10 之间存在强度为 0.66 的关系退化，提示二者间的动态关联已发生显著偏离。尽管关系退化不能严格定义因果关系，但此类证据强烈建议将相关传感器联合排查。建议运维人员优先检查 D29 的实际读数、校准状态、执行指令及控制链路，并同步核对同一异常窗口内泵、液位等变量的联动趋势，包括上游进水与下游出水的水位变化。同时，需确认其他相邻传感器（如 D27、D34、D10）的数据完整性和通信状态，防止误判。根据《wadi_operator_note.md》提示，当泵与液位类变量附近出现关系退化时，应综合验证传感器校准、指令状态、阀门反馈及上下游水位趋势。最终处理应以数据一致性与系统联动逻辑为核心，避免孤立判断单个传感器故障。\"\n}",
+    "parsed": {
+      "conclusion": "D29 是最可能的根因，其异常表现与关联关系退化（尤其是与 D10 之间的退化）共同指向传感器或控制链路问题。",
+      "root_causes": [
+        {
+          "sensor": "D29",
+          "rank": 1,
+          "reason": "在异常窗口内，该传感器节点的预测误差最高，且其与下游传感器 D10 存在显著的关系退化证据。"
+        },
+        {
+          "sensor": "D27",
+          "rank": 2,
+          "reason": "节点预测误差次高，虽无直接关系退化，但其作为上游节点，可能影响下游系统状态。"
+        },
+        {
+          "sensor": "D34",
+          "rank": 3,
+          "reason": "节点异常得分较低，但其与 D27 及 D10 的关系未见退化，需结合上下游联动分析。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66
+        }
+      ],
+      "recommendations": [
+        "立即核查 D29 传感器的实时读数、校准状态及执行指令是否正常。",
+        "检查与 D29 相连的泵/阀门反馈信号及其控制链路，确认是否存在指令延迟或反馈异常。",
+        "核对异常窗口内（15854~16390）上下游水位趋势，排查是否存在液位波动引发的连锁反应。",
+        "复核该时段内其他相关传感器（如 D10、D27、D34）的数据完整性与通信状态。",
+        "若发现传感器漂移或信号中断，优先执行校准或更换操作，并验证系统响应恢复情况。"
+      ],
+      "citations": [
+        "wadi_operator_note.md",
+        "relation_evgat_method.md"
+      ],
+      "report_text": "系统在时间窗口 15854~16390 内检测到持续异常，峰值异常分数达 92901.26，远超阈值 0.96，表明存在显著工业过程异常。根据诊断结果，根因候选中排名首位的是传感器 D29，其节点预测误差最高，且与下游传感器 D10 之间存在强度为 0.66 的关系退化，提示二者间的动态关联已发生显著偏离。尽管关系退化不能严格定义因果关系，但此类证据强烈建议将相关传感器联合排查。建议运维人员优先检查 D29 的实际读数、校准状态、执行指令及控制链路，并同步核对同一异常窗口内泵、液位等变量的联动趋势，包括上游进水与下游出水的水位变化。同时，需确认其他相邻传感器（如 D27、D34、D10）的数据完整性和通信状态，防止误判。根据《wadi_operator_note.md》提示，当泵与液位类变量附近出现关系退化时，应综合验证传感器校准、指令状态、阀门反馈及上下游水位趋势。最终处理应以数据一致性与系统联动逻辑为核心，避免孤立判断单个传感器故障。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.0,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 5,
+      "report_length": 425
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e1__operations",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 1,
+    "question_type": "operations",
+    "model": "qwen3.5-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 17755,
+    "usage": {
+      "prompt_tokens": 1782,
+      "total_tokens": 3104,
+      "completion_tokens": 1322,
+      "completion_tokens_details": {
+        "reasoning_tokens": 454,
+        "text_tokens": 1322
+      }
+    },
+    "raw_text": "```json\n{\n  \"conclusion\": \"系统检测到严重异常（峰值分数92901.26>阈值0.96），核心故障源集中在D29传感器及关联控制链\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"D29\",\n      \"rank\": 1,\n      \"reason\": \"预测误差显著且与D10存在强关系退化（参考wadi_operator_note.md:bd41b8dfddd4d527b49067de288350c5:0）\"\n    },\n    {\n      \"sensor\": \"D27\",\n      \"rank\": 2,\n      \"reason\": \"次高预测误差，需验证与控制逻辑联动（依据relation_evgat_method.md:42eb167ddf2094f75a9c1be3e0f9d1e5:0）\"\n    },\n    {\n      \"sensor\": \"D34\",\n      \"rank\": 3,\n      \"reason\": \"上游水位波动关联度上升，需同步监测泵阀状态（参考wadi_operator_note.md:9c9983a4f664bcb5a1e8ef855081abf6:0）\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"D29\",\n      \"target\": \"D10\",\n      \"degradation\": 0.66\n    },\n    {\n      \"source\": \"D29\",\n      \"target\": \"D27\",\n      \"degradation\": 0.0\n    },\n    {\n      \"source\": \"D27\",\n      \"target\": \"D34\",\n      \"degradation\": 0.0\n    },\n    {\n      \"source\": \"D34\",\n      \"target\": \"D10\",\n      \"degradation\": 0.0\n    },\n    {\n      \"source\": \"D10\",\n      \"target\": \"D30\",\n      \"degradation\": 0.0\n    }\n  ],\n  \"recommendations\": [\n    \"立即校验D29传感器校准精度与历史数据一致性\",\n    \"检查D10阀门/泵反馈信号与实际执行状态的匹配度\",\n    \"对比D27-D34区间上下游水位动态曲线是否存在非预期波动\",\n    \"核查控制链路中D29指令下发延迟是否与异常起始时间吻合\"\n  ],\n  \"citations\": [\n    \"wadi_operator_note.md:bd41b8dfddd4d527b49067de288350c5:0\",\n    \"wadi_operator_note.md:9c9983a4f664bcb5a1e8ef855081abf6:0\",\n    \"relation_evgat_method.md:42eb167ddf2094f75a9c1be3e0f9d1e5:0\"\n  ],\n  \"report_text\": \"在15854~16390时间段内检测到持续异常（峰值92901.26远超阈值0.96）。首要关注D29传感器，其预测误差达617.88且与D10存在显著关系退化(0.66)，需优先排查该节点校准状态及下游控制回路。次级关注D27/D34的协同工作状态，特别注意泵阀联动响应时序。依据WADE运维规范，应在同一时间窗口内完成传感器校准复核、阀门开度反馈验证及上下游水位趋势比对。需注意：当前关系退化仅作为交叉验证线索，不可直接认定为因果链条。\"\n}\n```",
+    "parsed": {
+      "conclusion": "系统检测到严重异常（峰值分数92901.26>阈值0.96），核心故障源集中在D29传感器及关联控制链",
+      "root_causes": [
+        {
+          "sensor": "D29",
+          "rank": 1,
+          "reason": "预测误差显著且与D10存在强关系退化（参考wadi_operator_note.md:bd41b8dfddd4d527b49067de288350c5:0）"
+        },
+        {
+          "sensor": "D27",
+          "rank": 2,
+          "reason": "次高预测误差，需验证与控制逻辑联动（依据relation_evgat_method.md:42eb167ddf2094f75a9c1be3e0f9d1e5:0）"
+        },
+        {
+          "sensor": "D34",
+          "rank": 3,
+          "reason": "上游水位波动关联度上升，需同步监测泵阀状态（参考wadi_operator_note.md:9c9983a4f664bcb5a1e8ef855081abf6:0）"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66
+        },
+        {
+          "source": "D29",
+          "target": "D27",
+          "degradation": 0.0
+        },
+        {
+          "source": "D27",
+          "target": "D34",
+          "degradation": 0.0
+        },
+        {
+          "source": "D34",
+          "target": "D10",
+          "degradation": 0.0
+        },
+        {
+          "source": "D10",
+          "target": "D30",
+          "degradation": 0.0
+        }
+      ],
+      "recommendations": [
+        "立即校验D29传感器校准精度与历史数据一致性",
+        "检查D10阀门/泵反馈信号与实际执行状态的匹配度",
+        "对比D27-D34区间上下游水位动态曲线是否存在非预期波动",
+        "核查控制链路中D29指令下发延迟是否与异常起始时间吻合"
+      ],
+      "citations": [
+        "wadi_operator_note.md:bd41b8dfddd4d527b49067de288350c5:0",
+        "wadi_operator_note.md:9c9983a4f664bcb5a1e8ef855081abf6:0",
+        "relation_evgat_method.md:42eb167ddf2094f75a9c1be3e0f9d1e5:0"
+      ],
+      "report_text": "在15854~16390时间段内检测到持续异常（峰值92901.26远超阈值0.96）。首要关注D29传感器，其预测误差达617.88且与D10存在显著关系退化(0.66)，需优先排查该节点校准状态及下游控制回路。次级关注D27/D34的协同工作状态，特别注意泵阀联动响应时序。依据WADE运维规范，应在同一时间窗口内完成传感器校准复核、阀门开度反馈验证及上下游水位趋势比对。需注意：当前关系退化仅作为交叉验证线索，不可直接认定为因果链条。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.0,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 4,
+      "report_length": 220
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e1__operations",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 1,
+    "question_type": "operations",
+    "model": "deepseek-v4-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 33461,
+    "usage": {
+      "prompt_tokens": 1413,
+      "total_tokens": 3081,
+      "completion_tokens": 1668,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 790
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"基于节点预测误差和关系退化证据，D29为最可能根因，且与D10存在0.66的退化关联，需优先排查。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"D29\",\n      \"rank\": 1,\n      \"reason\": \"节点预测误差最高（617.88），且与D10存在关系退化（0.66），建议优先检查传感器校准、泵/阀门状态及控制链路。\"\n    },\n    {\n      \"sensor\": \"D27\",\n      \"rank\": 2,\n      \"reason\": \"节点预测误差较高（457.76），但未检测到显著关系退化，需结合D29排查结果进一步分析。\"\n    },\n    {\n      \"sensor\": \"D34\",\n      \"rank\": 3,\n      \"reason\": \"节点预测误差中等（54.97），退化边缘为零，建议作为次要待查项。\"\n    },\n    {\n      \"sensor\": \"D10\",\n      \"rank\": 4,\n      \"reason\": \"节点预测误差中等（39.71），且与D29存在退化关联，需在D29排查中同步验证。\"\n    },\n    {\n      \"sensor\": \"D30\",\n      \"rank\": 5,\n      \"reason\": \"节点预测误差较低（39.31），退化边缘为零，但建议在排查完前序传感器后复核。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"D29\",\n      \"target\": \"D10\",\n      \"degradation\": 0.66\n    }\n  ],\n  \"recommendations\": [\n    \"1. 立即检查D29传感器的校准记录，确认是否存在零点漂移或信号异常。\",\n    \"2. 验证D29关联的泵指令状态、阀门反馈及控制回路是否正常。\",\n    \"3. 在同一异常窗口内（15854~16390）核对D10的上下游水位趋势，排查是否有联动异常。\",\n    \"4. 若D29和D10无硬件问题，检查关系退化是否由通信延迟或数据采集错误导致。\",\n    \"5. 完成D29排查后，按排名顺序依次检查D27、D34、D30，重点复核各传感器在窗口内的趋势一致性。\"\n  ],\n  \"citations\": [\n    {\n      \"title\": \"wadi_operator_note.md\",\n      \"chunk_id\": \"bd41b8dfddd4d527b49067de288350c5:0\"\n    },\n    {\n      \"title\": \"wadi_operator_note.md\",\n      \"chunk_id\": \"9c9983a4f664bcb5a1e8ef855081abf6:0\"\n    },\n    {\n      \"title\": \"relation_evgat_method.md\",\n      \"chunk_id\": \"42eb167ddf2094f75a9c1be3e0f9d1e5:0\"\n    }\n  ],\n  \"report_text\": \"**异常概况**：系统在时间窗口15854~16390内检测到持续异常，峰值异常分数达92901.26，远超阈值0.96。**根因候选**：基于节点预测误差和关系退化证据，D29排名第一（分数617.88），其次为D27（457.76）、D34（54.97）、D10（39.71）和D30（39.31）。**关系退化**：仅检测到一条显著退化边D29→D10，退化强度0.66，表明这两个传感器之间存在关联变化，需协同排查。**排查步骤**：优先检查D29的传感器校准、泵/阀门状态及控制链路；同时复核D10的上下游水位趋势；若D29正常，则依次检查D27、D34、D30。**运维建议**：注意关系退化证据仅作为排查线索，不能视为严格因果，应结合现场实际设备状况进行综合判断。具体操作请参考wadi运维笔记和关系退化方法文档。\"\n}",
+    "parsed": {
+      "conclusion": "基于节点预测误差和关系退化证据，D29为最可能根因，且与D10存在0.66的退化关联，需优先排查。",
+      "root_causes": [
+        {
+          "sensor": "D29",
+          "rank": 1,
+          "reason": "节点预测误差最高（617.88），且与D10存在关系退化（0.66），建议优先检查传感器校准、泵/阀门状态及控制链路。"
+        },
+        {
+          "sensor": "D27",
+          "rank": 2,
+          "reason": "节点预测误差较高（457.76），但未检测到显著关系退化，需结合D29排查结果进一步分析。"
+        },
+        {
+          "sensor": "D34",
+          "rank": 3,
+          "reason": "节点预测误差中等（54.97），退化边缘为零，建议作为次要待查项。"
+        },
+        {
+          "sensor": "D10",
+          "rank": 4,
+          "reason": "节点预测误差中等（39.71），且与D29存在退化关联，需在D29排查中同步验证。"
+        },
+        {
+          "sensor": "D30",
+          "rank": 5,
+          "reason": "节点预测误差较低（39.31），退化边缘为零，但建议在排查完前序传感器后复核。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66
+        }
+      ],
+      "recommendations": [
+        "1. 立即检查D29传感器的校准记录，确认是否存在零点漂移或信号异常。",
+        "2. 验证D29关联的泵指令状态、阀门反馈及控制回路是否正常。",
+        "3. 在同一异常窗口内（15854~16390）核对D10的上下游水位趋势，排查是否有联动异常。",
+        "4. 若D29和D10无硬件问题，检查关系退化是否由通信延迟或数据采集错误导致。",
+        "5. 完成D29排查后，按排名顺序依次检查D27、D34、D30，重点复核各传感器在窗口内的趋势一致性。"
+      ],
+      "citations": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0"
+        },
+        {
+          "title": "relation_evgat_method.md",
+          "chunk_id": "42eb167ddf2094f75a9c1be3e0f9d1e5:0"
+        }
+      ],
+      "report_text": "**异常概况**：系统在时间窗口15854~16390内检测到持续异常，峰值异常分数达92901.26，远超阈值0.96。**根因候选**：基于节点预测误差和关系退化证据，D29排名第一（分数617.88），其次为D27（457.76）、D34（54.97）、D10（39.71）和D30（39.31）。**关系退化**：仅检测到一条显著退化边D29→D10，退化强度0.66，表明这两个传感器之间存在关联变化，需协同排查。**排查步骤**：优先检查D29的传感器校准、泵/阀门状态及控制链路；同时复核D10的上下游水位趋势；若D29正常，则依次检查D27、D34、D30。**运维建议**：注意关系退化证据仅作为排查线索，不能视为严格因果，应结合现场实际设备状况进行综合判断。具体操作请参考wadi运维笔记和关系退化方法文档。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.6666666666666667,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 1.0,
+      "recommendation_count": 5,
+      "report_length": 364
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e1__operations",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 1,
+    "question_type": "operations",
+    "model": "deepseek-v4-pro",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 46870,
+    "usage": {
+      "prompt_tokens": 1413,
+      "total_tokens": 3666,
+      "completion_tokens": 2253,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 1326
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"本次异常大概率由传感器D29及其关联链路引起，需优先排查D29及相关部件。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"D29\",\n      \"rank\": 1,\n      \"reason\": \"节点预测误差极显著（得分617.88），且与D10的关系退化强度0.66，提示D29与D10之间可能存在关联故障，需共同检查。\"\n    },\n    {\n      \"sensor\": \"D27\",\n      \"rank\": 2,\n      \"reason\": \"节点预测误差显著（得分457.76），但关联关系退化强度为0.00，可能为独立传感器异常，需检查自身状态。\"\n    },\n    {\n      \"sensor\": \"D34\",\n      \"rank\": 3,\n      \"reason\": \"节点预测误差较高（得分54.97），无明显关系退化，建议作为次优先级排查。\"\n    },\n    {\n      \"sensor\": \"D10\",\n      \"rank\": 4,\n      \"reason\": \"节点预测误差中等（得分39.71），且与D29存在退化边，应在排查D29时一并检查。\"\n    },\n    {\n      \"sensor\": \"D30\",\n      \"rank\": 5,\n      \"reason\": \"节点预测误差中等（得分39.31），无关联退化，可按常规巡检流程处理。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"D29\",\n      \"target\": \"D10\",\n      \"degradation\": 0.66\n    },\n    {\n      \"source\": \"D29\",\n      \"target\": \"D27\",\n      \"degradation\": 0.0\n    },\n    {\n      \"source\": \"D27\",\n      \"target\": \"D34\",\n      \"degradation\": 0.0\n    },\n    {\n      \"source\": \"D34\",\n      \"target\": \"D10\",\n      \"degradation\": 0.0\n    },\n    {\n      \"source\": \"D10\",\n      \"target\": \"D30\",\n      \"degradation\": 0.0\n    }\n  ],\n  \"recommendations\": [\n    \"1. 在异常窗口15854~16390内，优先检查D29传感器的读数、校准状态及执行器状态，确认是否存在漂移或故障。\",\n    \"2. 检查D29至D10的关联链路，包括泵指令、阀门反馈、上下游水位趋势，验证关系退化是否由过程扰动引起。\",\n    \"3. 检查D27传感器及其连接部件，确认节点异常是否源于传感器自身问题。\",\n    \"4. 依次检查D34、D10、D30传感器状态，排查次优先级异常。\",\n    \"5. 复核整个系统的控制逻辑与联动响应，确保无隐蔽故障。\"\n  ],\n  \"citations\": [\n    {\n      \"title\": \"wadi_operator_note.md\",\n      \"chunk_id\": \"bd41b8dfddd4d527b49067de288350c5:0\"\n    },\n    {\n      \"title\": \"wadi_operator_note.md\",\n      \"chunk_id\": \"9c9983a4f664bcb5a1e8ef855081abf6:0\"\n    },\n    {\n      \"title\": \"relation_evgat_method.md\",\n      \"chunk_id\": \"42eb167ddf2094f75a9c1be3e0f9d1e5:0\"\n    }\n  ],\n  \"report_text\": \"在时间窗口15854~16390内，系统检测到严重异常，异常分数高达92901.26，远超阈值0.96。根因分析表明，传感器D29节点预测误差极显著，排名第一，且其与D10的关系退化强度为0.66，是本次异常的主要线索。根据运维经验，当泵、液位等变量附近出现关系退化时，需在同一窗口内核对传感器校准、泵指令状态、阀门反馈及上下游水位趋势。因此，建议运维人员优先排查D29至D10的关联链路，并检查D29、D27等高异常节点。详细的排查步骤已按优先级列出。注意，关系退化仅作为排查线索，不应直接推断因果链。\"\n}",
+    "parsed": {
+      "conclusion": "本次异常大概率由传感器D29及其关联链路引起，需优先排查D29及相关部件。",
+      "root_causes": [
+        {
+          "sensor": "D29",
+          "rank": 1,
+          "reason": "节点预测误差极显著（得分617.88），且与D10的关系退化强度0.66，提示D29与D10之间可能存在关联故障，需共同检查。"
+        },
+        {
+          "sensor": "D27",
+          "rank": 2,
+          "reason": "节点预测误差显著（得分457.76），但关联关系退化强度为0.00，可能为独立传感器异常，需检查自身状态。"
+        },
+        {
+          "sensor": "D34",
+          "rank": 3,
+          "reason": "节点预测误差较高（得分54.97），无明显关系退化，建议作为次优先级排查。"
+        },
+        {
+          "sensor": "D10",
+          "rank": 4,
+          "reason": "节点预测误差中等（得分39.71），且与D29存在退化边，应在排查D29时一并检查。"
+        },
+        {
+          "sensor": "D30",
+          "rank": 5,
+          "reason": "节点预测误差中等（得分39.31），无关联退化，可按常规巡检流程处理。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66
+        },
+        {
+          "source": "D29",
+          "target": "D27",
+          "degradation": 0.0
+        },
+        {
+          "source": "D27",
+          "target": "D34",
+          "degradation": 0.0
+        },
+        {
+          "source": "D34",
+          "target": "D10",
+          "degradation": 0.0
+        },
+        {
+          "source": "D10",
+          "target": "D30",
+          "degradation": 0.0
+        }
+      ],
+      "recommendations": [
+        "1. 在异常窗口15854~16390内，优先检查D29传感器的读数、校准状态及执行器状态，确认是否存在漂移或故障。",
+        "2. 检查D29至D10的关联链路，包括泵指令、阀门反馈、上下游水位趋势，验证关系退化是否由过程扰动引起。",
+        "3. 检查D27传感器及其连接部件，确认节点异常是否源于传感器自身问题。",
+        "4. 依次检查D34、D10、D30传感器状态，排查次优先级异常。",
+        "5. 复核整个系统的控制逻辑与联动响应，确保无隐蔽故障。"
+      ],
+      "citations": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0"
+        },
+        {
+          "title": "relation_evgat_method.md",
+          "chunk_id": "42eb167ddf2094f75a9c1be3e0f9d1e5:0"
+        }
+      ],
+      "report_text": "在时间窗口15854~16390内，系统检测到严重异常，异常分数高达92901.26，远超阈值0.96。根因分析表明，传感器D29节点预测误差极显著，排名第一，且其与D10的关系退化强度为0.66，是本次异常的主要线索。根据运维经验，当泵、液位等变量附近出现关系退化时，需在同一窗口内核对传感器校准、泵指令状态、阀门反馈及上下游水位趋势。因此，建议运维人员优先排查D29至D10的关联链路，并检查D29、D27等高异常节点。详细的排查步骤已按优先级列出。注意，关系退化仅作为排查线索，不应直接推断因果链。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.6666666666666667,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 1.0,
+      "recommendation_count": 5,
+      "report_length": 252
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e2__diagnosis",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 2,
+    "question_type": "diagnosis",
+    "model": "rule-agent",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 0,
+    "usage": {},
+    "raw_text": "{\"conclusion\": \"事件 #2 的首要根因候选为 D29。\", \"root_causes\": [{\"sensor\": \"D29\", \"rank\": 1, \"reason\": \"Relation-EVGAT 根因候选\"}, {\"sensor\": \"D27\", \"rank\": 2, \"reason\": \"Relation-EVGAT 根因候选\"}, {\"sensor\": \"D34\", \"rank\": 3, \"reason\": \"Relation-EVGAT 根因候选\"}], \"degraded_edges\": [{\"source\": \"D29\", \"target\": \"D10\", \"degradation\": 0.66, \"label\": \"0.66\"}, {\"source\": \"D29\", \"target\": \"D27\", \"degradation\": 0.0, \"label\": \"0.00\"}, {\"source\": \"D27\", \"target\": \"D34\", \"degradation\": 0.0, \"label\": \"0.00\"}], \"recommendations\": [\"核对 D29 的原始读数、量程和采集状态。\", \"复核 D29 到 D10 的联动关系。\", \"对照异常窗口检查阀门、泵、控制指令和现场工况记录。\"], \"citations\": [{\"title\": \"wadi_operator_note.md\", \"chunk_id\": \"bd41b8dfddd4d527b49067de288350c5:0\"}, {\"title\": \"wadi_operator_note.md\", \"chunk_id\": \"9c9983a4f664bcb5a1e8ef855081abf6:0\"}, {\"title\": \"relation_evgat_method.md\", \"chunk_id\": \"42eb167ddf2094f75a9c1be3e0f9d1e5:0\"}], \"report_text\": \"事件 #2 的首要根因候选为 D29。 核对 D29 的原始读数、量程和采集状态。 复核 D29 到 D10 的联动关系。 对照异常窗口检查阀门、泵、控制指令和现场工况记录。\"}",
+    "parsed": {
+      "conclusion": "事件 #2 的首要根因候选为 D29。",
+      "root_causes": [
+        {
+          "sensor": "D29",
+          "rank": 1,
+          "reason": "Relation-EVGAT 根因候选"
+        },
+        {
+          "sensor": "D27",
+          "rank": 2,
+          "reason": "Relation-EVGAT 根因候选"
+        },
+        {
+          "sensor": "D34",
+          "rank": 3,
+          "reason": "Relation-EVGAT 根因候选"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66,
+          "label": "0.66"
+        },
+        {
+          "source": "D29",
+          "target": "D27",
+          "degradation": 0.0,
+          "label": "0.00"
+        },
+        {
+          "source": "D27",
+          "target": "D34",
+          "degradation": 0.0,
+          "label": "0.00"
+        }
+      ],
+      "recommendations": [
+        "核对 D29 的原始读数、量程和采集状态。",
+        "复核 D29 到 D10 的联动关系。",
+        "对照异常窗口检查阀门、泵、控制指令和现场工况记录。"
+      ],
+      "citations": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0"
+        },
+        {
+          "title": "relation_evgat_method.md",
+          "chunk_id": "42eb167ddf2094f75a9c1be3e0f9d1e5:0"
+        }
+      ],
+      "report_text": "事件 #2 的首要根因候选为 D29。 核对 D29 的原始读数、量程和采集状态。 复核 D29 到 D10 的联动关系。 对照异常窗口检查阀门、泵、控制指令和现场工况记录。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.0,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 1.0,
+      "recommendation_count": 3,
+      "report_length": 87
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e2__diagnosis",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 2,
+    "question_type": "diagnosis",
+    "model": "qwen-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 8895,
+    "usage": {
+      "prompt_tokens": 1683,
+      "total_tokens": 2235,
+      "completion_tokens": 552,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"报警最可能的根因是传感器 D29 出现异常，其高节点预测误差和与 D10 的显著关系退化是关键证据。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"D29\",\n      \"rank\": 1,\n      \"reason\": \"D29 在异常窗口内表现出最高的节点预测误差（617.88），且与下游传感器 D10 存在显著的关系退化（0.66），表明其读数或状态异常可能影响了系统关联性。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"D29\",\n      \"target\": \"D10\",\n      \"degradation\": 0.66\n    }\n  ],\n  \"recommendations\": [\n    \"立即核查传感器 D29 的实际读数、校准状态及执行指令是否正常。\",\n    \"检查与 D29 相连的泵、阀门反馈状态，确认是否存在控制链路异常。\",\n    \"复核异常窗口（16966~17510）内上下游水位趋势及联动逻辑，排除信号传递失真。\",\n    \"结合运维记录建议，在同一异常窗口内综合分析相关变量的协同变化。\"\n  ],\n  \"citations\": [\n    \"wadi_operator_note.md\",\n    \"relation_evgat_method.md\"\n  ],\n  \"report_text\": \"系统在时间窗口 16966~17510 内检测到持续异常，峰值异常分数为 92901.26，远超设定阈值 0.96，触发报警。根因候选中，传感器 D29 排名第一，其节点预测误差高达 617.88，为所有候选中最高，表明该传感器数据偏离正常模式最显著。同时，关系退化分析显示，D29 与 D10 之间存在 0.66 的显著关系退化，是当前最突出的关联异常证据。尽管关系退化不能直接推断因果，但其提示应重点关注这两者之间的协同状态。根据运维记录建议，当泵、液位等变量附近出现关系退化时，需在同一异常窗口内核对传感器校准、泵指令状态、阀门反馈及上下游水位趋势。因此，建议优先检查 D29 的实际读数与执行状态，并同步排查其控制链路中的泵、阀门反馈以及上下游联动情况，以确认是否存在传感器故障或控制信号异常。\"\n}",
+    "parsed": {
+      "conclusion": "报警最可能的根因是传感器 D29 出现异常，其高节点预测误差和与 D10 的显著关系退化是关键证据。",
+      "root_causes": [
+        {
+          "sensor": "D29",
+          "rank": 1,
+          "reason": "D29 在异常窗口内表现出最高的节点预测误差（617.88），且与下游传感器 D10 存在显著的关系退化（0.66），表明其读数或状态异常可能影响了系统关联性。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66
+        }
+      ],
+      "recommendations": [
+        "立即核查传感器 D29 的实际读数、校准状态及执行指令是否正常。",
+        "检查与 D29 相连的泵、阀门反馈状态，确认是否存在控制链路异常。",
+        "复核异常窗口（16966~17510）内上下游水位趋势及联动逻辑，排除信号传递失真。",
+        "结合运维记录建议，在同一异常窗口内综合分析相关变量的协同变化。"
+      ],
+      "citations": [
+        "wadi_operator_note.md",
+        "relation_evgat_method.md"
+      ],
+      "report_text": "系统在时间窗口 16966~17510 内检测到持续异常，峰值异常分数为 92901.26，远超设定阈值 0.96，触发报警。根因候选中，传感器 D29 排名第一，其节点预测误差高达 617.88，为所有候选中最高，表明该传感器数据偏离正常模式最显著。同时，关系退化分析显示，D29 与 D10 之间存在 0.66 的显著关系退化，是当前最突出的关联异常证据。尽管关系退化不能直接推断因果，但其提示应重点关注这两者之间的协同状态。根据运维记录建议，当泵、液位等变量附近出现关系退化时，需在同一异常窗口内核对传感器校准、泵指令状态、阀门反馈及上下游水位趋势。因此，建议优先检查 D29 的实际读数与执行状态，并同步排查其控制链路中的泵、阀门反馈以及上下游联动情况，以确认是否存在传感器故障或控制信号异常。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 0.3333333333333333,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 4,
+      "report_length": 351
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e2__diagnosis",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 2,
+    "question_type": "diagnosis",
+    "model": "qwen3.5-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 13192,
+    "usage": {
+      "prompt_tokens": 1782,
+      "total_tokens": 2720,
+      "completion_tokens": 938,
+      "completion_tokens_details": {
+        "reasoning_tokens": 476,
+        "text_tokens": 938
+      }
+    },
+    "raw_text": "```json\n{\n  \"conclusion\": \"系统在16966~17510时间窗口内检测到显著异常（分数92901.26/阈值0.96），D29传感器为最可能根因，伴随其与D10传感器的关系退化（强度0.66）。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"D29\",\n      \"rank\": 1,\n      \"reason\": \"节点预测误差最高(617.88)，归一化得分0.9999，与相邻关系退化共同指向其异常\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"D29\",\n      \"target\": \"D10\",\n      \"degradation\": 0.66\n    }\n  ],\n  \"recommendations\": [\n    \"核查D29传感器校准状态及执行器反馈\",\n    \"验证异常时段阀门控制链路完整性\",\n    \"分析上下游水位变化关联性\"\n  ],\n  \"citations\": [\n    \"wadi_operator_note.md:bd41b8dfddd4d527b49067de288350c5:0\",\n    \"relation_evgat_method.md:42eb167ddf2094f75a9c1be3e0f9d1e5:0\"\n  ],\n  \"report_text\": \"异常检测于16966~17510时间窗口触发（峰值92901.26超阈值0.96）。D29传感器以最高得分（617.88）成为首要疑似根因，其与D10间的关系退化强度达0.66表明系统联动性受损。依据工业诊断规范，建议优先排查D29的物理状态及控制回路，同时验证相邻传感器间的水力耦合关系是否在正常范围内波动。需注意当前证据显示的是关联特征而非确定因果链。\"\n}\n```",
+    "parsed": {
+      "conclusion": "系统在16966~17510时间窗口内检测到显著异常（分数92901.26/阈值0.96），D29传感器为最可能根因，伴随其与D10传感器的关系退化（强度0.66）。",
+      "root_causes": [
+        {
+          "sensor": "D29",
+          "rank": 1,
+          "reason": "节点预测误差最高(617.88)，归一化得分0.9999，与相邻关系退化共同指向其异常"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66
+        }
+      ],
+      "recommendations": [
+        "核查D29传感器校准状态及执行器反馈",
+        "验证异常时段阀门控制链路完整性",
+        "分析上下游水位变化关联性"
+      ],
+      "citations": [
+        "wadi_operator_note.md:bd41b8dfddd4d527b49067de288350c5:0",
+        "relation_evgat_method.md:42eb167ddf2094f75a9c1be3e0f9d1e5:0"
+      ],
+      "report_text": "异常检测于16966~17510时间窗口触发（峰值92901.26超阈值0.96）。D29传感器以最高得分（617.88）成为首要疑似根因，其与D10间的关系退化强度达0.66表明系统联动性受损。依据工业诊断规范，建议优先排查D29的物理状态及控制回路，同时验证相邻传感器间的水力耦合关系是否在正常范围内波动。需注意当前证据显示的是关联特征而非确定因果链。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 0.3333333333333333,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 3,
+      "report_length": 178
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e2__diagnosis",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 2,
+    "question_type": "diagnosis",
+    "model": "deepseek-v4-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 17539,
+    "usage": {
+      "prompt_tokens": 1413,
+      "total_tokens": 2607,
+      "completion_tokens": 1194,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 306
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"报警由传感器D29的异常状态引起，其节点预测误差最大，且与D10之间存在显著关系退化（退化强度0.66），需优先排查。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"D29\",\n      \"rank\": 1,\n      \"reason\": \"节点预测误差分数最高（617.88，归一化0.9999），远超其他候选，且是唯一关联到显著退化边（→D10，退化0.66）的传感器。\"\n    },\n    {\n      \"sensor\": \"D27\",\n      \"rank\": 2,\n      \"reason\": \"节点误差分数第二高（457.76，归一化0.74），但无显著关系退化证据，作为次要候选需同步关注。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"D29\",\n      \"target\": \"D10\",\n      \"degradation\": 0.66\n    }\n  ],\n  \"recommendations\": [\n    \"立即检查D29的传感器校准状态、执行机构（如泵/阀门）指令与反馈是否一致。\",\n    \"核对16966~17510窗口内D10与D29的上下游水位或流量趋势，确认是否存在物理关联异常。\",\n    \"同步检查D27传感器状态，排除多变量关联故障可能性。\",\n    \"参考运维记录，在相同异常窗口内复核泵指令状态、阀门反馈及上下游联动关系。\"\n  ],\n  \"citations\": [\n    {\n      \"title\": \"wadi_operator_note.md\",\n      \"chunk_id\": \"bd41b8dfddd4d527b49067de288350c5:0\"\n    },\n    {\n      \"title\": \"wadi_operator_note.md\",\n      \"chunk_id\": \"9c9983a4f664bcb5a1e8ef855081abf6:0\"\n    },\n    {\n      \"title\": \"relation_evgat_method.md\",\n      \"chunk_id\": \"42eb167ddf2094f75a9c1be3e0f9d1e5:0\"\n    }\n  ],\n  \"report_text\": \"### 异常概况\\n在时间窗口16966~17510内，系统检测到持续异常，峰值异常分数达92901.26，远超过阈值0.96，表明该窗口存在显著异常行为。\\n\\n### 根因分析\\n基于节点预测误差和关系退化证据，传感器D29被列为最可能的根因（排名第一），其节点误差分数为617.88（归一化0.9999），且是唯一关联到显著退化边（D29→D10，退化强度0.66）的传感器。排名第二的D27（误差分数457.76）无显著关系退化，作为次要候选。根据Relation-EVGAT方法，关系退化可作为排查线索，但不代表严格因果链，因此建议将D29与D10联合检查。\\n\\n### 关系退化证据\\n退化边仅出现在D29→D10，退化强度约0.66，其他边退化强度为0。这表明D29与D10之间的正常关系模式在异常窗口中被显著破坏，需重点核实这两者的物理联动关系。\\n\\n### 运维建议\\n1. **优先排查D29**：检查传感器校准状态、执行机构（如泵或阀门）的指令与反馈是否一致，确认是否存在机械卡滞或电气故障。\\n2. **联动检查D10**：在同一异常窗口内，核对D29与D10的上下游水位、流量或压力趋势，判断是否因上游异常导致下游响应异常。\\n3. **关注D27**：由于D27节点误差也较高，建议同步校验其读数及关联回路，排除多重故障。\\n4. **综合核查**：参考运维操作规范，在相同窗口内复核泵指令状态、阀门反馈以及上下游联动关系，确保全局状态一致。\\n\\n（以上分析基于节点误差排序与关系退化证据，退化现象仅作为排查线索，不构成严格因果关系。）\"\n}",
+    "parsed": {
+      "conclusion": "报警由传感器D29的异常状态引起，其节点预测误差最大，且与D10之间存在显著关系退化（退化强度0.66），需优先排查。",
+      "root_causes": [
+        {
+          "sensor": "D29",
+          "rank": 1,
+          "reason": "节点预测误差分数最高（617.88，归一化0.9999），远超其他候选，且是唯一关联到显著退化边（→D10，退化0.66）的传感器。"
+        },
+        {
+          "sensor": "D27",
+          "rank": 2,
+          "reason": "节点误差分数第二高（457.76，归一化0.74），但无显著关系退化证据，作为次要候选需同步关注。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66
+        }
+      ],
+      "recommendations": [
+        "立即检查D29的传感器校准状态、执行机构（如泵/阀门）指令与反馈是否一致。",
+        "核对16966~17510窗口内D10与D29的上下游水位或流量趋势，确认是否存在物理关联异常。",
+        "同步检查D27传感器状态，排除多变量关联故障可能性。",
+        "参考运维记录，在相同异常窗口内复核泵指令状态、阀门反馈及上下游联动关系。"
+      ],
+      "citations": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0"
+        },
+        {
+          "title": "relation_evgat_method.md",
+          "chunk_id": "42eb167ddf2094f75a9c1be3e0f9d1e5:0"
+        }
+      ],
+      "report_text": "### 异常概况\n在时间窗口16966~17510内，系统检测到持续异常，峰值异常分数达92901.26，远超过阈值0.96，表明该窗口存在显著异常行为。\n\n### 根因分析\n基于节点预测误差和关系退化证据，传感器D29被列为最可能的根因（排名第一），其节点误差分数为617.88（归一化0.9999），且是唯一关联到显著退化边（D29→D10，退化强度0.66）的传感器。排名第二的D27（误差分数457.76）无显著关系退化，作为次要候选。根据Relation-EVGAT方法，关系退化可作为排查线索，但不代表严格因果链，因此建议将D29与D10联合检查。\n\n### 关系退化证据\n退化边仅出现在D29→D10，退化强度约0.66，其他边退化强度为0。这表明D29与D10之间的正常关系模式在异常窗口中被显著破坏，需重点核实这两者的物理联动关系。\n\n### 运维建议\n1. **优先排查D29**：检查传感器校准状态、执行机构（如泵或阀门）的指令与反馈是否一致，确认是否存在机械卡滞或电气故障。\n2. **联动检查D10**：在同一异常窗口内，核对D29与D10的上下游水位、流量或压力趋势，判断是否因上游异常导致下游响应异常。\n3. **关注D27**：由于D27节点误差也较高，建议同步校验其读数及关联回路，排除多重故障。\n4. **综合核查**：参考运维操作规范，在相同窗口内复核泵指令状态、阀门反馈以及上下游联动关系，确保全局状态一致。\n\n（以上分析基于节点误差排序与关系退化证据，退化现象仅作为排查线索，不构成严格因果关系。）"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 0.6666666666666666,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 1.0,
+      "recommendation_count": 4,
+      "report_length": 670
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e2__diagnosis",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 2,
+    "question_type": "diagnosis",
+    "model": "deepseek-v4-pro",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 35409,
+    "usage": {
+      "prompt_tokens": 1413,
+      "total_tokens": 2891,
+      "completion_tokens": 1478,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 727
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"本次报警最可能的根因传感器是 D29，其节点异常得分极高，且与 D10 的关系退化证据进一步支持 D29 状态异常。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"D29\",\n      \"rank\": 1,\n      \"reason\": \"节点预测误差在所有候选传感器中最高，归一化得分接近 1.0，异常窗口内 D29 读数存在显著偏离；同时 D29→D10 链路出现关系退化，提示 D29 的测量或执行状态异常。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"D29\",\n      \"target\": \"D10\",\n      \"degradation\": 0.66\n    }\n  ],\n  \"recommendations\": [\n    \"立即检查 D29 传感器的物理安装、校准状态及信号回路，确认是否存在漂移、损坏或信号干扰。\",\n    \"核对 D29 对应的执行器（如泵、阀门）指令状态与实际反馈，验证控制信号是否正常下发。\",\n    \"结合 D29→D10 关系退化，同时检查 D10 传感器的读数与响应，确认上下游联动是否正常。\",\n    \"在异常窗口 16966~17510 内，分析 D29 与 D27、D34 等关联变量的趋势，排查是否存在连锁故障。\"\n  ],\n  \"citations\": [\n    \"wadi_operator_note.md: bd41b8dfddd4d527b49067de288350c5:0\",\n    \"wadi_operator_note.md: 9c9983a4f664bcb5a1e8ef855081abf6:0\",\n    \"relation_evgat_method.md: 42eb167ddf2094f75a9c1be3e0f9d1e5:0\"\n  ],\n  \"report_text\": \"异常概况：在时间窗口 16966~17510 内，系统检测到持续异常，峰值异常分数达到 92901.26，远超阈值 0.96，表明存在严重工况偏离。\\n\\n根因分析：根因定位算法将 D29 列为第一候选，其节点异常得分极高（617.88），远高于其他候选传感器。同时，关系退化证据显示 D29→D10 链路退化强度为 0.66，而其他链路退化均为 0.0。根据 WaDI 运维经验，当泵、液位等变量附近出现关系退化时，需在同一窗口内核对传感器校准、泵指令状态及上下游趋势（引用 wadi_operator_note.md）。本次退化链路指向 D29 与 D10，提示 D29 的测量值或执行状态可能发生异常，进而影响了与 D10 的关联关系。\\n\\n关系退化解读：Relation-EVGAT 方法指出，关系退化证据用于指示相关传感器应共同检查，不可直接断言严格因果链（引用 relation_evgat_method.md）。因此，D29→D10 的退化是重要的排查线索，但需结合现场检查确认。\\n\\n运维建议：优先排查 D29 传感器本身，确认其校准、安装及信号链路；同时检查 D29 对应的控制设备（如阀门、泵）指令与反馈；鉴于 D10 受到退化影响，应对 D10 进行同步核查；最后，复核异常窗口内 D27、D34 等上下游变量的趋势，排除系统级故障。\"\n}",
+    "parsed": {
+      "conclusion": "本次报警最可能的根因传感器是 D29，其节点异常得分极高，且与 D10 的关系退化证据进一步支持 D29 状态异常。",
+      "root_causes": [
+        {
+          "sensor": "D29",
+          "rank": 1,
+          "reason": "节点预测误差在所有候选传感器中最高，归一化得分接近 1.0，异常窗口内 D29 读数存在显著偏离；同时 D29→D10 链路出现关系退化，提示 D29 的测量或执行状态异常。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66
+        }
+      ],
+      "recommendations": [
+        "立即检查 D29 传感器的物理安装、校准状态及信号回路，确认是否存在漂移、损坏或信号干扰。",
+        "核对 D29 对应的执行器（如泵、阀门）指令状态与实际反馈，验证控制信号是否正常下发。",
+        "结合 D29→D10 关系退化，同时检查 D10 传感器的读数与响应，确认上下游联动是否正常。",
+        "在异常窗口 16966~17510 内，分析 D29 与 D27、D34 等关联变量的趋势，排查是否存在连锁故障。"
+      ],
+      "citations": [
+        "wadi_operator_note.md: bd41b8dfddd4d527b49067de288350c5:0",
+        "wadi_operator_note.md: 9c9983a4f664bcb5a1e8ef855081abf6:0",
+        "relation_evgat_method.md: 42eb167ddf2094f75a9c1be3e0f9d1e5:0"
+      ],
+      "report_text": "异常概况：在时间窗口 16966~17510 内，系统检测到持续异常，峰值异常分数达到 92901.26，远超阈值 0.96，表明存在严重工况偏离。\n\n根因分析：根因定位算法将 D29 列为第一候选，其节点异常得分极高（617.88），远高于其他候选传感器。同时，关系退化证据显示 D29→D10 链路退化强度为 0.66，而其他链路退化均为 0.0。根据 WaDI 运维经验，当泵、液位等变量附近出现关系退化时，需在同一窗口内核对传感器校准、泵指令状态及上下游趋势（引用 wadi_operator_note.md）。本次退化链路指向 D29 与 D10，提示 D29 的测量值或执行状态可能发生异常，进而影响了与 D10 的关联关系。\n\n关系退化解读：Relation-EVGAT 方法指出，关系退化证据用于指示相关传感器应共同检查，不可直接断言严格因果链（引用 relation_evgat_method.md）。因此，D29→D10 的退化是重要的排查线索，但需结合现场检查确认。\n\n运维建议：优先排查 D29 传感器本身，确认其校准、安装及信号链路；同时检查 D29 对应的控制设备（如阀门、泵）指令与反馈；鉴于 D10 受到退化影响，应对 D10 进行同步核查；最后，复核异常窗口内 D27、D34 等上下游变量的趋势，排除系统级故障。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 0.3333333333333333,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 4,
+      "report_length": 574
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e2__operations",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 2,
+    "question_type": "operations",
+    "model": "rule-agent",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 0,
+    "usage": {},
+    "raw_text": "{\"conclusion\": \"事件 #2 的首要根因候选为 D29。\", \"root_causes\": [{\"sensor\": \"D29\", \"rank\": 1, \"reason\": \"Relation-EVGAT 根因候选\"}, {\"sensor\": \"D27\", \"rank\": 2, \"reason\": \"Relation-EVGAT 根因候选\"}, {\"sensor\": \"D34\", \"rank\": 3, \"reason\": \"Relation-EVGAT 根因候选\"}], \"degraded_edges\": [{\"source\": \"D29\", \"target\": \"D10\", \"degradation\": 0.66, \"label\": \"0.66\"}, {\"source\": \"D29\", \"target\": \"D27\", \"degradation\": 0.0, \"label\": \"0.00\"}, {\"source\": \"D27\", \"target\": \"D34\", \"degradation\": 0.0, \"label\": \"0.00\"}], \"recommendations\": [\"核对 D29 的原始读数、量程和采集状态。\", \"复核 D29 到 D10 的联动关系。\", \"对照异常窗口检查阀门、泵、控制指令和现场工况记录。\"], \"citations\": [{\"title\": \"wadi_operator_note.md\", \"chunk_id\": \"bd41b8dfddd4d527b49067de288350c5:0\"}, {\"title\": \"wadi_operator_note.md\", \"chunk_id\": \"9c9983a4f664bcb5a1e8ef855081abf6:0\"}, {\"title\": \"relation_evgat_method.md\", \"chunk_id\": \"42eb167ddf2094f75a9c1be3e0f9d1e5:0\"}], \"report_text\": \"事件 #2 的首要根因候选为 D29。 核对 D29 的原始读数、量程和采集状态。 复核 D29 到 D10 的联动关系。 对照异常窗口检查阀门、泵、控制指令和现场工况记录。\"}",
+    "parsed": {
+      "conclusion": "事件 #2 的首要根因候选为 D29。",
+      "root_causes": [
+        {
+          "sensor": "D29",
+          "rank": 1,
+          "reason": "Relation-EVGAT 根因候选"
+        },
+        {
+          "sensor": "D27",
+          "rank": 2,
+          "reason": "Relation-EVGAT 根因候选"
+        },
+        {
+          "sensor": "D34",
+          "rank": 3,
+          "reason": "Relation-EVGAT 根因候选"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66,
+          "label": "0.66"
+        },
+        {
+          "source": "D29",
+          "target": "D27",
+          "degradation": 0.0,
+          "label": "0.00"
+        },
+        {
+          "source": "D27",
+          "target": "D34",
+          "degradation": 0.0,
+          "label": "0.00"
+        }
+      ],
+      "recommendations": [
+        "核对 D29 的原始读数、量程和采集状态。",
+        "复核 D29 到 D10 的联动关系。",
+        "对照异常窗口检查阀门、泵、控制指令和现场工况记录。"
+      ],
+      "citations": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0"
+        },
+        {
+          "title": "relation_evgat_method.md",
+          "chunk_id": "42eb167ddf2094f75a9c1be3e0f9d1e5:0"
+        }
+      ],
+      "report_text": "事件 #2 的首要根因候选为 D29。 核对 D29 的原始读数、量程和采集状态。 复核 D29 到 D10 的联动关系。 对照异常窗口检查阀门、泵、控制指令和现场工况记录。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.0,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 1.0,
+      "recommendation_count": 3,
+      "report_length": 87
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e2__operations",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 2,
+    "question_type": "operations",
+    "model": "qwen-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 8689,
+    "usage": {
+      "prompt_tokens": 1683,
+      "total_tokens": 2389,
+      "completion_tokens": 706,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"D29 是当前异常的首要候选根因，其高节点预测误差与显著的关系退化（D29→D10，退化强度0.66）共同指向该传感器或其关联控制链路存在潜在问题。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"D29\",\n      \"rank\": 1,\n      \"reason\": \"在异常窗口内具有最高节点预测误差，且与下游传感器D10间存在显著关系退化，为最优先排查对象。\"\n    },\n    {\n      \"sensor\": \"D27\",\n      \"rank\": 2,\n      \"reason\": \"节点预测误差次高，虽无直接关系退化证据，但位于异常链路中，需协同验证。\"\n    },\n    {\n      \"sensor\": \"D34\",\n      \"rank\": 3,\n      \"reason\": \"节点预测误差较低，但作为中间环节可能受上游影响，需结合上下游趋势判断。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"D29\",\n      \"target\": \"D10\",\n      \"degradation\": 0.66\n    }\n  ],\n  \"recommendations\": [\n    \"立即核查 D29 传感器读数、校准状态及执行指令反馈，确认是否存在漂移或失效。\",\n    \"检查与 D29 相连的泵/阀门控制链路，包括指令输出、实际动作反馈和联动逻辑。\",\n    \"在相同异常时间窗口内核对上游（如泵状态）与下游（如液位变化）的趋势一致性，排除跨段干扰。\",\n    \"若发现其他传感器（如 D10、D27）存在异常波动，应同步复测并记录历史数据对比。\",\n    \"避免将关系退化解读为严格因果链，建议以“联合检查”方式处理相关传感器组合。\"\n  ],\n  \"citations\": [\n    \"wadi_operator_note.md\",\n    \"relation_evgat_method.md\"\n  ],\n  \"report_text\": \"系统在 16966~17510 窗口内检测到持续异常，峰值异常分数为 92901.26，超过设定阈值 0.96，表明存在显著偏离正常运行状态的情况。根据诊断模型分析，根因候选中 D29 排名第一，其节点预测误差最高，且与下游传感器 D10 之间存在显著关系退化（退化强度 0.66），是当前最值得关注的异常点。此外，D27 和 D34 也表现出较高异常信号，尽管缺乏直接关系退化证据，但仍需纳入排查范围。建议优先检查 D29 的传感器读数、校准状态、控制指令输出及实际反馈情况，并同步核对与其关联的泵、阀门动作状态以及上下游水位趋势。根据运维记录提示，当泵与液位变量附近出现关系退化时，应在同一异常窗口内综合评估传感器校准、控制命令状态与水位联动关系。请勿将关系退化视为严格因果链，而应将其作为联合排查的线索。所有操作应基于现场实测数据进行验证，确保诊断结论的可靠性。\"\n}",
+    "parsed": {
+      "conclusion": "D29 是当前异常的首要候选根因，其高节点预测误差与显著的关系退化（D29→D10，退化强度0.66）共同指向该传感器或其关联控制链路存在潜在问题。",
+      "root_causes": [
+        {
+          "sensor": "D29",
+          "rank": 1,
+          "reason": "在异常窗口内具有最高节点预测误差，且与下游传感器D10间存在显著关系退化，为最优先排查对象。"
+        },
+        {
+          "sensor": "D27",
+          "rank": 2,
+          "reason": "节点预测误差次高，虽无直接关系退化证据，但位于异常链路中，需协同验证。"
+        },
+        {
+          "sensor": "D34",
+          "rank": 3,
+          "reason": "节点预测误差较低，但作为中间环节可能受上游影响，需结合上下游趋势判断。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66
+        }
+      ],
+      "recommendations": [
+        "立即核查 D29 传感器读数、校准状态及执行指令反馈，确认是否存在漂移或失效。",
+        "检查与 D29 相连的泵/阀门控制链路，包括指令输出、实际动作反馈和联动逻辑。",
+        "在相同异常时间窗口内核对上游（如泵状态）与下游（如液位变化）的趋势一致性，排除跨段干扰。",
+        "若发现其他传感器（如 D10、D27）存在异常波动，应同步复测并记录历史数据对比。",
+        "避免将关系退化解读为严格因果链，建议以“联合检查”方式处理相关传感器组合。"
+      ],
+      "citations": [
+        "wadi_operator_note.md",
+        "relation_evgat_method.md"
+      ],
+      "report_text": "系统在 16966~17510 窗口内检测到持续异常，峰值异常分数为 92901.26，超过设定阈值 0.96，表明存在显著偏离正常运行状态的情况。根据诊断模型分析，根因候选中 D29 排名第一，其节点预测误差最高，且与下游传感器 D10 之间存在显著关系退化（退化强度 0.66），是当前最值得关注的异常点。此外，D27 和 D34 也表现出较高异常信号，尽管缺乏直接关系退化证据，但仍需纳入排查范围。建议优先检查 D29 的传感器读数、校准状态、控制指令输出及实际反馈情况，并同步核对与其关联的泵、阀门动作状态以及上下游水位趋势。根据运维记录提示，当泵与液位变量附近出现关系退化时，应在同一异常窗口内综合评估传感器校准、控制命令状态与水位联动关系。请勿将关系退化视为严格因果链，而应将其作为联合排查的线索。所有操作应基于现场实测数据进行验证，确保诊断结论的可靠性。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.0,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 5,
+      "report_length": 384
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e2__operations",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 2,
+    "question_type": "operations",
+    "model": "qwen3.5-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 52200,
+    "usage": {
+      "prompt_tokens": 1782,
+      "total_tokens": 5623,
+      "completion_tokens": 3841,
+      "completion_tokens_details": {
+        "reasoning_tokens": 2863,
+        "text_tokens": 3841
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"系统在工作窗口 16966~17510 内检测到严重异常（异常分数 92901.26，阈值 0.96），主要根因候选为 D29，同时发现 D29 指向 D10 存在显著关系退化（强度 0.66）。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"D29\",\n      \"rank\": 1,\n      \"reason\": \"节点预测误差最高（617.88），结合关系退化证据列为首要排查对象。\"\n    },\n    {\n      \"sensor\": \"D27\",\n      \"rank\": 2,\n      \"reason\": \"节点预测误差次高（457.76），需协同 D29 进行关联校验。\"\n    },\n    {\n      \"sensor\": \"D34\",\n      \"rank\": 3,\n      \"reason\": \"节点预测误差中等（54.97），可能涉及上下游水位趋势异常。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"D29\",\n      \"target\": \"D10\",\n      \"degradation\": 0.66\n    }\n  ],\n  \"recommendations\": [\n    \"优先检查 D29 传感器的读数准确性、泵指令状态及阀门反馈信息。\",\n    \"在相同异常窗口内，核对 D29 与 D10 之间的上下游水位趋势及控制链路。\",\n    \"验证同一区域内液位等变量的关系退化证据，排查传感器校准问题。\",\n    \"注意 D29 与 D10 的关系退化仅作为排查线索，不应视为严格因果关系。\",\n    \"若 D29 为泵相关变量，重点复查其执行状态及相邻组件联动逻辑。\"\n  ],\n  \"citations\": [\n    \"wadi_operator_note.md:bd41b8dfddd4d527b49067de288350c5:0\",\n    \"relation_evgat_method.md:42eb167ddf2094f75a9c1be3e0f9d1e5:0\",\n    \"wadi_operator_note.md:9c9983a4f664bcb5a1e8ef855081abf6:0\"\n  ],\n  \"report_text\": \"【异常概况】\\n系统在时间窗口 16966~17510 内检测到持续异常，峰值异常分数达到 92901.26，远超设定阈值 0.96。\\n\\n【根因分析】\\n根据节点预测误差与关系退化证据综合分析，D29 以 617.88 的得分位居第一，确认为核心异常源。D27 与 D34 分别为第二、三位候选项。异常事件由 node prediction error 主导，表明单个传感器或局部变量存在显著偏离。值得注意的是，虽然存在 D29 → D10 的关系退化（强度 0.66），但这应被视为诊断线索，而非证明 D29 直接导致了 D10 的故障。Relation-EVGAT 方法明确指出，边向量比较反映的是正常与异常窗口间关系分量的变化，不构成严格因果链。\\n\\n【关系退化证据】\\n检测到一条高置信度的关系退化边：D29 指向 D10，退化值为 0.66。其他关联边（如 D27→D34）未发现显著退化迹象。当泵、液位等变量附近出现此类退化时，暗示上下游联动或物理连接可能存在隐患。\\n\\n【现场排查建议】\\n1. 优先级最高：立即检查 D29 及其相邻设备的传感器校准记录、泵指令状态及阀门反馈信号。\\n2. 协同排查：参考 WaDI 运维经验，在同一异常窗口内复核 D10 的上下游水位趋势，确认是否存在物理传输延迟或测量偏差。\\n3. 关联分析：将 D29 与 D10 作为一组进行联合检查，但保持谨慎态度，避免预设因果逻辑。\\n4. 后续监测：在修复或调整操作后，需持续关注该时间序列窗口内的异常分数变化及相关关系的稳定性。\"\n}",
+    "parsed": {
+      "conclusion": "系统在工作窗口 16966~17510 内检测到严重异常（异常分数 92901.26，阈值 0.96），主要根因候选为 D29，同时发现 D29 指向 D10 存在显著关系退化（强度 0.66）。",
+      "root_causes": [
+        {
+          "sensor": "D29",
+          "rank": 1,
+          "reason": "节点预测误差最高（617.88），结合关系退化证据列为首要排查对象。"
+        },
+        {
+          "sensor": "D27",
+          "rank": 2,
+          "reason": "节点预测误差次高（457.76），需协同 D29 进行关联校验。"
+        },
+        {
+          "sensor": "D34",
+          "rank": 3,
+          "reason": "节点预测误差中等（54.97），可能涉及上下游水位趋势异常。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66
+        }
+      ],
+      "recommendations": [
+        "优先检查 D29 传感器的读数准确性、泵指令状态及阀门反馈信息。",
+        "在相同异常窗口内，核对 D29 与 D10 之间的上下游水位趋势及控制链路。",
+        "验证同一区域内液位等变量的关系退化证据，排查传感器校准问题。",
+        "注意 D29 与 D10 的关系退化仅作为排查线索，不应视为严格因果关系。",
+        "若 D29 为泵相关变量，重点复查其执行状态及相邻组件联动逻辑。"
+      ],
+      "citations": [
+        "wadi_operator_note.md:bd41b8dfddd4d527b49067de288350c5:0",
+        "relation_evgat_method.md:42eb167ddf2094f75a9c1be3e0f9d1e5:0",
+        "wadi_operator_note.md:9c9983a4f664bcb5a1e8ef855081abf6:0"
+      ],
+      "report_text": "【异常概况】\n系统在时间窗口 16966~17510 内检测到持续异常，峰值异常分数达到 92901.26，远超设定阈值 0.96。\n\n【根因分析】\n根据节点预测误差与关系退化证据综合分析，D29 以 617.88 的得分位居第一，确认为核心异常源。D27 与 D34 分别为第二、三位候选项。异常事件由 node prediction error 主导，表明单个传感器或局部变量存在显著偏离。值得注意的是，虽然存在 D29 → D10 的关系退化（强度 0.66），但这应被视为诊断线索，而非证明 D29 直接导致了 D10 的故障。Relation-EVGAT 方法明确指出，边向量比较反映的是正常与异常窗口间关系分量的变化，不构成严格因果链。\n\n【关系退化证据】\n检测到一条高置信度的关系退化边：D29 指向 D10，退化值为 0.66。其他关联边（如 D27→D34）未发现显著退化迹象。当泵、液位等变量附近出现此类退化时，暗示上下游联动或物理连接可能存在隐患。\n\n【现场排查建议】\n1. 优先级最高：立即检查 D29 及其相邻设备的传感器校准记录、泵指令状态及阀门反馈信号。\n2. 协同排查：参考 WaDI 运维经验，在同一异常窗口内复核 D10 的上下游水位趋势，确认是否存在物理传输延迟或测量偏差。\n3. 关联分析：将 D29 与 D10 作为一组进行联合检查，但保持谨慎态度，避免预设因果逻辑。\n4. 后续监测：在修复或调整操作后，需持续关注该时间序列窗口内的异常分数变化及相关关系的稳定性。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.0,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 5,
+      "report_length": 654
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e2__operations",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 2,
+    "question_type": "operations",
+    "model": "deepseek-v4-flash",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 29534,
+    "usage": {
+      "prompt_tokens": 1413,
+      "total_tokens": 2846,
+      "completion_tokens": 1433,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 384
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"系统在时间窗口16966~17510内出现持续异常，峰值异常分数远高于阈值，基于节点预测误差和关系退化证据，D29为最可能根因，需优先排查。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"D29\",\n      \"rank\": 1,\n      \"reason\": \"节点预测误差最高（归一化分数接近1），且与D10之间存在显著关系退化（退化强度0.66），表明该传感器可能处于异常状态，需作为首要排查对象。\"\n    },\n    {\n      \"sensor\": \"D27\",\n      \"rank\": 2,\n      \"reason\": \"节点预测误差排名第二，归一化分数0.74，且与D29、D34存在关系退化（虽强度为0.0，但与其他传感器联动需综合验证），建议在完成D29排查后关注。\"\n    },\n    {\n      \"sensor\": \"D34\",\n      \"rank\": 3,\n      \"reason\": \"节点预测误差排名第三，归一化分数0.089，作为候选之一，需在D29、D27确认后进一步检查。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"D29\",\n      \"target\": \"D10\",\n      \"degradation\": 0.66\n    }\n  ],\n  \"recommendations\": [\n    \"1. 优先检查D29传感器读数、校准状态及对应硬件（如泵、阀门、液位计）的执行与反馈信号。\",\n    \"2. 在异常窗口内，复核D29至D10上下游的水位趋势和联动关系，确认是否存在物理异常。\",\n    \"3. 核查D29的控制链路（指令发送、阀门反馈、泵启停状态），排除设定偏差或执行故障。\",\n    \"4. 若D29正常，依次检查D27、D34、D10、D30的相关变量，并比对历史正常模式。\",\n    \"5. 针对关系退化边D29→D10，建议进行联合分析与趋势检查，避免单点误判。\"\n  ],\n  \"citations\": [\n    {\n      \"title\": \"wadi_operator_note.md\",\n      \"chunk_id\": \"bd41b8dfddd4d527b49067de288350c5:0\"\n    },\n    {\n      \"title\": \"wadi_operator_note.md\",\n      \"chunk_id\": \"9c9983a4f664bcb5a1e8ef855081abf6:0\"\n    },\n    {\n      \"title\": \"relation_evgat_method.md\",\n      \"chunk_id\": \"42eb167ddf2094f75a9c1be3e0f9d1e5:0\"\n    }\n  ],\n  \"report_text\": \"## 异常概况\\n系统在时间窗口16966~17510内检测到持续异常，峰值异常分数为92901.26，远超阈值0.96，表明该时段内存在显著异常行为。\\n\\n## 根因候选\\n根据节点预测误差排序，D29排名第一（归一化分数≈1.0），D27排名第二（0.74），D34排名第三（0.089），D10和D30紧随其后。D29的预测误差最大，且与D10之间存在明显的关系退化（退化强度0.66），符合关系退化证据中提到的“当泵、液位等变量附近出现关系退化时，需核对传感器校准、泵指令状态、阀门反馈以及上下游水位趋势”的典型特征（参见wadi_operator_note.md）。因此，D29被列为最可能的根因。\\n\\n## 关系退化\\n在检测到的5条关系边中，仅有D29→D10呈现显著退化（退化强度0.66），其余边退化强度为0.0。根据Relation-EVGAT方法说明，关系退化是诊断证据，不应描述为严格因果链，但提示应将相关传感器一起检查。\\n\\n## 运维建议\\n1. 优先检查D29传感器的读数准确性、校准状态，以及对应硬件（泵、阀门、液位计）的执行与反馈信号。\\n2. 在异常窗口内，联合分析D29与D10的上下游水位趋势及联动关系，确认是否存在物理异常。\\n3. 核查D29的控制链路（指令发送、阀门反馈、泵启停状态），排除设定偏差或执行故障。\\n4. 若D29正常，则依次检查D27、D34、D10、D30的相关变量，并比对历史正常模式。\\n5. 针对关系退化边D29→D10，建议进行联合分析，避免单点误判。\\n\\n以上排查步骤应结合现场操作记录与实时数据，以快速定位并修复异常。\"\n}",
+    "parsed": {
+      "conclusion": "系统在时间窗口16966~17510内出现持续异常，峰值异常分数远高于阈值，基于节点预测误差和关系退化证据，D29为最可能根因，需优先排查。",
+      "root_causes": [
+        {
+          "sensor": "D29",
+          "rank": 1,
+          "reason": "节点预测误差最高（归一化分数接近1），且与D10之间存在显著关系退化（退化强度0.66），表明该传感器可能处于异常状态，需作为首要排查对象。"
+        },
+        {
+          "sensor": "D27",
+          "rank": 2,
+          "reason": "节点预测误差排名第二，归一化分数0.74，且与D29、D34存在关系退化（虽强度为0.0，但与其他传感器联动需综合验证），建议在完成D29排查后关注。"
+        },
+        {
+          "sensor": "D34",
+          "rank": 3,
+          "reason": "节点预测误差排名第三，归一化分数0.089，作为候选之一，需在D29、D27确认后进一步检查。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66
+        }
+      ],
+      "recommendations": [
+        "1. 优先检查D29传感器读数、校准状态及对应硬件（如泵、阀门、液位计）的执行与反馈信号。",
+        "2. 在异常窗口内，复核D29至D10上下游的水位趋势和联动关系，确认是否存在物理异常。",
+        "3. 核查D29的控制链路（指令发送、阀门反馈、泵启停状态），排除设定偏差或执行故障。",
+        "4. 若D29正常，依次检查D27、D34、D10、D30的相关变量，并比对历史正常模式。",
+        "5. 针对关系退化边D29→D10，建议进行联合分析与趋势检查，避免单点误判。"
+      ],
+      "citations": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0"
+        },
+        {
+          "title": "relation_evgat_method.md",
+          "chunk_id": "42eb167ddf2094f75a9c1be3e0f9d1e5:0"
+        }
+      ],
+      "report_text": "## 异常概况\n系统在时间窗口16966~17510内检测到持续异常，峰值异常分数为92901.26，远超阈值0.96，表明该时段内存在显著异常行为。\n\n## 根因候选\n根据节点预测误差排序，D29排名第一（归一化分数≈1.0），D27排名第二（0.74），D34排名第三（0.089），D10和D30紧随其后。D29的预测误差最大，且与D10之间存在明显的关系退化（退化强度0.66），符合关系退化证据中提到的“当泵、液位等变量附近出现关系退化时，需核对传感器校准、泵指令状态、阀门反馈以及上下游水位趋势”的典型特征（参见wadi_operator_note.md）。因此，D29被列为最可能的根因。\n\n## 关系退化\n在检测到的5条关系边中，仅有D29→D10呈现显著退化（退化强度0.66），其余边退化强度为0.0。根据Relation-EVGAT方法说明，关系退化是诊断证据，不应描述为严格因果链，但提示应将相关传感器一起检查。\n\n## 运维建议\n1. 优先检查D29传感器的读数准确性、校准状态，以及对应硬件（泵、阀门、液位计）的执行与反馈信号。\n2. 在异常窗口内，联合分析D29与D10的上下游水位趋势及联动关系，确认是否存在物理异常。\n3. 核查D29的控制链路（指令发送、阀门反馈、泵启停状态），排除设定偏差或执行故障。\n4. 若D29正常，则依次检查D27、D34、D10、D30的相关变量，并比对历史正常模式。\n5. 针对关系退化边D29→D10，建议进行联合分析，避免单点误判。\n\n以上排查步骤应结合现场操作记录与实时数据，以快速定位并修复异常。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.0,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 1.0,
+      "recommendation_count": 5,
+      "report_length": 685
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e2__operations",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 2,
+    "question_type": "operations",
+    "model": "deepseek-v4-pro",
+    "status": "ok",
+    "error": null,
+    "latency_ms": 40031,
+    "usage": {
+      "prompt_tokens": 1413,
+      "total_tokens": 3101,
+      "completion_tokens": 1688,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 674
+      }
+    },
+    "raw_text": "{\n  \"conclusion\": \"异常窗口 16966~17510 内，D29 节点预测误差最高且与 D10 存在关系退化，建议优先排查 D29 传感器及执行器状态，并同步检查 D10 关联链路。\",\n  \"root_causes\": [\n    {\n      \"sensor\": \"D29\",\n      \"rank\": 1,\n      \"reason\": \"节点预测误差最高（617.88），且与 D10 的关系退化强度为 0.66，暗示两者间可能存在联动异常或信号干扰，需作为首要排查目标。\"\n    },\n    {\n      \"sensor\": \"D27\",\n      \"rank\": 2,\n      \"reason\": \"节点预测误差排名第二（457.76），与 D34 关系退化 0.00，但仍需关注其与 D29 的上下游依赖，排查是否存在传递性影响。\"\n    },\n    {\n      \"sensor\": \"D34\",\n      \"rank\": 3,\n      \"reason\": \"节点预测误差较低（54.97），但与 D27 和 D10 的关系退化均为 0.00，可作为辅助排查点，验证水位或阀门反馈。\"\n    },\n    {\n      \"sensor\": \"D10\",\n      \"rank\": 4,\n      \"reason\": \"节点预测误差 39.71，接收来自 D29 的较强退化边，应与 D29 联合检查校准和执行状态。\"\n    },\n    {\n      \"sensor\": \"D30\",\n      \"rank\": 5,\n      \"reason\": \"节点预测误差 39.31，与 D10 关系退化 0.00，作为下游传感器，可验证整体趋势是否恢复正常。\"\n    }\n  ],\n  \"degraded_edges\": [\n    {\n      \"source\": \"D29\",\n      \"target\": \"D10\",\n      \"degradation\": 0.66\n    },\n    {\n      \"source\": \"D29\",\n      \"target\": \"D27\",\n      \"degradation\": 0.0\n    },\n    {\n      \"source\": \"D27\",\n      \"target\": \"D34\",\n      \"degradation\": 0.0\n    },\n    {\n      \"source\": \"D34\",\n      \"target\": \"D10\",\n      \"degradation\": 0.0\n    },\n    {\n      \"source\": \"D10\",\n      \"target\": \"D30\",\n      \"degradation\": 0.0\n    }\n  ],\n  \"recommendations\": [\n    \"1. 现场检查 D29 传感器物理连接、供电及信号输出，确认其读数是否异常，并校准传感器。\",\n    \"2. 查看 D29 对应的执行器（泵/阀门）指令状态，确认命令是否正常下发且反馈与指令一致。\",\n    \"3. 重点排查 D29 → D10 的控制链路，检查阀门开度、泵运行状态及相关电气回路。\",\n    \"4. 复核 D27、D34、D10、D30 在异常窗口内的水位趋势，观察是否存在上下游传导异常。\",\n    \"5. 利用历史趋势对比，确认该窗口内是否有外部扰动（如操作切换、负荷变化）。\",\n    \"6. 若传感器和执行器均正常，考虑升级诊断至控制逻辑或通信链路层面。\"\n  ],\n  \"citations\": [\n    \"wadi_operator_note.md bd41b8dfddd4d527b49067de288350c5:0\",\n    \"relation_evgat_method.md 42eb167ddf2094f75a9c1be3e0f9d1e5:0\"\n  ],\n  \"report_text\": \"异常诊断报告：\\n在时间窗口 16966~17510 内，系统检测到持续性异常，峰值异常分数达到 92901.26，远超阈值 0.96。根因分析表明，D29 节点预测误差最高，且与 D10 之间的关联关系出现显著退化（退化强度 0.66），强烈提示 D29 及 D10 链路存在异常。D27 节点误差次高，虽与 D34 未显示退化，但仍建议作为关联排查点。其余节点 D34、D10、D30 整体误差较低，关系退化均为 0.00，但受 D29 影响需联合检查。\\n\\n运维建议：优先对 D29 传感器进行校准和状态查验，并检查 D29 至 D10 的控制回路，确认阀门反馈和泵指令状态。同时回溯该窗口内上下游水位变化，排除外部干扰。关系退化证据仅作为排查线索，不应直接推断因果关系，需结合现场物理检查综合判断。\"\n}",
+    "parsed": {
+      "conclusion": "异常窗口 16966~17510 内，D29 节点预测误差最高且与 D10 存在关系退化，建议优先排查 D29 传感器及执行器状态，并同步检查 D10 关联链路。",
+      "root_causes": [
+        {
+          "sensor": "D29",
+          "rank": 1,
+          "reason": "节点预测误差最高（617.88），且与 D10 的关系退化强度为 0.66，暗示两者间可能存在联动异常或信号干扰，需作为首要排查目标。"
+        },
+        {
+          "sensor": "D27",
+          "rank": 2,
+          "reason": "节点预测误差排名第二（457.76），与 D34 关系退化 0.00，但仍需关注其与 D29 的上下游依赖，排查是否存在传递性影响。"
+        },
+        {
+          "sensor": "D34",
+          "rank": 3,
+          "reason": "节点预测误差较低（54.97），但与 D27 和 D10 的关系退化均为 0.00，可作为辅助排查点，验证水位或阀门反馈。"
+        },
+        {
+          "sensor": "D10",
+          "rank": 4,
+          "reason": "节点预测误差 39.71，接收来自 D29 的较强退化边，应与 D29 联合检查校准和执行状态。"
+        },
+        {
+          "sensor": "D30",
+          "rank": 5,
+          "reason": "节点预测误差 39.31，与 D10 关系退化 0.00，作为下游传感器，可验证整体趋势是否恢复正常。"
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66
+        },
+        {
+          "source": "D29",
+          "target": "D27",
+          "degradation": 0.0
+        },
+        {
+          "source": "D27",
+          "target": "D34",
+          "degradation": 0.0
+        },
+        {
+          "source": "D34",
+          "target": "D10",
+          "degradation": 0.0
+        },
+        {
+          "source": "D10",
+          "target": "D30",
+          "degradation": 0.0
+        }
+      ],
+      "recommendations": [
+        "1. 现场检查 D29 传感器物理连接、供电及信号输出，确认其读数是否异常，并校准传感器。",
+        "2. 查看 D29 对应的执行器（泵/阀门）指令状态，确认命令是否正常下发且反馈与指令一致。",
+        "3. 重点排查 D29 → D10 的控制链路，检查阀门开度、泵运行状态及相关电气回路。",
+        "4. 复核 D27、D34、D10、D30 在异常窗口内的水位趋势，观察是否存在上下游传导异常。",
+        "5. 利用历史趋势对比，确认该窗口内是否有外部扰动（如操作切换、负荷变化）。",
+        "6. 若传感器和执行器均正常，考虑升级诊断至控制逻辑或通信链路层面。"
+      ],
+      "citations": [
+        "wadi_operator_note.md bd41b8dfddd4d527b49067de288350c5:0",
+        "relation_evgat_method.md 42eb167ddf2094f75a9c1be3e0f9d1e5:0"
+      ],
+      "report_text": "异常诊断报告：\n在时间窗口 16966~17510 内，系统检测到持续性异常，峰值异常分数达到 92901.26，远超阈值 0.96。根因分析表明，D29 节点预测误差最高，且与 D10 之间的关联关系出现显著退化（退化强度 0.66），强烈提示 D29 及 D10 链路存在异常。D27 节点误差次高，虽与 D34 未显示退化，但仍建议作为关联排查点。其余节点 D34、D10、D30 整体误差较低，关系退化均为 0.00，但受 D29 影响需联合检查。\n\n运维建议：优先对 D29 传感器进行校准和状态查验，并检查 D29 至 D10 的控制回路，确认阀门反馈和泵指令状态。同时回溯该窗口内上下游水位变化，排除外部干扰。关系退化证据仅作为排查线索，不应直接推断因果关系，需结合现场物理检查综合判断。"
+    },
+    "scores": {
+      "json_valid": true,
+      "schema_completeness": 1.0,
+      "top1_root_mentioned": true,
+      "candidate_coverage": 1.6666666666666667,
+      "sensor_hallucination_count": 0,
+      "citation_precision": 0.0,
+      "recommendation_count": 6,
+      "report_length": 351
+    }
+  }
+]

@@ -4,13 +4,20 @@ ErnieBot（百度文心大模型）工业诊断对话模块。
 - 基于工业语料预训练，提取文档文本中的关键信息（工艺参数、缺陷描述等）
 - 实现语义理解、智能问答、跨模态关联
 - 将 OCR 提取的文档信息与传感器异常数据关联，辅助缺陷溯源与成因分析
-
-注：已从 ErnieBot API 迁移至 DashScope (ModelFactory)，保留接口兼容性。
 """
 from __future__ import annotations
+import threading
+import time
 import json
 import logging
+import os
 from typing import Any
+
+try:
+    from erniebot.errors import RequestLimitError, RateLimitError
+except ImportError:
+    RequestLimitError = Exception
+    RateLimitError = Exception
 
 logger = logging.getLogger(__name__)
 
@@ -123,16 +130,44 @@ def _build_context_prompt(question: str, context: dict[str, Any]) -> str:
 
 
 class ErnieService:
-    """对话服务，包含信息抽取、智能问答、跨模态关联。已迁移至 DashScope。"""
+    """ErnieBot 对话服务，包含信息抽取、智能问答、跨模态关联。"""
 
     def __init__(
         self,
         api_key: str | None = None,
         secret_key: str | None = None,
         access_token: str | None = None,
-        model: str = "qwen-plus",
+        #model: str = "ernie-4.5-VL-8k-preview"
+        #model: str = "ernie-speed-8k"
+        model: str = "ernie-3.5",
     ):
+        try:
+            import erniebot
+        except ImportError:
+            raise ImportError("erniebot 未安装，请执行: pip install erniebot")
+
+        api_key = api_key or os.environ.get("ERNIE_API_KEY", "")
+        secret_key = secret_key or os.environ.get("ERNIE_SECRET_KEY", "")
+        access_token = access_token or os.environ.get("ERNIE_ACCESS_TOKEN", "")
+
+        if access_token:
+            erniebot.api_type = "aistudio"
+            erniebot.access_token = access_token
+        elif api_key and secret_key:
+            erniebot.api_type = "qianfan"
+            erniebot.ak = api_key
+            erniebot.sk = secret_key
+        else:
+            logger.warning(
+                "ErnieBot 未配置认证信息，请设置环境变量 ERNIE_API_KEY/ERNIE_SECRET_KEY "
+                "或 ERNIE_ACCESS_TOKEN"
+            )
+
         self._model = model
+        # QPS限流控制
+        self._last_call_time = 0.0
+        self._qps_lock = threading.Lock()
+        self._min_interval = 1.0  # 保守1秒1次，彻底防超限
 
     def chat(
             self,
@@ -140,39 +175,71 @@ class ErnieService:
             context: dict[str, Any] | None = None,
             temperature: float = 0.3,
         ) -> dict[str, Any]:
-        """智能问答：结合诊断上下文生成自然语言回答。"""
-        from backend.model.factory import ModelFactory
+        # QPS限流等待
+        with self._qps_lock:
+            now = time.time()
+            wait_sec = self._last_call_time + self._min_interval - now
+            if wait_sec > 0:
+                time.sleep(wait_sec)
+            self._last_call_time = time.time()
+        """
+        智能问答：结合诊断上下文生成自然语言回答。
+        """
+        import erniebot
 
         user_prompt = _build_context_prompt(question, context or {})
+
         try:
-            llm = ModelFactory()
-            answer = llm.chat([
-                {"role": "system", "content": _INDUSTRIAL_SYSTEM_PROMPT},
-                {"role": "user", "content": user_prompt},
-            ], temperature=temperature, timeout=60)
+            response = erniebot.ChatCompletion.create(
+                model=self._model,
+                messages=[{"role": "user", "content": user_prompt}],
+                system=_INDUSTRIAL_SYSTEM_PROMPT,
+                temperature=temperature,
+                top_p=0.7,
+            )
             return {
                 "success": True,
-                "answer": answer,
-                "model": llm.status().model,
+                "answer": response.get_result(),
+                "model": self._model,
                 "error": None,
             }
+        except (RequestLimitError, RateLimitError):
+            logger.warning("ErnieBot QPS超限/配额用尽")
+            return {"success": False, "answer": "", "model": self._model,
+                    "error": "接口调用频次已达上限，请稍后再试或更换密钥"}
         except Exception as exc:
-            logger.exception("LLM 调用失败")
-            return {"success": False, "answer": "", "model": "dashscope", "error": str(exc)}
+            logger.exception("ErnieBot 调用失败")
+            return {"success": False, "answer": "", "model": self._model, "error": str(exc)}
 
     def extract_industrial_info(self, ocr_text: str) -> dict[str, Any]:
-        """从文档文本中抽取工业生产关键信息。"""
-        from backend.model.factory import ModelFactory
+        """
+        从文档文本中抽取工业生产关键信息。
+        """
+        with self._qps_lock:
+            now = time.time()
+            wait_sec = self._last_call_time + self._min_interval - now
+            if wait_sec > 0:
+                time.sleep(wait_sec)
+            self._last_call_time = time.time()
 
-        user_prompt = f"以下是工业文档识别结果，请提取关键信息：\n\n{ocr_text[:8000]}"
+        import erniebot
+
+        user_prompt = f"以下是工业文档识别结果，请提取关键信息：\n\n{ocr_text}"
+
         try:
-            llm = ModelFactory()
-            raw = llm.chat([
-                {"role": "system", "content": _INFO_EXTRACTION_PROMPT},
-                {"role": "user", "content": user_prompt},
-            ], temperature=0.1, timeout=60)
+            response = erniebot.ChatCompletion.create(
+                model=self._model,
+                messages=[{"role": "user", "content": user_prompt}],
+                system=_INFO_EXTRACTION_PROMPT,
+                temperature=0.1,
+                top_p=0.5,
+            )
+            raw = response.get_result()
             info = self._parse_json_response(raw)
             return {"success": True, "info": info, "raw": raw, "error": None}
+        except (RequestLimitError, RateLimitError):
+            logger.warning("信息抽取触发QPS限制")
+            return {"success": False, "info": {}, "error": "接口调用频次已达上限，请稍后再试"}
         except Exception as exc:
             logger.exception("信息抽取失败")
             return {"success": False, "info": {}, "error": str(exc)}
@@ -183,8 +250,17 @@ class ErnieService:
         ocr_info: dict[str, Any],
         diagnosis_context: dict[str, Any],
     ) -> dict[str, Any]:
-        """跨模态关联分析：将质检文档与传感器异常数据关联。"""
-        from backend.model.factory import ModelFactory
+        """
+        跨模态关联分析：将质检文档与传感器异常数据关联。
+        """
+        with self._qps_lock:
+            now = time.time()
+            wait_sec = self._last_call_time + self._min_interval - now
+            if wait_sec > 0:
+                time.sleep(wait_sec)
+            self._last_call_time = time.time()
+
+        import erniebot
 
         diagnosis_text = _build_context_prompt("跨模态关联分析", diagnosis_context)
         user_prompt = (
@@ -194,23 +270,34 @@ class ErnieService:
         )
 
         try:
-            llm = ModelFactory()
-            analysis = llm.chat([
-                {"role": "system", "content": _CROSS_MODAL_PROMPT},
-                {"role": "user", "content": user_prompt},
-            ], temperature=0.3, timeout=60)
+            response = erniebot.ChatCompletion.create(
+                model=self._model,
+                messages=[{"role": "user", "content": user_prompt}],
+                system=_CROSS_MODAL_PROMPT,
+                temperature=0.3,
+                top_p=0.7,
+            )
             return {
                 "success": True,
-                "analysis": analysis,
-                "model": llm.status().model,
+                "analysis": response.get_result(),
+                "model": self._model,
                 "error": None,
             }
+        except (RequestLimitError, RateLimitError):
+            logger.warning("跨模态分析触发QPS限制")
+            return {"success": False, "analysis": "", "error": "接口调用频次已达上限，请稍后再试"}
         except Exception as exc:
             logger.exception("跨模态分析失败")
             return {"success": False, "analysis": "", "error": str(exc)}
 
     def generate_report(self, dataset: str, context: dict[str, Any]) -> dict[str, Any]:
         """生成诊断报告。"""
+        with self._qps_lock:
+            now = time.time()
+            wait_sec = self._last_call_time + self._min_interval - now
+            if wait_sec > 0:
+                time.sleep(wait_sec)
+            self._last_call_time = time.time()
         prompt = (
             f"请为数据集 {dataset} 的异常事件生成一份简洁的诊断报告，"
             f"包含：异常概况、根因分析、关系退化、运维建议四个部分。"
@@ -257,10 +344,10 @@ _ERNIE_INSTANCE: ErnieService | None = None
 
 
 def get_ernie() -> ErnieService:
-    """懒加载全局实例。"""
+    """懒加载全局 ErnieBot 实例。"""
     global _ERNIE_INSTANCE
     if _ERNIE_INSTANCE is None:
-        logger.info("对话服务初始化中...")
+        logger.info("ErnieBot 初始化中...")
         _ERNIE_INSTANCE = ErnieService()
-        logger.info("对话服务初始化完成")
+        logger.info("ErnieBot 初始化完成")
     return _ERNIE_INSTANCE

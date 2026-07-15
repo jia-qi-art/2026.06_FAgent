@@ -1,0 +1,1074 @@
+[
+  {
+    "case_id": "WaDI_A2_ds10__e1__diagnosis",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 1,
+    "question_type": "diagnosis",
+    "question": "为什么报警？请说明最可能的根因和关键证据。",
+    "evidence": {
+      "question": "为什么报警？请说明最可能的根因和关键证据。",
+      "dataset": "WaDI_A2_ds10",
+      "event_id": 1,
+      "event_summary": {
+        "score": 6007751.476090478,
+        "threshold": 0.9633477976952662,
+        "time_window": "510~654"
+      },
+      "root_cause_candidates": [
+        {
+          "rank": 1,
+          "name": "1_MV_004_STATUS",
+          "index": 12,
+          "score": 0.0355,
+          "normalized": 0.9999999718309868,
+          "node_score": 0.0,
+          "edge_score": 0.710006
+        },
+        {
+          "rank": 2,
+          "name": "1_AIT_003_PV",
+          "index": 2,
+          "score": 0.033266,
+          "normalized": 0.9370703961388621,
+          "node_score": 0.0,
+          "edge_score": 0.665327
+        },
+        {
+          "rank": 3,
+          "name": "2B_AIT_003_PV",
+          "index": 103,
+          "score": 0.032905,
+          "normalized": 0.9269013823408061,
+          "node_score": 0.0,
+          "edge_score": 0.658103
+        },
+        {
+          "rank": 4,
+          "name": "1_MV_001_STATUS",
+          "index": 9,
+          "score": 0.032244,
+          "normalized": 0.9082816645554462,
+          "node_score": 0.0,
+          "edge_score": 0.644873
+        },
+        {
+          "rank": 5,
+          "name": "TOTAL_CONS_REQUIRED_FLOW",
+          "index": 122,
+          "score": 0.03195,
+          "normalized": 0.8999999746478881,
+          "node_score": 0.0,
+          "edge_score": 0.638994
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_AIT_003_PV",
+          "degradation": 0.710006,
+          "label": "0.71"
+        },
+        {
+          "source": "1_AIT_003_PV",
+          "target": "2B_AIT_003_PV",
+          "degradation": 0.665327,
+          "label": "0.67"
+        },
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_MV_001_STATUS",
+          "degradation": 0.66,
+          "label": "0.66"
+        },
+        {
+          "source": "2B_AIT_003_PV",
+          "target": "1_MV_001_STATUS",
+          "degradation": 0.658103,
+          "label": "0.66"
+        },
+        {
+          "source": "1_MV_001_STATUS",
+          "target": "TOTAL_CONS_REQUIRED_FLOW",
+          "degradation": 0.644873,
+          "label": "0.64"
+        }
+      ],
+      "knowledge_hits": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0",
+          "score": 0.6848624348640442,
+          "text": "WaDI 运维记录：当泵、液位等变量附近出现关系退化时，需要在同一异常窗口内核对传感器校准、泵指令状态、阀门反馈以及上下游水位趋势。"
+        },
+        {
+          "title": "wadi_response_sop.md",
+          "chunk_id": "861febb05b1bf81a44148ed43cb6c230:0",
+          "score": 0.5511550903320312,
+          "text": "# WaDI Alarm Response SOP\n\nWhen a WaDI-like water treatment event is detected, first verify the top ranked sensor raw values, sampling quality and physical range. Then inspect upstream and downstream actuators, valves, pumps and control commands in the same event window. If relation degradation is high between two variables, compare their expected operating dependency with historical normal windows.\n\nA practical checklist is: confirm sensor health, check actuator state, review control command history, compare upstream and downstream flow or level variables, and record operator notes for the ev"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0",
+          "score": 0.546083390712738,
+          "text": "WaDI operator note: when relation degradation appears near pump and level variables, verify sensor calibration, pump command state, valve feedback and upstream/downstream water level trend in the same window."
+        }
+      ],
+      "draft_report_sections": [
+        {
+          "title": "异常概况",
+          "body": "系统在 510~654 窗口内检测到持续异常，峰值异常分数为 6007751.48，阈值为 0.96。"
+        },
+        {
+          "title": "根因候选",
+          "body": "1_MV_004_STATUS 排名第一，候选排序由节点预测误差和相邻关系退化证据共同决定。"
+        },
+        {
+          "title": "关系退化",
+          "body": "Top 退化边为 1_MV_004_STATUS → 1_AIT_003_PV，退化强度约 0.71。"
+        },
+        {
+          "title": "运维建议",
+          "body": "优先检查 1_MV_004_STATUS 的读数、执行状态、相邻阀门/泵和控制链路，并复核该异常窗口的上下游联动关系。"
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e1__operations",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 1,
+    "question_type": "operations",
+    "question": "请给出按优先级排列的现场排查步骤和运维建议。",
+    "evidence": {
+      "question": "请给出按优先级排列的现场排查步骤和运维建议。",
+      "dataset": "WaDI_A2_ds10",
+      "event_id": 1,
+      "event_summary": {
+        "score": 6007751.476090478,
+        "threshold": 0.9633477976952662,
+        "time_window": "510~654"
+      },
+      "root_cause_candidates": [
+        {
+          "rank": 1,
+          "name": "1_MV_004_STATUS",
+          "index": 12,
+          "score": 0.0355,
+          "normalized": 0.9999999718309868,
+          "node_score": 0.0,
+          "edge_score": 0.710006
+        },
+        {
+          "rank": 2,
+          "name": "1_AIT_003_PV",
+          "index": 2,
+          "score": 0.033266,
+          "normalized": 0.9370703961388621,
+          "node_score": 0.0,
+          "edge_score": 0.665327
+        },
+        {
+          "rank": 3,
+          "name": "2B_AIT_003_PV",
+          "index": 103,
+          "score": 0.032905,
+          "normalized": 0.9269013823408061,
+          "node_score": 0.0,
+          "edge_score": 0.658103
+        },
+        {
+          "rank": 4,
+          "name": "1_MV_001_STATUS",
+          "index": 9,
+          "score": 0.032244,
+          "normalized": 0.9082816645554462,
+          "node_score": 0.0,
+          "edge_score": 0.644873
+        },
+        {
+          "rank": 5,
+          "name": "TOTAL_CONS_REQUIRED_FLOW",
+          "index": 122,
+          "score": 0.03195,
+          "normalized": 0.8999999746478881,
+          "node_score": 0.0,
+          "edge_score": 0.638994
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_AIT_003_PV",
+          "degradation": 0.710006,
+          "label": "0.71"
+        },
+        {
+          "source": "1_AIT_003_PV",
+          "target": "2B_AIT_003_PV",
+          "degradation": 0.665327,
+          "label": "0.67"
+        },
+        {
+          "source": "1_MV_004_STATUS",
+          "target": "1_MV_001_STATUS",
+          "degradation": 0.66,
+          "label": "0.66"
+        },
+        {
+          "source": "2B_AIT_003_PV",
+          "target": "1_MV_001_STATUS",
+          "degradation": 0.658103,
+          "label": "0.66"
+        },
+        {
+          "source": "1_MV_001_STATUS",
+          "target": "TOTAL_CONS_REQUIRED_FLOW",
+          "degradation": 0.644873,
+          "label": "0.64"
+        }
+      ],
+      "knowledge_hits": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0",
+          "score": 0.6848624348640442,
+          "text": "WaDI 运维记录：当泵、液位等变量附近出现关系退化时，需要在同一异常窗口内核对传感器校准、泵指令状态、阀门反馈以及上下游水位趋势。"
+        },
+        {
+          "title": "wadi_response_sop.md",
+          "chunk_id": "861febb05b1bf81a44148ed43cb6c230:0",
+          "score": 0.5511550903320312,
+          "text": "# WaDI Alarm Response SOP\n\nWhen a WaDI-like water treatment event is detected, first verify the top ranked sensor raw values, sampling quality and physical range. Then inspect upstream and downstream actuators, valves, pumps and control commands in the same event window. If relation degradation is high between two variables, compare their expected operating dependency with historical normal windows.\n\nA practical checklist is: confirm sensor health, check actuator state, review control command history, compare upstream and downstream flow or level variables, and record operator notes for the ev"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0",
+          "score": 0.546083390712738,
+          "text": "WaDI operator note: when relation degradation appears near pump and level variables, verify sensor calibration, pump command state, valve feedback and upstream/downstream water level trend in the same window."
+        }
+      ],
+      "draft_report_sections": [
+        {
+          "title": "异常概况",
+          "body": "系统在 510~654 窗口内检测到持续异常，峰值异常分数为 6007751.48，阈值为 0.96。"
+        },
+        {
+          "title": "根因候选",
+          "body": "1_MV_004_STATUS 排名第一，候选排序由节点预测误差和相邻关系退化证据共同决定。"
+        },
+        {
+          "title": "关系退化",
+          "body": "Top 退化边为 1_MV_004_STATUS → 1_AIT_003_PV，退化强度约 0.71。"
+        },
+        {
+          "title": "运维建议",
+          "body": "优先检查 1_MV_004_STATUS 的读数、执行状态、相邻阀门/泵和控制链路，并复核该异常窗口的上下游联动关系。"
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e2__diagnosis",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 2,
+    "question_type": "diagnosis",
+    "question": "为什么报警？请说明最可能的根因和关键证据。",
+    "evidence": {
+      "question": "为什么报警？请说明最可能的根因和关键证据。",
+      "dataset": "WaDI_A2_ds10",
+      "event_id": 2,
+      "event_summary": {
+        "score": 6007751.476090478,
+        "threshold": 0.9633477976952662,
+        "time_window": "5910~5958"
+      },
+      "root_cause_candidates": [
+        {
+          "rank": 1,
+          "name": "2_FIC_601_PV",
+          "index": 36,
+          "score": 0.046159,
+          "normalized": 0.9999999783357529,
+          "node_score": 0.0,
+          "edge_score": 0.92318
+        },
+        {
+          "rank": 2,
+          "name": "3_AIT_002_PV",
+          "index": 106,
+          "score": 0.0415,
+          "normalized": 0.8990662514554855,
+          "node_score": 0.0,
+          "edge_score": 0.829998
+        },
+        {
+          "rank": 3,
+          "name": "2_FIC_601_SP",
+          "index": 37,
+          "score": 0.039024,
+          "normalized": 0.8454255758264787,
+          "node_score": 0.0,
+          "edge_score": 0.78048
+        },
+        {
+          "rank": 4,
+          "name": "2_P_004_SPEED",
+          "index": 83,
+          "score": 0.037994,
+          "normalized": 0.8231114013927642,
+          "node_score": 0.0,
+          "edge_score": 0.759882
+        },
+        {
+          "rank": 5,
+          "name": "2_MV_201_STATUS",
+          "index": 76,
+          "score": 0.037875,
+          "normalized": 0.8205333559970243,
+          "node_score": 0.0,
+          "edge_score": 0.757509
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "2_FIC_601_PV",
+          "target": "3_AIT_002_PV",
+          "degradation": 0.92318,
+          "label": "0.92"
+        },
+        {
+          "source": "3_AIT_002_PV",
+          "target": "2_FIC_601_SP",
+          "degradation": 0.829998,
+          "label": "0.83"
+        },
+        {
+          "source": "2_FIC_601_SP",
+          "target": "2_P_004_SPEED",
+          "degradation": 0.78048,
+          "label": "0.78"
+        },
+        {
+          "source": "2_P_004_SPEED",
+          "target": "2_MV_201_STATUS",
+          "degradation": 0.759882,
+          "label": "0.76"
+        },
+        {
+          "source": "2_MV_201_STATUS",
+          "target": "2_FIC_501_CO",
+          "degradation": 0.757509,
+          "label": "0.76"
+        }
+      ],
+      "knowledge_hits": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0",
+          "score": 0.6664939522743225,
+          "text": "WaDI 运维记录：当泵、液位等变量附近出现关系退化时，需要在同一异常窗口内核对传感器校准、泵指令状态、阀门反馈以及上下游水位趋势。"
+        },
+        {
+          "title": "wadi_response_sop.md",
+          "chunk_id": "861febb05b1bf81a44148ed43cb6c230:0",
+          "score": 0.5330216884613037,
+          "text": "# WaDI Alarm Response SOP\n\nWhen a WaDI-like water treatment event is detected, first verify the top ranked sensor raw values, sampling quality and physical range. Then inspect upstream and downstream actuators, valves, pumps and control commands in the same event window. If relation degradation is high between two variables, compare their expected operating dependency with historical normal windows.\n\nA practical checklist is: confirm sensor health, check actuator state, review control command history, compare upstream and downstream flow or level variables, and record operator notes for the ev"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0",
+          "score": 0.5203688144683838,
+          "text": "WaDI operator note: when relation degradation appears near pump and level variables, verify sensor calibration, pump command state, valve feedback and upstream/downstream water level trend in the same window."
+        }
+      ],
+      "draft_report_sections": [
+        {
+          "title": "异常概况",
+          "body": "系统在 5910~5958 窗口内检测到持续异常，峰值异常分数为 6007751.48，阈值为 0.96。"
+        },
+        {
+          "title": "根因候选",
+          "body": "2_FIC_601_PV 排名第一，候选排序由节点预测误差和相邻关系退化证据共同决定。"
+        },
+        {
+          "title": "关系退化",
+          "body": "Top 退化边为 2_FIC_601_PV → 3_AIT_002_PV，退化强度约 0.92。"
+        },
+        {
+          "title": "运维建议",
+          "body": "优先检查 2_FIC_601_PV 的读数、执行状态、相邻阀门/泵和控制链路，并复核该异常窗口的上下游联动关系。"
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "WaDI_A2_ds10__e2__operations",
+    "dataset": "WaDI_A2_ds10",
+    "event_id": 2,
+    "question_type": "operations",
+    "question": "请给出按优先级排列的现场排查步骤和运维建议。",
+    "evidence": {
+      "question": "请给出按优先级排列的现场排查步骤和运维建议。",
+      "dataset": "WaDI_A2_ds10",
+      "event_id": 2,
+      "event_summary": {
+        "score": 6007751.476090478,
+        "threshold": 0.9633477976952662,
+        "time_window": "5910~5958"
+      },
+      "root_cause_candidates": [
+        {
+          "rank": 1,
+          "name": "2_FIC_601_PV",
+          "index": 36,
+          "score": 0.046159,
+          "normalized": 0.9999999783357529,
+          "node_score": 0.0,
+          "edge_score": 0.92318
+        },
+        {
+          "rank": 2,
+          "name": "3_AIT_002_PV",
+          "index": 106,
+          "score": 0.0415,
+          "normalized": 0.8990662514554855,
+          "node_score": 0.0,
+          "edge_score": 0.829998
+        },
+        {
+          "rank": 3,
+          "name": "2_FIC_601_SP",
+          "index": 37,
+          "score": 0.039024,
+          "normalized": 0.8454255758264787,
+          "node_score": 0.0,
+          "edge_score": 0.78048
+        },
+        {
+          "rank": 4,
+          "name": "2_P_004_SPEED",
+          "index": 83,
+          "score": 0.037994,
+          "normalized": 0.8231114013927642,
+          "node_score": 0.0,
+          "edge_score": 0.759882
+        },
+        {
+          "rank": 5,
+          "name": "2_MV_201_STATUS",
+          "index": 76,
+          "score": 0.037875,
+          "normalized": 0.8205333559970243,
+          "node_score": 0.0,
+          "edge_score": 0.757509
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "2_FIC_601_PV",
+          "target": "3_AIT_002_PV",
+          "degradation": 0.92318,
+          "label": "0.92"
+        },
+        {
+          "source": "3_AIT_002_PV",
+          "target": "2_FIC_601_SP",
+          "degradation": 0.829998,
+          "label": "0.83"
+        },
+        {
+          "source": "2_FIC_601_SP",
+          "target": "2_P_004_SPEED",
+          "degradation": 0.78048,
+          "label": "0.78"
+        },
+        {
+          "source": "2_P_004_SPEED",
+          "target": "2_MV_201_STATUS",
+          "degradation": 0.759882,
+          "label": "0.76"
+        },
+        {
+          "source": "2_MV_201_STATUS",
+          "target": "2_FIC_501_CO",
+          "degradation": 0.757509,
+          "label": "0.76"
+        }
+      ],
+      "knowledge_hits": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0",
+          "score": 0.6664939522743225,
+          "text": "WaDI 运维记录：当泵、液位等变量附近出现关系退化时，需要在同一异常窗口内核对传感器校准、泵指令状态、阀门反馈以及上下游水位趋势。"
+        },
+        {
+          "title": "wadi_response_sop.md",
+          "chunk_id": "861febb05b1bf81a44148ed43cb6c230:0",
+          "score": 0.5330216884613037,
+          "text": "# WaDI Alarm Response SOP\n\nWhen a WaDI-like water treatment event is detected, first verify the top ranked sensor raw values, sampling quality and physical range. Then inspect upstream and downstream actuators, valves, pumps and control commands in the same event window. If relation degradation is high between two variables, compare their expected operating dependency with historical normal windows.\n\nA practical checklist is: confirm sensor health, check actuator state, review control command history, compare upstream and downstream flow or level variables, and record operator notes for the ev"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0",
+          "score": 0.5203688144683838,
+          "text": "WaDI operator note: when relation degradation appears near pump and level variables, verify sensor calibration, pump command state, valve feedback and upstream/downstream water level trend in the same window."
+        }
+      ],
+      "draft_report_sections": [
+        {
+          "title": "异常概况",
+          "body": "系统在 5910~5958 窗口内检测到持续异常，峰值异常分数为 6007751.48，阈值为 0.96。"
+        },
+        {
+          "title": "根因候选",
+          "body": "2_FIC_601_PV 排名第一，候选排序由节点预测误差和相邻关系退化证据共同决定。"
+        },
+        {
+          "title": "关系退化",
+          "body": "Top 退化边为 2_FIC_601_PV → 3_AIT_002_PV，退化强度约 0.92。"
+        },
+        {
+          "title": "运维建议",
+          "body": "优先检查 2_FIC_601_PV 的读数、执行状态、相邻阀门/泵和控制链路，并复核该异常窗口的上下游联动关系。"
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e1__diagnosis",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 1,
+    "question_type": "diagnosis",
+    "question": "为什么报警？请说明最可能的根因和关键证据。",
+    "evidence": {
+      "question": "为什么报警？请说明最可能的根因和关键证据。",
+      "dataset": "SMD_machine_1_1",
+      "event_id": 1,
+      "event_summary": {
+        "score": 92901.26242287848,
+        "threshold": 0.9598945344967884,
+        "time_window": "15854~16390"
+      },
+      "root_cause_candidates": [
+        {
+          "rank": 1,
+          "name": "D29",
+          "index": 28,
+          "score": 617.8839111328125,
+          "normalized": 0.9999999999983816,
+          "node_score": 617.8839111328125,
+          "edge_score": 0.0
+        },
+        {
+          "rank": 2,
+          "name": "D27",
+          "index": 26,
+          "score": 457.76239013671875,
+          "normalized": 0.7408550083408517,
+          "node_score": 457.76239013671875,
+          "edge_score": 0.0
+        },
+        {
+          "rank": 3,
+          "name": "D34",
+          "index": 33,
+          "score": 54.97184753417969,
+          "normalized": 0.08896792187598274,
+          "node_score": 54.97184753417969,
+          "edge_score": 0.0
+        },
+        {
+          "rank": 4,
+          "name": "D10",
+          "index": 9,
+          "score": 39.70849609375,
+          "normalized": 0.0642653019090353,
+          "node_score": 39.70849609375,
+          "edge_score": 0.0
+        },
+        {
+          "rank": 5,
+          "name": "D30",
+          "index": 29,
+          "score": 39.31439208984375,
+          "normalized": 0.06362747335126775,
+          "node_score": 39.31439208984375,
+          "edge_score": 0.0
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66,
+          "label": "0.66"
+        },
+        {
+          "source": "D29",
+          "target": "D27",
+          "degradation": 0.0,
+          "label": "0.00"
+        },
+        {
+          "source": "D27",
+          "target": "D34",
+          "degradation": 0.0,
+          "label": "0.00"
+        },
+        {
+          "source": "D34",
+          "target": "D10",
+          "degradation": 0.0,
+          "label": "0.00"
+        },
+        {
+          "source": "D10",
+          "target": "D30",
+          "degradation": 0.0,
+          "label": "0.00"
+        }
+      ],
+      "knowledge_hits": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0",
+          "score": 0.5426802635192871,
+          "text": "WaDI 运维记录：当泵、液位等变量附近出现关系退化时，需要在同一异常窗口内核对传感器校准、泵指令状态、阀门反馈以及上下游水位趋势。"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0",
+          "score": 0.44156259298324585,
+          "text": "WaDI operator note: when relation degradation appears near pump and level variables, verify sensor calibration, pump command state, valve feedback and upstream/downstream water level trend in the same window."
+        },
+        {
+          "title": "relation_evgat_method.md",
+          "chunk_id": "42eb167ddf2094f75a9c1be3e0f9d1e5:0",
+          "score": 0.41037118434906006,
+          "text": "# Relation-EVGAT Method Notes\n\nRelation-EVGAT uses node prediction error and edge degradation evidence for industrial time-series anomaly diagnosis. The edge vector compares relation components between normal and anomaly windows, such as correlation, absolute correlation, lag-like relation and direction-like relation. These relation changes are diagnostic evidence and should not be described as a strict causal chain.\n\nRecommended report wording: \"relation degradation evidence indicates that the linked sensors should be checked together.\" Avoid claiming that one sensor directly caused another s"
+        }
+      ],
+      "draft_report_sections": [
+        {
+          "title": "异常概况",
+          "body": "系统在 15854~16390 窗口内检测到持续异常，峰值异常分数为 92901.26，阈值为 0.96。"
+        },
+        {
+          "title": "根因候选",
+          "body": "D29 排名第一，候选排序由节点预测误差和相邻关系退化证据共同决定。"
+        },
+        {
+          "title": "关系退化",
+          "body": "Top 退化边为 D29 → D10，退化强度约 0.66。"
+        },
+        {
+          "title": "运维建议",
+          "body": "优先检查 D29 的读数、执行状态、相邻阀门/泵和控制链路，并复核该异常窗口的上下游联动关系。"
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e1__operations",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 1,
+    "question_type": "operations",
+    "question": "请给出按优先级排列的现场排查步骤和运维建议。",
+    "evidence": {
+      "question": "请给出按优先级排列的现场排查步骤和运维建议。",
+      "dataset": "SMD_machine_1_1",
+      "event_id": 1,
+      "event_summary": {
+        "score": 92901.26242287848,
+        "threshold": 0.9598945344967884,
+        "time_window": "15854~16390"
+      },
+      "root_cause_candidates": [
+        {
+          "rank": 1,
+          "name": "D29",
+          "index": 28,
+          "score": 617.8839111328125,
+          "normalized": 0.9999999999983816,
+          "node_score": 617.8839111328125,
+          "edge_score": 0.0
+        },
+        {
+          "rank": 2,
+          "name": "D27",
+          "index": 26,
+          "score": 457.76239013671875,
+          "normalized": 0.7408550083408517,
+          "node_score": 457.76239013671875,
+          "edge_score": 0.0
+        },
+        {
+          "rank": 3,
+          "name": "D34",
+          "index": 33,
+          "score": 54.97184753417969,
+          "normalized": 0.08896792187598274,
+          "node_score": 54.97184753417969,
+          "edge_score": 0.0
+        },
+        {
+          "rank": 4,
+          "name": "D10",
+          "index": 9,
+          "score": 39.70849609375,
+          "normalized": 0.0642653019090353,
+          "node_score": 39.70849609375,
+          "edge_score": 0.0
+        },
+        {
+          "rank": 5,
+          "name": "D30",
+          "index": 29,
+          "score": 39.31439208984375,
+          "normalized": 0.06362747335126775,
+          "node_score": 39.31439208984375,
+          "edge_score": 0.0
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66,
+          "label": "0.66"
+        },
+        {
+          "source": "D29",
+          "target": "D27",
+          "degradation": 0.0,
+          "label": "0.00"
+        },
+        {
+          "source": "D27",
+          "target": "D34",
+          "degradation": 0.0,
+          "label": "0.00"
+        },
+        {
+          "source": "D34",
+          "target": "D10",
+          "degradation": 0.0,
+          "label": "0.00"
+        },
+        {
+          "source": "D10",
+          "target": "D30",
+          "degradation": 0.0,
+          "label": "0.00"
+        }
+      ],
+      "knowledge_hits": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0",
+          "score": 0.5426802635192871,
+          "text": "WaDI 运维记录：当泵、液位等变量附近出现关系退化时，需要在同一异常窗口内核对传感器校准、泵指令状态、阀门反馈以及上下游水位趋势。"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0",
+          "score": 0.44156259298324585,
+          "text": "WaDI operator note: when relation degradation appears near pump and level variables, verify sensor calibration, pump command state, valve feedback and upstream/downstream water level trend in the same window."
+        },
+        {
+          "title": "relation_evgat_method.md",
+          "chunk_id": "42eb167ddf2094f75a9c1be3e0f9d1e5:0",
+          "score": 0.41037118434906006,
+          "text": "# Relation-EVGAT Method Notes\n\nRelation-EVGAT uses node prediction error and edge degradation evidence for industrial time-series anomaly diagnosis. The edge vector compares relation components between normal and anomaly windows, such as correlation, absolute correlation, lag-like relation and direction-like relation. These relation changes are diagnostic evidence and should not be described as a strict causal chain.\n\nRecommended report wording: \"relation degradation evidence indicates that the linked sensors should be checked together.\" Avoid claiming that one sensor directly caused another s"
+        }
+      ],
+      "draft_report_sections": [
+        {
+          "title": "异常概况",
+          "body": "系统在 15854~16390 窗口内检测到持续异常，峰值异常分数为 92901.26，阈值为 0.96。"
+        },
+        {
+          "title": "根因候选",
+          "body": "D29 排名第一，候选排序由节点预测误差和相邻关系退化证据共同决定。"
+        },
+        {
+          "title": "关系退化",
+          "body": "Top 退化边为 D29 → D10，退化强度约 0.66。"
+        },
+        {
+          "title": "运维建议",
+          "body": "优先检查 D29 的读数、执行状态、相邻阀门/泵和控制链路，并复核该异常窗口的上下游联动关系。"
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e2__diagnosis",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 2,
+    "question_type": "diagnosis",
+    "question": "为什么报警？请说明最可能的根因和关键证据。",
+    "evidence": {
+      "question": "为什么报警？请说明最可能的根因和关键证据。",
+      "dataset": "SMD_machine_1_1",
+      "event_id": 2,
+      "event_summary": {
+        "score": 92901.26242287848,
+        "threshold": 0.9598945344967884,
+        "time_window": "16966~17510"
+      },
+      "root_cause_candidates": [
+        {
+          "rank": 1,
+          "name": "D29",
+          "index": 28,
+          "score": 617.8839111328125,
+          "normalized": 0.9999999999983816,
+          "node_score": 617.8839111328125,
+          "edge_score": 0.0
+        },
+        {
+          "rank": 2,
+          "name": "D27",
+          "index": 26,
+          "score": 457.76239013671875,
+          "normalized": 0.7408550083408517,
+          "node_score": 457.76239013671875,
+          "edge_score": 0.0
+        },
+        {
+          "rank": 3,
+          "name": "D34",
+          "index": 33,
+          "score": 54.97184753417969,
+          "normalized": 0.08896792187598274,
+          "node_score": 54.97184753417969,
+          "edge_score": 0.0
+        },
+        {
+          "rank": 4,
+          "name": "D10",
+          "index": 9,
+          "score": 39.70849609375,
+          "normalized": 0.0642653019090353,
+          "node_score": 39.70849609375,
+          "edge_score": 0.0
+        },
+        {
+          "rank": 5,
+          "name": "D30",
+          "index": 29,
+          "score": 39.31439208984375,
+          "normalized": 0.06362747335126775,
+          "node_score": 39.31439208984375,
+          "edge_score": 0.0
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66,
+          "label": "0.66"
+        },
+        {
+          "source": "D29",
+          "target": "D27",
+          "degradation": 0.0,
+          "label": "0.00"
+        },
+        {
+          "source": "D27",
+          "target": "D34",
+          "degradation": 0.0,
+          "label": "0.00"
+        },
+        {
+          "source": "D34",
+          "target": "D10",
+          "degradation": 0.0,
+          "label": "0.00"
+        },
+        {
+          "source": "D10",
+          "target": "D30",
+          "degradation": 0.0,
+          "label": "0.00"
+        }
+      ],
+      "knowledge_hits": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0",
+          "score": 0.5426802635192871,
+          "text": "WaDI 运维记录：当泵、液位等变量附近出现关系退化时，需要在同一异常窗口内核对传感器校准、泵指令状态、阀门反馈以及上下游水位趋势。"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0",
+          "score": 0.44156259298324585,
+          "text": "WaDI operator note: when relation degradation appears near pump and level variables, verify sensor calibration, pump command state, valve feedback and upstream/downstream water level trend in the same window."
+        },
+        {
+          "title": "relation_evgat_method.md",
+          "chunk_id": "42eb167ddf2094f75a9c1be3e0f9d1e5:0",
+          "score": 0.41037118434906006,
+          "text": "# Relation-EVGAT Method Notes\n\nRelation-EVGAT uses node prediction error and edge degradation evidence for industrial time-series anomaly diagnosis. The edge vector compares relation components between normal and anomaly windows, such as correlation, absolute correlation, lag-like relation and direction-like relation. These relation changes are diagnostic evidence and should not be described as a strict causal chain.\n\nRecommended report wording: \"relation degradation evidence indicates that the linked sensors should be checked together.\" Avoid claiming that one sensor directly caused another s"
+        }
+      ],
+      "draft_report_sections": [
+        {
+          "title": "异常概况",
+          "body": "系统在 16966~17510 窗口内检测到持续异常，峰值异常分数为 92901.26，阈值为 0.96。"
+        },
+        {
+          "title": "根因候选",
+          "body": "D29 排名第一，候选排序由节点预测误差和相邻关系退化证据共同决定。"
+        },
+        {
+          "title": "关系退化",
+          "body": "Top 退化边为 D29 → D10，退化强度约 0.66。"
+        },
+        {
+          "title": "运维建议",
+          "body": "优先检查 D29 的读数、执行状态、相邻阀门/泵和控制链路，并复核该异常窗口的上下游联动关系。"
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "SMD_machine_1_1__e2__operations",
+    "dataset": "SMD_machine_1_1",
+    "event_id": 2,
+    "question_type": "operations",
+    "question": "请给出按优先级排列的现场排查步骤和运维建议。",
+    "evidence": {
+      "question": "请给出按优先级排列的现场排查步骤和运维建议。",
+      "dataset": "SMD_machine_1_1",
+      "event_id": 2,
+      "event_summary": {
+        "score": 92901.26242287848,
+        "threshold": 0.9598945344967884,
+        "time_window": "16966~17510"
+      },
+      "root_cause_candidates": [
+        {
+          "rank": 1,
+          "name": "D29",
+          "index": 28,
+          "score": 617.8839111328125,
+          "normalized": 0.9999999999983816,
+          "node_score": 617.8839111328125,
+          "edge_score": 0.0
+        },
+        {
+          "rank": 2,
+          "name": "D27",
+          "index": 26,
+          "score": 457.76239013671875,
+          "normalized": 0.7408550083408517,
+          "node_score": 457.76239013671875,
+          "edge_score": 0.0
+        },
+        {
+          "rank": 3,
+          "name": "D34",
+          "index": 33,
+          "score": 54.97184753417969,
+          "normalized": 0.08896792187598274,
+          "node_score": 54.97184753417969,
+          "edge_score": 0.0
+        },
+        {
+          "rank": 4,
+          "name": "D10",
+          "index": 9,
+          "score": 39.70849609375,
+          "normalized": 0.0642653019090353,
+          "node_score": 39.70849609375,
+          "edge_score": 0.0
+        },
+        {
+          "rank": 5,
+          "name": "D30",
+          "index": 29,
+          "score": 39.31439208984375,
+          "normalized": 0.06362747335126775,
+          "node_score": 39.31439208984375,
+          "edge_score": 0.0
+        }
+      ],
+      "degraded_edges": [
+        {
+          "source": "D29",
+          "target": "D10",
+          "degradation": 0.66,
+          "label": "0.66"
+        },
+        {
+          "source": "D29",
+          "target": "D27",
+          "degradation": 0.0,
+          "label": "0.00"
+        },
+        {
+          "source": "D27",
+          "target": "D34",
+          "degradation": 0.0,
+          "label": "0.00"
+        },
+        {
+          "source": "D34",
+          "target": "D10",
+          "degradation": 0.0,
+          "label": "0.00"
+        },
+        {
+          "source": "D10",
+          "target": "D30",
+          "degradation": 0.0,
+          "label": "0.00"
+        }
+      ],
+      "knowledge_hits": [
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "bd41b8dfddd4d527b49067de288350c5:0",
+          "score": 0.5426802635192871,
+          "text": "WaDI 运维记录：当泵、液位等变量附近出现关系退化时，需要在同一异常窗口内核对传感器校准、泵指令状态、阀门反馈以及上下游水位趋势。"
+        },
+        {
+          "title": "wadi_operator_note.md",
+          "chunk_id": "9c9983a4f664bcb5a1e8ef855081abf6:0",
+          "score": 0.44156259298324585,
+          "text": "WaDI operator note: when relation degradation appears near pump and level variables, verify sensor calibration, pump command state, valve feedback and upstream/downstream water level trend in the same window."
+        },
+        {
+          "title": "relation_evgat_method.md",
+          "chunk_id": "42eb167ddf2094f75a9c1be3e0f9d1e5:0",
+          "score": 0.41037118434906006,
+          "text": "# Relation-EVGAT Method Notes\n\nRelation-EVGAT uses node prediction error and edge degradation evidence for industrial time-series anomaly diagnosis. The edge vector compares relation components between normal and anomaly windows, such as correlation, absolute correlation, lag-like relation and direction-like relation. These relation changes are diagnostic evidence and should not be described as a strict causal chain.\n\nRecommended report wording: \"relation degradation evidence indicates that the linked sensors should be checked together.\" Avoid claiming that one sensor directly caused another s"
+        }
+      ],
+      "draft_report_sections": [
+        {
+          "title": "异常概况",
+          "body": "系统在 16966~17510 窗口内检测到持续异常，峰值异常分数为 92901.26，阈值为 0.96。"
+        },
+        {
+          "title": "根因候选",
+          "body": "D29 排名第一，候选排序由节点预测误差和相邻关系退化证据共同决定。"
+        },
+        {
+          "title": "关系退化",
+          "body": "Top 退化边为 D29 → D10，退化强度约 0.66。"
+        },
+        {
+          "title": "运维建议",
+          "body": "优先检查 D29 的读数、执行状态、相邻阀门/泵和控制链路，并复核该异常窗口的上下游联动关系。"
+        }
+      ]
+    }
+  }
+]

@@ -1,13 +1,32 @@
-﻿fastapi>=0.111
+fastapi>=0.111
 uvicorn[standard]>=0.30
 numpy>=1.24
+matplotlib>=3.8
 pydantic>=2.7
 erniebot>=0.5
 python-docx>=1.0
 PyPDF2>=2.0
+openai>=1.0
+python-dotenv>=1.0
+eval_type_backport>=0.2.2
+
+# Excel / CSV table analysis Agent.
+pandas>=2.2
+openpyxl>=3.1
+xlrd>=2.0
+duckdb>=1.0
+python-multipart>=0.0.9
 
 # Optional phase-2 Agent/RAG enhancements. The app runs without these by using
 # the deterministic rule agent and keyword RAG fallback.
 chromadb>=0.5
 langchain>=0.2
 langchain-openai>=0.1
+
+# LoRA fine-tuning for open-source multimodal LLM (Qwen)
+peft>=0.11
+transformers>=4.44
+safetensors>=0.4
+bitsandbytes>=0.43
+accelerate>=0.33
+datasets>=2.19

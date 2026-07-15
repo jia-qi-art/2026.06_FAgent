@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import json
 import time
@@ -47,6 +47,7 @@ class RuleDiagnosisAgent:
         query = f"{dataset} {top['name']} {edge['source']} {edge['target']} 异常 报警 排查 Relation-EVGAT"
         knowledge = call("retrieve_maintenance_knowledge", self.tools.retrieve_maintenance_knowledge, query)
         report = call("generate_report", self.tools.generate_report, dataset, event_id)
+        qwen_evidence = call("inspect_qwen_evidence", self.tools.inspect_qwen_evidence)
 
         evidence_pack = {
             "question": question,
@@ -68,17 +69,21 @@ class RuleDiagnosisAgent:
             ],
             "sensor_window": {"start": window.get("start"), "end": window.get("end"), "sensors": window.get("sensors", [])},
             "draft_report_sections": report.get("sections", []),
+            "qwen_evidence": qwen_evidence,
         }
 
         answer = self._rule_answer(question, event_summary, top, edge, knowledge, report)
         llm_error = None
+        llm_metadata: dict[str, Any] = {}
         should_use_llm = self.model_status.get("configured") if use_llm is None else bool(use_llm)
         if should_use_llm and self.model_status.get("configured"):
             try:
                 if emit:
                     emit("thinking", "调用 DashScope 大模型，根据工具证据生成最终中文诊断。", {"tool": "dashscope_chat", "status": "running"})
-                answer = self._llm_answer(evidence_pack)
-                tool_calls.append({"name": "dashscope_chat", "status": "ok", "duration_ms": 0})
+                llm_result = self._llm_answer(evidence_pack)
+                answer = llm_result["content"]
+                llm_metadata = {key: value for key, value in llm_result.items() if key != "content"}
+                tool_calls.append({"name": "dashscope_chat", "status": "ok", "duration_ms": llm_metadata.get("duration_ms", 0), "model": llm_metadata.get("model")})
                 if emit:
                     emit("tool", "DashScope 大模型回答生成完成。", {"name": "dashscope_chat", "status": "ok"})
             except Exception as exc:
@@ -98,6 +103,26 @@ class RuleDiagnosisAgent:
             "report": report,
             "knowledge_hits": knowledge["hits"],
             "llm_error": llm_error,
+            "used_llm": bool(llm_metadata),
+            "fallback_used": not bool(llm_metadata),
+            "provider": llm_metadata.get("provider", self.model_status.get("provider")),
+            "model_name": llm_metadata.get("model", self.model_status.get("model")),
+            "request_id": llm_metadata.get("request_id"),
+            "duration_ms": llm_metadata.get("duration_ms"),
+            "fusion": {
+                "summary": answer,
+                "confidence": "medium" if llm_metadata else "low",
+                "sources": {
+                    "relation_evgat": {"status": "available", "top_root_cause": top, "top_degraded_edge": edge},
+                    "lora_qwen": qwen_evidence,
+                    "knowledge": {"status": knowledge.get("status", {}), "hits": evidence_pack["knowledge_hits"]},
+                },
+                "citations": [
+                    {"source": hit.get("title"), "chunk_id": hit.get("chunk_id"), "score": hit.get("score")}
+                    for hit in knowledge.get("hits", [])[:3]
+                ],
+                "degraded": ["lora_qwen"] if qwen_evidence.get("status") != "available" else [],
+            },
             "evidence": {
                 "event_summary": event_summary,
                 "root_cause": root,
@@ -129,14 +154,14 @@ class RuleDiagnosisAgent:
             answer = "已生成诊断报告：" + " ".join(section["body"] for section in report["sections"])
         return answer
 
-    def _llm_answer(self, evidence_pack: dict[str, Any]) -> str:
+    def _llm_answer(self, evidence_pack: dict[str, Any]) -> dict[str, Any]:
         system = (
             "你是工业时序异常诊断 Agent。必须基于工具返回的 Relation-EVGAT 异常分数、根因候选、"
             "关系退化边、知识库资料和报告结构回答。关系退化证据只能表述为诊断证据或排查线索，"
             "不要宣称严格因果链。回答要中文、具体、适合答辩演示，包含结论、证据、排查步骤。"
         )
         user = "请根据以下工具证据回答用户问题。\n" + json.dumps(evidence_pack, ensure_ascii=False, indent=2)
-        return self.model_factory.chat([
+        return self.model_factory.chat_with_metadata([
             {"role": "system", "content": system},
             {"role": "user", "content": user},
         ])

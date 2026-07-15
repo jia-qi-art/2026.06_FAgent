@@ -38,6 +38,28 @@ class DiagnosisTools:
         hits = store.search(query)
         return {"query": query, "hits": hits, "status": store.status}
 
+    def inspect_qwen_evidence(self) -> dict[str, Any]:
+        """Expose the latest LoRA adapter as an optional evidence source.
+
+        Loading the local Qwen model is intentionally not performed for every chat
+        request; inference can be enabled later by a dedicated worker.
+        """
+        try:
+            from backend.lora_finetune import list_saved_adapters
+
+            adapters = list_saved_adapters()
+        except Exception as exc:
+            return {"status": "unavailable", "reason": str(exc), "source": "lora_qwen"}
+        if not adapters:
+            return {"status": "unavailable", "reason": "no saved LoRA adapter", "source": "lora_qwen"}
+        latest = adapters[0]
+        return {
+            "status": "available",
+            "source": "lora_qwen",
+            "adapter": latest,
+            "reason": "adapter metadata available; online inference requires the dedicated Qwen worker",
+        }
+
     def generate_report(self, dataset: str, event_id: int | None) -> dict[str, Any]:
         return svc.report(dataset, event_id)
 
